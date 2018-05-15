@@ -4,6 +4,7 @@ import './App.css';
 import { Route, Switch, Link } from 'react-router-dom';
 
 import Opening from './Opening';
+import Footprint from './Footprint';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
       <div role="main">
         <Switch>
           <Route exact path="/" component={Opening} />
+          <Route exact path="/" component={Footprint}/>
         </Switch>
       </div>
     );
