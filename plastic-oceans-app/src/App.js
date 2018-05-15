@@ -16,13 +16,11 @@ class App extends Component {
   }
 
   render() {
-    alert(this.state.currentScreen);
     return (
       <div role="main">
-        {/*<Switch>
+        <Switch>
           <Route exact path="/" component={Opening} />
         </Switch>
-        */}
         {this.state.isUserLoggedIn && (
           <NavigationBar 
           changeScreen={(screenID) => this.changeScreenState(screenID)}
@@ -36,5 +34,4 @@ class App extends Component {
     this.setState( {currentScreen: screenID} );
   }
 }
-
 export default App;
