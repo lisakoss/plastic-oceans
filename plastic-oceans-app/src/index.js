@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import firebase from 'firebase';
 import './index.css';
 import App from './App';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
 // Initialize Firebase
@@ -17,5 +18,14 @@ var config = {
 firebase.initializeApp(config);
 
 // Render the application view
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Router>
+      <div>
+          <Switch>
+              <Route path="/" component={App}/>
+          </Switch>
+      </div>
+    </Router>, 
+    document.getElementById('root')
+);
 registerServiceWorker();
