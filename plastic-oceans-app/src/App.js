@@ -12,7 +12,7 @@ class App extends Component {
       <div role="main">
         <Switch>
           <Route exact path="/" component={Opening} />
-          <Route exact path="/" component={Footprint}/>
+          <Route exact path="/Footprint" component={Footprint}/>
         </Switch>
       </div>
     );
