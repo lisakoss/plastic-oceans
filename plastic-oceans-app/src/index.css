@@ -3,3 +3,38 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.nav-tabs > li, .nav-pills > li {
+  float:none;
+  display:inline-block;
+}
+
+.nav-tabs {
+  text-align:center;
+}
+
+.list-group{
+  max-height:50vh;
+  overflow:scroll;
+}
+
+.list-group-item{
+  height:150px;
+}
+
+.page-header {
+  text-align:center;
+  margin:0;
+}
+
+.pledge-title {
+  font-weight:bold;
+}
+
+.pledge-info {
+  float:left;
+}
+
+.btn {
+  float:right;
+}
