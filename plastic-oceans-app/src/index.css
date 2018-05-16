@@ -26,6 +26,10 @@ body {
   border: 0.5px solid black;
 }
 
+.selected {
+  background-color: darkgray; /* change to blue */
+}
+
 .nav-button img {
   width: 30px;
 }
