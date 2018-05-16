@@ -4,6 +4,7 @@ body {
   font-family: sans-serif;
 }
 
+<<<<<<< HEAD
 .nav-tabs > li, .nav-pills > li {
   float:none;
   display:inline-block;
@@ -37,4 +38,34 @@ body {
 
 .btn {
   float:right;
+=======
+
+/* Navigation Bar Style */
+#nav-bar {
+  width: 50vw;
+  height: 10vh;
+  position: fixed;
+  bottom: 2%;
+  left: 25%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.nav-button {
+  width: 33%;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  border: 0.5px solid black;
+}
+
+.selected {
+  background-color: darkgray; /* change to blue */
+}
+
+.nav-button img {
+  width: 30px;
+>>>>>>> NavBar
 }
