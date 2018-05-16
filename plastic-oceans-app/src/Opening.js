@@ -15,11 +15,14 @@ export default class Opening extends React.Component {
   render() {
 
     return (
-      <div role="main" className="welcome-message">
-        <h1>Welcome to Plastic Oceans!</h1>
+      <div role="main" id="home" className="tinted">
+        <div className="welcome-message container-welcome">
+          <h1>Plastic Oceans</h1>
+          <h2>Help reduce your plastic footprint.</h2>
           <div className="welcome-buttons">
-            <Link to="/signup"><Button color="primary" size="lg">Sign Up</Button></Link>{' '}
-            <Link to="/signin"><Button color="primary" size="lg">Sign In</Button></Link>
+            <Link to="/signup"><Button outline color="primary" size="lg">Sign Up</Button></Link>{' '}
+            <Link to="/signin"><Button color="primary" size="lg" className="sign-in-button">Sign In</Button></Link>
+          </div>
           </div>
       </div>
     )
