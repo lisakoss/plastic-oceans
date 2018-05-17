@@ -86,7 +86,7 @@ body {
   
 }
 
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 500px) {
   .welcome-message h1 {
     font-size: 100px;
   }
@@ -99,6 +99,7 @@ body {
     font-size: 26px;
     width: 25%;
     height: 70px;
+    padding: 10px;
   }
 
   .welcome-buttons .btn-outline-primary {
