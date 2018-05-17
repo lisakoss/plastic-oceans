@@ -4,23 +4,84 @@ body {
   font-family: sans-serif;
 }
 
-<<<<<<< HEAD
-.nav-tabs > li, .nav-pills > li {
-  float:none;
-  display:inline-block;
+.btn {
+  background-color:#14b7c5;
+  color:white;
 }
 
-.nav-tabs {
+.btn:hover {
+  background-color:purple;
+}
+
+/* Page Header Style */
+.navbar{
+  background-color:#14b7c5;
+  margin-bottom:0;
+  color:white;
+}
+
+.header-title{
+  padding-top:1.5%;
+  padding-bottom:.5%;
+  margin-bottom:.75%;
+}
+
+/* Footprint Style */
+.nav-tabs > li {
+  width:50%;
+  font-weight:bold;
+}
+
+.footprint {
   text-align:center;
 }
 
-.list-group{
-  max-height:50vh;
+.nav-tabs > li > a {
+  color:#14b7c5;
+}
+
+.nav-tabs > li > a:hover {
+  color:purple;
+}
+
+.nav-tabs > li .active > a {
+  color:black;
+}
+
+/* Tab Content Style */
+.tab-content {
+  padding-top:2.5%;
+}
+
+/* Pledges Style */
+#my-footprint-pledges-header {
+  margin-bottom:1%;
+}
+
+.my-footprint-title {
+  font-weight:bold;
+}
+
+.dropdown {
+  float:right;
+}
+
+.my-footprint-pledges {
+  margin-top:2.5%;
+}
+
+.pledge-list{
+  max-height:40vh;
   overflow:scroll;
 }
 
-.list-group-item{
-  height:150px;
+.pledge{
+  height:20vh;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .page-header {
@@ -31,14 +92,6 @@ body {
 .pledge-title {
   font-weight:bold;
 }
-
-.pledge-info {
-  float:left;
-}
-
-.btn {
-  float:right;
-=======
 
 /* Navigation Bar Style */
 #nav-bar {
@@ -67,5 +120,4 @@ body {
 
 .nav-button img {
   width: 30px;
->>>>>>> NavBar
 }

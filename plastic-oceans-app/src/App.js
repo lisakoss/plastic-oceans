@@ -4,18 +4,15 @@ import './App.css';
 import { Route, Switch, Link } from 'react-router-dom';
 
 import Opening from './Opening';
-<<<<<<< HEAD
 import Footprint from './Footprint';
-=======
 import NavigationBar from './NavigationBar';
->>>>>>> NavBar
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentScreen: "Opening",
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
     }
   }
 

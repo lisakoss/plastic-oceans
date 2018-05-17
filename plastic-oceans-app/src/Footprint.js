@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import {Tabs, Tab, PageHeader} from 'react-bootstrap'
+import {Tabs, Tab, Navbar} from 'react-bootstrap'
 import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
 
@@ -16,9 +16,9 @@ export default class Footprint extends React.Component {
 
     return (
       <div>
-        <PageHeader>
-          Footprint
-        </PageHeader>
+        <Navbar>
+            <p className="header-title text-white lead">Footprint</p>
+        </Navbar>
         <Tabs defaultActiveKey={1} id="tabs-bar">
           <Tab eventKey={1} title="My Footprint">
             <MyFootprint />
