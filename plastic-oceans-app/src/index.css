@@ -86,7 +86,7 @@ body {
   
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 701px) {
   .welcome-message h1 {
     font-size: 100px;
   }
