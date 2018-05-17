@@ -6,6 +6,7 @@ body {
   font-family: sans-serif;
 }
 
+/* Welcome message on opening screen */
 .container-welcome {
   position: absolute;
 }
@@ -86,6 +87,7 @@ body {
   
 }
 
+/* Web responsive styles for opening screen */
 @media screen and (min-width: 701px) {
   .welcome-message h1 {
     font-size: 100px;
