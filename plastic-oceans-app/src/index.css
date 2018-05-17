@@ -86,12 +86,23 @@ body {
   
 }
 
-@media screen and (max-width: 400px) {
-
-}
-
-@media screen and (min-width: 401px) {
-  .welcome-message {
+@media screen and (min-width: 450px) {
+  .welcome-message h1 {
     font-size: 100px;
+  }
+
+  .welcome-message h2 {
+    font-size: 32px;
+  }
+
+  .welcome-buttons .btn-primary, .welcome-buttons .btn-outline-primary {
+    font-size: 26px;
+    width: 25%;
+    height: 70px;
+  }
+
+  .welcome-buttons .btn-outline-primary {
+    margin-right: 20px;
+    height: 70px;
   }
 }
