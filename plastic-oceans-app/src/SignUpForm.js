@@ -31,14 +31,9 @@ export default class SignUpForm extends React.Component {
     let field = event.target.name;
     let value = event.target.value;
     let changes = {}; // object to hold changes in text fields
-
-    console.log("field", field);
-    console.log("value", value);
-
+    
     changes[field] = value; //change this field
     this.setState(changes); //update state
-
-    console.log("changes state", this.state);
   }
 
   // helper func to validate a value based on a hash of validations

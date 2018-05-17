@@ -36,7 +36,6 @@ export default class SignUp extends React.Component {
   }
 
   createNewUser(firstName, lastName, username, email, location, password) {
-    console.log("firstName", firstName);
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((firebaseUser) => {
         //create new entry in the Cloud DB (for others to reference)
@@ -54,7 +53,7 @@ export default class SignUp extends React.Component {
       .catch((error) => { //report any errors
         let errorCode = error.code;
         let errorMessage = error.message;
-        console.log("error", errorMessage);
+        
         if (errorCode === 'auth/email-already-in-use') {
           this.setState({ error: 'The email address is already in use.' });
         } else if (errorCode === 'auth/invalid-email') {
