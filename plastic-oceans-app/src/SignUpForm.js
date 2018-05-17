@@ -20,8 +20,9 @@ export default class SignUpForm extends React.Component {
   }
 
   // create new user callback to transfer the data to the SignUp form
-  createNewUser() {
-
+  createNewUser(event) {
+    event.preventDefault(); //don't submit
+    this.props.signUpCallback(this.state.firstName, this.state.lastName, this.state.username, this.state.email, this.state.location, this.state.password);
   }
 
   // update the state for specific sign up form field
@@ -56,8 +57,6 @@ export default class SignUpForm extends React.Component {
     // determine errors to display on the form
   }
 
-
-
   render() {
     // determine how each field should be validated... 
     // define the validationsObj for each text field here
@@ -74,7 +73,7 @@ export default class SignUpForm extends React.Component {
         </FormGroup>
         <FormGroup onChange={this.handleFormChange}>
           <Label for="username">Username</Label>
-          <Input type="email" name="username" id="username" />
+          <Input type="text" name="username" id="username" />
         </FormGroup>
         <FormGroup onChange={this.handleFormChange}>
           <Label for="email">Email</Label>
@@ -97,7 +96,7 @@ export default class SignUpForm extends React.Component {
           <Label for="password-confirm">Confirm Password</Label>
           <Input type="password" name="passwordConfirm" id="password-confirm" />
         </FormGroup>
-        <Button>Submit</Button>
+        <Button onClick={(event) => this.createNewUser(event)}>Submit</Button>
       </Form>
     );
   }
