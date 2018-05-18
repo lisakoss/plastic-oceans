@@ -55,7 +55,6 @@ export default class SignUpForm extends React.Component {
   render() {
     // determine how each field should be validated... 
     // define the validationsObj for each text field here
-    console.log("state", this.state);
     return (
       <Form>
         <FormGroup onChange={this.handleFormChange}>
