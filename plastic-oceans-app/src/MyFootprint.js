@@ -1,89 +1,79 @@
 import React from 'react';
 import './index.css';
-import {Grid, Row, Col, ListGroup, ListGroupItem, Button, SplitButton, MenuItem, Carousel} from 'react-bootstrap'
-import { Card, CardText, CardBody,CardTitle, CardSubtitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Container} from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import Pledges from './Pledges'
+
+import firebase from './firebase.js';
+
+const pledgesRef = firebase.database().ref('Pledges');
 
 export default class MyFootprint extends React.Component {
   constructor(props) {
     super(props);
+    this.toggle = this.toggle.bind(this);
     this.state = {
+      dropdownOpen: false,
+      list: true
+    };
+  }
 
-    }
+  toggle() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
 
   render() {
 
     return (
       <div>
-          
-        <Grid>
-            <Row className="show-grid">
-                <Col xs={6} md={12}>
+        <Container>
+            <Row>
+                <Col sm="6" md="12">
                     <p className="my-footprint-title">Location: Urban City</p>
                 </Col>
             </Row>
-            <Row className="show-grid">
-                <Col xs={6} md={6} className='footprint'>
+            <Row>
+                <Col xs="6" md="6" className='footprint'>
+                    <img src={require("./circle.png")} alt="circle"/>
                     <p>Your footprint</p>
                 </Col>
-                <Col xs={6} md={6} className='footprint'>
+                <Col xs="6" md="6" className='footprint'>
+                    <img src={require("./circle.png")} alt="circle"/>
                     <p>Average footprint</p>
                 </Col>
             </Row>
-        </Grid>
+        </Container>
+        <hr />
         {/* Pledges */}
-        <Grid className="my-footprint-pledges">
-            <Row className="show-grid" id="my-footprint-pledges-header">
-                <Col xs={6} md={6}>
-                    <p className="my-footprint-title">Pledges</p>
-                </Col>
-                <Col xs={6} md={6}>
-                    <SplitButton title="View">
-                        <MenuItem>Block</MenuItem>
-                        <MenuItem>List</MenuItem>
-                    </SplitButton>
-                </Col>
-            </Row>
-            <Row className="show-grid">
-                <Col xs={12} md={12}>
-                    <ListGroup className='pledge-list'>
-                        <ListGroupItem className='pledge'>
-                            <div className='pledge-info'>
-                                <p className='pledge-title'>Avoid Straws</p>
-                                <p>Say no to plastic straws when you order a drink.</p>
-                            </div>
-                            <Button>Accept</Button>
-                        </ListGroupItem>
-                        <ListGroupItem className='pledge'>
-                            <div className='pledge-info'>
-                                <p className='pledge-title'>Go for Paper Bags</p>
-                                <p>Ditch plastic bags at the grocery store.</p>
-                            </div>
-                            <Button>Accept</Button>
-                        </ListGroupItem>
-                        <ListGroupItem className='pledge'>
-                            <div className='pledge-info'>
-                                <p className='pledge-title'>Use Reusable Water Bottles</p>
-                            </div>
-                            <Button>Accept</Button>
-                        </ListGroupItem>
-                    </ListGroup>
-                </Col>
-            </Row>
-            {/*<Row className="show-grid">
-                <Col xs={12} md={12}>
-                    <Card>
-                        <CardBody>
-                        <CardTitle>PLEDGE</CardTitle>
-                        <CardSubtitle>Avoid Straws</CardSubtitle>
-                        <CardText>Say no to plastic straws when you order a drink.</CardText>
-                        <Button>Accept</Button>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>*/}
-        </Grid>
+        <div className="my-footprint-pledges">
+            <Container className="list-view">
+                <Row id="my-footprint-pledges-header">
+                    <Col sm="6" md="6">
+                        <p className="my-footprint-title">Pledges</p>
+                    </Col>
+                    <Col sm="6" md="6">
+                        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                            <DropdownToggle caret>View</DropdownToggle>
+                            <DropdownMenu>
+                            <DropdownItem onClick={() => this.setState({ list: true})}>List</DropdownItem>
+                            <DropdownItem onClick={() => this.setState({ list: false})}>Card</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </Col>
+                </Row>
+            </Container>
+            <Pledges 
+                list={this.state.list}
+            />
+        </div>
       </div>
     )
+  }
+
+  handleSubmit() {
+      console.log(pledgesRef);
   }
 }

@@ -5,92 +5,106 @@ body {
 }
 
 .btn {
-  background-color:#14b7c5;
-  color:white;
+  background-color: #14b7c5;
+  color: white;
 }
 
 .btn:hover {
-  background-color:purple;
+  background-color: purple;
+  color: white;
 }
 
 /* Page Header Style */
 .navbar{
-  background-color:#14b7c5;
-  margin-bottom:0;
-  color:white;
+  background-color: #14b7c5;
+  margin-bottom: 0;
+  color: white;
 }
 
 .header-title{
-  padding-top:1.5%;
-  padding-bottom:.5%;
-  margin-bottom:.75%;
+  padding-top: 1.5%;
+  padding-bottom: .5%;
+  margin-bottom: .75%;
 }
 
 /* Footprint Style */
 .nav-tabs > li {
-  width:50%;
-  font-weight:bold;
+  width: 50%;
+  font-weight: bold;
 }
 
 .footprint {
-  text-align:center;
+  text-align: center;
 }
 
 .nav-tabs > li > a {
-  color:#14b7c5;
+  color: #14b7c5;
 }
 
 .nav-tabs > li > a:hover {
-  color:purple;
+  color: purple;
 }
 
 .nav-tabs > li .active > a {
-  color:black;
+  color: black;
 }
 
 /* Tab Content Style */
 .tab-content {
-  padding-top:2.5%;
+  padding-top: 2.5%;
 }
 
-/* Pledges Style */
+/* Pledges List Style */
 #my-footprint-pledges-header {
-  margin-bottom:1%;
+  margin-bottom: 1%;
 }
 
 .my-footprint-title {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .dropdown {
-  float:right;
+  float: right;
 }
 
 .my-footprint-pledges {
-  margin-top:2.5%;
+  margin-top: 2%;
 }
 
 .pledge-list{
-  max-height:40vh;
-  overflow:scroll;
+  max-height: 30vh;
+  overflow: scroll;
 }
 
-.pledge{
-  height:20vh;
-  display:flex;
-  flex-direction:row;
-  flex-wrap:nowrap;
-  justify-content:space-between;
-  align-items:center;
+.active-pledge-list {
+  max-height: 60vh;
+  overflow: scroll;
+}
+
+.pledge > .btn {
+  float: right;
+}
+
+.pledge > .pledge-info {
+  float: left;
 }
 
 .page-header {
-  text-align:center;
-  margin:0;
+  text-align: center;
+  margin: 0;
 }
 
 .pledge-title {
-  font-weight:bold;
+  font-weight: bold;
+}
+
+.card {
+  text-align: center;
+}
+
+.card-container {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Navigation Bar Style */

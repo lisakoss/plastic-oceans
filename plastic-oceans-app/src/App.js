@@ -6,6 +6,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import Opening from './Opening';
 import Footprint from './Footprint';
 import NavigationBar from './NavigationBar';
+import Quizzes from './Quizzes';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Opening} />
           <Route exact path="/Footprint" component={Footprint}/>
+          <Route exact path="/Quizzes" component={Quizzes}/>
         </Switch>
         {this.state.isUserLoggedIn && (
           <NavigationBar 

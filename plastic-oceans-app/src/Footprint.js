@@ -1,14 +1,25 @@
 import React from 'react';
 import './index.css';
-import {Tabs, Tab, Navbar} from 'react-bootstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, Row, Col} from 'reactstrap';
 import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
+import classnames from 'classnames';
 
 export default class Footprint extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.toggle = this.toggle.bind(this);
     this.state = {
+      activeTab: '1'
+    };
+  }
 
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
     }
   }
 
@@ -16,17 +27,32 @@ export default class Footprint extends React.Component {
 
     return (
       <div>
-        <Navbar>
-            <p className="header-title text-white lead">Footprint</p>
-        </Navbar>
-        <Tabs defaultActiveKey={1} id="tabs-bar">
-          <Tab eventKey={1} title="My Footprint">
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '1' })}
+              onClick={() => { this.toggle('1'); }}
+            >
+              My Footprint
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '2' })}
+              onClick={() => { this.toggle('2'); }}
+            >
+              ActivePledges
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="1">
             <MyFootprint />
-          </Tab>
-          <Tab eventKey={2} title="Active Pledges">
+          </TabPane>
+          <TabPane tabId="2">
             <ActivePledges />
-          </Tab>
-        </Tabs>
+          </TabPane>
+        </TabContent>
       </div>
     )
   }
