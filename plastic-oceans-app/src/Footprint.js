@@ -5,14 +5,35 @@ import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
 import classnames from 'classnames';
 
+import firebase from './firebase.js';
+
 export default class Footprint extends React.Component {
   constructor(props) {
     super(props);
     
     this.toggle = this.toggle.bind(this);
     this.state = {
-      activeTab: '1'
+      activeTab: '1',
+      pledges: []
     };
+  }
+
+  componentDidMount() {
+    const pledgesRef = firebase.database().ref('Pledges');
+    pledgesRef.on('value', (snapshot) => {
+        let pledges = snapshot.val();
+        let newState = [];
+        for (let pledge in pledges) {
+          newState.push({
+            id: pledge,
+            title: pledges[pledge].title,
+            desc: pledges[pledge].desc
+          });
+        }
+        this.setState({
+          pledges: newState
+        });
+      });
   }
 
   toggle(tab) {
@@ -47,10 +68,14 @@ export default class Footprint extends React.Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-            <MyFootprint />
+            <MyFootprint 
+              pledges={this.state.pledges}
+            />
           </TabPane>
           <TabPane tabId="2">
-            <ActivePledges />
+            <ActivePledges 
+              pledges={this.state.pledges}
+            />
           </TabPane>
         </TabContent>
       </div>

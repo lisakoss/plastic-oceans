@@ -5,10 +5,6 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import Pledges from './Pledges'
 
-import firebase from './firebase.js';
-
-const pledgesRef = firebase.database().ref('Pledges');
-
 export default class MyFootprint extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +12,7 @@ export default class MyFootprint extends React.Component {
     this.state = {
       dropdownOpen: false,
       list: true
-    };
+    }
   }
 
   toggle() {
@@ -67,13 +63,10 @@ export default class MyFootprint extends React.Component {
             </Container>
             <Pledges 
                 list={this.state.list}
+                pledges={this.props.pledges}
             />
         </div>
       </div>
     )
-  }
-
-  handleSubmit() {
-      console.log(pledgesRef);
   }
 }
