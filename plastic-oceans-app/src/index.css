@@ -1,55 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300');
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
-#nav-bar {
+/* Navigation Bar Styling for Mobile */
+
+#menu, #app-title {
   display: none;
 }
 
+#nav-bar {
+  width: 100vw;
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+}
 
-/* Navigation Bar Style for mobile */
-@media (max-width: 768px) {
+#nav-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.nav-button, #menu {
+  width: 34%;
+  background-color: #14b7c5;
+  border-color: white;
+  border-width: 0.5px;
+  font-family: "Montserrat", sans-serif;
+  padding: 5px;
+}
+
+.nav-button img, #menu img {
+  width: 25px;
+  pointer-events: none;
+}
+
+.selected {
+  background-color: #0b6d90; 
+  color: white;
+}
+
+.selected img, #menu img {
+  filter: invert(100%);
+}
+
+.nav-button:focus, #menu:focus {
+  outline: 0;
+}
+
+.nav-button:hover, #menu:hover {
+  filter: brightness(115%);
+  cursor: pointer;
+}
+
+
+@media (min-width: 700px) {
+
+  /* Navigation Bar for Desktop */
   #nav-bar {
-    display: block;
-    width: 100vw;
-    height: 10vh;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    bottom: 0;
+    background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
+    height: 20vh;
+    top: 0;
+    box-shadow: 15px 2px 8px 10px #b1d8dc;
   }
-  
-  .nav-button {
-    width: 34%;
-    cursor: pointer;
-    background-color: #14b7c5;
-    border-color: white;
-    border-width: 0.5px;
+
+  #menu, #app-title {
+    display: inline;
+    position: relative;
+    top: 65px;
   }
-  
-  .nav-button:focus {
-    outline: 0;
+
+  #app-title {
+    font-family: "Open Sans", sans-serif;
+    color: #984fba;
+    font-weight: 100;
+    font-size: 40px;
   }
-  
-  .nav-button:hover {
-    border: 1px solid white;
+
+  #nav-buttons {
+    justify-content: flex-end;
+    align-items: flex-end;  
+    position: relative;
+    top: 10px;
   }
-  
+
+  .nav-button, #menu {
+    width: 8%;
+    font-size: 120%;
+    padding: 0;
+    margin-left: 35px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: none;
+    color: #984fba;
+    background-color: transparent;
+  }
+
+  #menu {
+    width: 30px;
+    padding: 0;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+
+  #menu img {
+    width: 30px;
+  }
+
   .nav-button img {
-    width: 25px;
-    pointer-events: none;
+    display: none;
   }
-  
-  .selected {
-    background-color: #0b6d90; 
+
+  .nav-button:hover {
+    border: none;
+    font-weight: bold;
+  }
+
+  .selected { 
     color: white;
   }
-  
-  .selected img {
-    -webkit-filter: invert(100%);
-  }
-  
 }

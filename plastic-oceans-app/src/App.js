@@ -18,9 +18,9 @@ class App extends Component {
   render() {
     return (
       <div role="main">
-        <Switch>
+        {/*<Switch>
           <Route exact path="/" component={Opening} />
-        </Switch>
+        </Switch>*/}
         {this.state.isUserLoggedIn && (
           <NavigationBar 
           changeScreen={(screenID) => this.changeScreenState(screenID)}
