@@ -11,7 +11,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentScreen: "Opening",
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
+      userName: ""
     }
   }
 
@@ -24,6 +25,7 @@ class App extends Component {
         {this.state.isUserLoggedIn && (
           <NavigationBar 
           changeScreen={(screenID) => this.changeScreenState(screenID)}
+          userName={this.state.userName}
           />
         )}
       </div>
