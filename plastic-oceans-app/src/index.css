@@ -6,6 +6,212 @@ body {
   font-family: sans-serif;
 }
 
+/* Navigation Bar Styling for Mobile */
+#menu, #app-title {
+  display: none;
+}
+
+#nav-bar {
+  width: 100vw;
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+}
+
+#nav-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.nav-button {
+  width: 34%;
+  background-color: #14b7c5;
+  border-color: white;
+  border-width: 0.5px;
+  font-family: "Montserrat", sans-serif;
+  padding: 5px;
+}
+
+.nav-button img, #menu img {
+  width: 25px;
+  pointer-events: none;
+}
+
+.selected {
+  background-color: #0b6d90; 
+  color: white;
+}
+
+.selected img, #menu img {
+  filter: invert(100%);
+}
+
+.nav-button:focus, #menu:focus, #logout-btn:focus {
+  outline: 0;
+}
+
+.nav-button:hover, #logout-btn:hover {
+  filter: brightness(115%);
+  cursor: pointer;
+}
+
+#slide-menu {
+  display: none;
+}
+
+
+@media (min-width: 700px) {
+
+  /* Navigation Bar for Desktop */
+  #slide-menu {
+    display: block;
+    background: radial-gradient(white, #e3e9eb, #b1d8dc);
+    width: 25vw;
+    height: 100vh;
+    position: fixed;
+    top: 20vh;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    box-shadow: -4px 19px 10px 14px lightgray;
+  }
+
+  #slide-menu h2 {
+    margin-bottom: 0;
+    color: #984fba;
+  }
+
+  #profile-image {
+    width: 70%;
+  }
+
+  #slide-menu a {
+    display: block;
+    margin-bottom: 15px;
+    color: #984fba;
+    text-decoration: none;
+  }
+
+  #logout-btn {
+    background-color: #984fba;
+    width: 100px;
+    height: 30px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 40px;
+  }
+
+  #nav-bar {
+    background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
+    height: 20vh;
+    top: 0;
+    box-shadow: 15px 2px 8px 10px #b1d8dc;
+  }
+
+  #menu, #app-title {
+    display: inline;
+    position: relative;
+    top: 10vh;
+  }
+
+  #app-title {
+    font-family: "Open Sans", sans-serif;
+    color: #984fba;
+    font-weight: 100;
+    font-size: 40px;
+    cursor: default;
+  }
+
+  #nav-buttons {
+    justify-content: flex-end;
+    align-items: flex-end;  
+    position: relative;
+    top: 0.5vh;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  .nav-button, #menu {
+    width: 8%;
+    font-size: 120%;
+    padding: 0;
+    margin-left: 35px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: none;
+    color: #984fba;
+    background-color: transparent;
+    pointer-events: all;
+  }
+
+  #menu {
+    width: 30px;
+    padding: 0;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+
+  #menu img {
+    width: 30px;
+  }
+
+  #menu:hover {
+    cursor: pointer;
+  }
+
+  .nav-button img {
+    display: none;
+  }
+
+  .nav-button:hover {
+    border: none;
+    font-weight: bold;
+  }
+
+  .selected { 
+    color: white;
+  }
+
+  .slide-in {
+    animation-duration: 2.5s;
+    animation-name: slidein;
+  }
+
+  .slide-out {
+    animation-duration: 2.5s;
+    animation-name: slideout;
+  }
+
+  .open-menu {
+    margin-left: 0%;
+  }
+
+  .close-menu {
+    margin-left: -30%;
+  }
+
+  @keyframes slidein {
+    from {
+      margin-left: -30%;
+    }
+  
+    to {
+      margin-left: 0%;
+    }
+  }
+
+  @keyframes slideout {
+    from {
+      margin-left: 0%;
+    }
+  
+    to {
+      margin-left: -30%;
+    }
+  }
+
 /* Welcome message on opening screen */
 .container-welcome {
   position: absolute;
