@@ -143,6 +143,7 @@ body {
     border: none;
     color: #984fba;
     background-color: transparent;
+    pointer-events: all;
   }
 
   #menu {
