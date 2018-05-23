@@ -2,8 +2,6 @@ import React from 'react';
 import './index.css';
 import firebase from 'firebase';
 
-import { Button } from 'reactstrap'
-
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
