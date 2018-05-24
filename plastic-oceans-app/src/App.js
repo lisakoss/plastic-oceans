@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentScreen: "Opening",
-      isUserLoggedIn: false,
+      isUserLoggedIn: true,
       userName: ""
     }
   }
@@ -19,11 +19,11 @@ class App extends Component {
   render() {
     return (
       <div role="main">
-        <Switch>
+        {/*<Switch>
           <Route exact path="/" component={Opening} />
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
-        </Switch>
+        </Switch>*/}
         {this.state.isUserLoggedIn && (
           <NavigationBar 
           changeScreen={(screenID) => this.changeScreenState(screenID)}

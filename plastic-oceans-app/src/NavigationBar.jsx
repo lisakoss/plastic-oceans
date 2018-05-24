@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Logout from './Logout';
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class NavigationBar extends Component {
                     <img id="profile-image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />
                     <a href="">Go to Profile</a>
                     <a href="">Settings</a>
-                    <button id="logout-btn">Logout</button>
+                    {/*<button id="logout-btn">Logout</button>*/}
+                    <Logout />
                 </div>
             </div>
         );
