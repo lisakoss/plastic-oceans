@@ -33,11 +33,11 @@ export default class MyFootprint extends React.Component {
             </Row>
             <Row>
                 <Col xs="6" md="6" className='footprint'>
-                    <img src={require("./circle.png")} alt="circle"/>
+                    <img src={require("./img/circle.png")} alt="circle"/>
                     <p>Your footprint</p>
                 </Col>
                 <Col xs="6" md="6" className='footprint'>
-                    <img src={require("./circle.png")} alt="circle"/>
+                    <img src={require("./img/circle.png")} alt="circle"/>
                     <p>Average footprint</p>
                 </Col>
             </Row>
