@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.css';
 import { Button, Row, Col, Container} from 'reactstrap';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 

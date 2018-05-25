@@ -5,7 +5,7 @@ import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
 import classnames from 'classnames';
 
-import firebase from './firebase.js';
+import firebase, { auth } from './firebase.js';
 
 export default class Footprint extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class Footprint extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
-      pledges: []
+      pledges: [],
     };
   }
 
@@ -23,13 +23,19 @@ export default class Footprint extends React.Component {
     pledgesRef.on('value', (snapshot) => {
         let pledges = snapshot.val();
         let newState = [];
-        for (let pledge in pledges) {
+
+        snapshot.forEach(function (child) {
+          console.log("child for pledges", child);
+          console.log("child val", child.val());
+          console.log("child val question", child.val().question);
+          let pledge = child.val();
           newState.push({
-            id: pledge,
-            title: pledges[pledge].title,
-            desc: pledges[pledge].desc
+            id: child.key,
+            title: pledge.title,
+            desc: pledge.desc,
+            question: pledge.question,
           });
-        }
+        })
         this.setState({
           pledges: newState
         });
@@ -62,7 +68,7 @@ export default class Footprint extends React.Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              ActivePledges
+              Active Pledges
             </NavLink>
           </NavItem>
         </Nav>

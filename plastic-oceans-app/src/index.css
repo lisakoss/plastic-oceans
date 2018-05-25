@@ -4,16 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-.button {
-  background-color: #14b7c5;
-  color: white;
-}
-
-.btn:hover {
-  background-color: purple;
-  color: white;
-}
-
 /* Page Header Style */
 .navbar{
   background-color: #14b7c5;
@@ -98,11 +88,12 @@ body {
   font-weight: bold;
 }
 
+/* Pledges card style */
 .card {
   text-align: center;
 }
 
-.card-container {
+.card-view, .carousel{
   margin-left: auto;
   margin-right: auto;
 }

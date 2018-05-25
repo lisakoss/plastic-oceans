@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Route, Switch, Link } from 'react-router-dom';
+import firebase, { auth } from './firebase.js';
 
 import Opening from './Opening';
 import Footprint from './Footprint';

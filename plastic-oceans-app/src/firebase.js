@@ -6,6 +6,7 @@ var config = {
     projectId: "plastic-oceans",
     storageBucket: "plastic-oceans.appspot.com",
     messagingSenderId: "244318961535"
-};
+  };
 firebase.initializeApp(config);
+export const auth = firebase.auth();
 export default firebase;

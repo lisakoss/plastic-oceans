@@ -3,19 +3,22 @@ import './index.css';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Container} from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Carousel from './Carousel'
 
 export default class Pledges extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             modal: false,
+            slider: 0,
+            cards: []
         }
         this.toggle = this.toggle.bind(this);
     }  
 
-    toggle() {
+    toggle(question) {
         this.setState({
-        modal: !this.state.modal
+            modal: !this.state.modal,
         }); 
     }
 
@@ -35,17 +38,9 @@ export default class Pledges extends React.Component {
                                                 <p className='pledge-title'>{pledge.title}</p>
                                                 <p>{pledge.desc}</p>
                                             </div>
-                                            <Button onClick={this.toggle}>Accept</Button>
-                                            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                                                <ModalHeader toggle={this.toggle}>How many plastic straws will you avoid this week?</ModalHeader>
-                                                <ModalBody>
-                                                    pledge
-                                                </ModalBody>
-                                                <ModalFooter>
-                                                    <Button color="primary" onClick={this.toggle}>Start</Button>
-                                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                                </ModalFooter>
-                                            </Modal>
+                                            <Button onClick={() => this.setState({modal: !this.state.modal, question: pledge.question })}>
+                                                Accept
+                                            </Button>
                                         </ListGroupItem>
                                     )
                                 })}
@@ -55,19 +50,34 @@ export default class Pledges extends React.Component {
                 </Container>
             ):(
                 <Container className="card-view">
-                    <Row>
-                        <Col xs="6" sm="6" md="3" className="card-container">
+                    {this.props.pledges.map((pledge) => {
+                        this.state.cards.push(
                             <Card>
                                 <CardBody>
-                                <CardTitle>PLEDGE</CardTitle>
-                                <CardSubtitle>Avoid Straws</CardSubtitle>
-                                <CardText>Say no to plastic straws when you order a drink.</CardText>
-                                <Button>Accept</Button>
+                                    <CardTitle>PLEDGE</CardTitle>
+                                    <CardSubtitle>{pledge.title}</CardSubtitle>
+                                    <CardText>{pledge.desc}</CardText>
+                                    <Button onClick={() => this.setState({modal: !this.state.modal, question: pledge.question })}>
+                                        Accept
+                                    </Button>
                                 </CardBody>
                             </Card>
-                        </Col>
-                    </Row>
+                        );
+                    })}
+                    <Carousel 
+                        cards={this.state.cards}
+                    />
                 </Container>)}
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                    <ModalHeader toggle={this.toggle}>{this.state.question}</ModalHeader>
+                    <ModalBody>
+                        pledge slider
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Start</Button>
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
         </div>
         )
     }
