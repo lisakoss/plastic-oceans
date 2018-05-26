@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, Row, Col} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
 import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
 import classnames from 'classnames';
@@ -25,9 +25,6 @@ export default class Footprint extends React.Component {
         let newState = [];
 
         snapshot.forEach(function (child) {
-          console.log("child for pledges", child);
-          console.log("child val", child.val());
-          console.log("child val question", child.val().question);
           let pledge = child.val();
           newState.push({
             id: child.key,

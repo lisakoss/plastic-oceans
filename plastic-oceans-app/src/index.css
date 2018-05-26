@@ -29,16 +29,27 @@ body {
   text-align: center;
 }
 
-.nav-tabs > li > a {
+.nav-item {
   color: #14b7c5;
 }
 
-.nav-tabs > li > a:hover {
+.nav-item:hover {
   color: purple;
+  cursor: pointer;
 }
 
-.nav-tabs > li .active > a {
+.nav-tabs .nav-item .nav-link.active {
   color: black;
+}
+
+/* My Footprint Style */
+.pledge-list .btn-secondary, .dropdown .btn-secondary, .modal-footer .btn-primary, .pledge .btn-secondary {
+  background-color: #14b7c5;
+  border: 0;
+}
+
+.pledge-list .btn-secondary:hover, .dropdown .btn-secondary:hover, #accept-pledge .btn-secondary:hover, .modal-footer .btn-primary:hover, .pledge .btn-secondary:hover{
+  background-color: purple;
 }
 
 /* Tab Content Style */
@@ -48,27 +59,24 @@ body {
 
 /* Pledges List Style */
 #my-footprint-pledges-header {
-  margin-bottom: 1%;
-}
-
-.my-footprint-title {
+  margin-bottom: 2%;
   font-weight: bold;
 }
 
-.dropdown {
-  float: right;
+#my-footprint-title {
+  font-weight: bold;
 }
 
-.my-footprint-pledges {
+#my-footprint-pledges {
   margin-top: 2%;
 }
 
-.pledge-list{
+#pledge-list{
   max-height: 40vh;
   overflow: scroll;
 }
 
-.active-pledge-list {
+#active-pledge-list {
   max-height: 60vh;
   overflow: scroll;
 }
@@ -78,26 +86,16 @@ body {
 }
 
 .pledge > .pledge-info {
-  float: left;
-}
-
-.page-header {
-  text-align: center;
-  margin: 0;
+  display: inline-block;
 }
 
 .pledge-title {
   font-weight: bold;
 }
 
-/* Pledges card style */
-.card {
+.slider-value {
+  font-size: 3em;
   text-align: center;
-}
-
-.card-view, .carousel{
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* Navigation Bar Style */
@@ -306,14 +304,6 @@ body {
       margin-left: -30%;
     }
   }
-<<<<<<< HEAD
-
-  /* My Footprint pledges style for mobile */
-  .pledge-list{
-    max-height: 32.5vh;
-    overflow: scroll;
-  }
-=======
 }
 
 /* Welcome message on opening screen */
@@ -395,7 +385,6 @@ body {
   -o-background-size: cover;
   background-size: cover;
   
->>>>>>> master
 }
 
 /* Web responsive styles for opening screen */

@@ -1,8 +1,6 @@
 import React from 'react';
 import './index.css';
-import { Button, Row, Col, Container} from 'reactstrap';
-import { ListGroup, ListGroupItem } from 'reactstrap';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Row, Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter} from 'reactstrap';
 
 export default class ActivePledges extends React.Component {
     constructor(props) {
@@ -22,9 +20,9 @@ export default class ActivePledges extends React.Component {
         return (
             <div>
             <Container>
-                <Row className="show-grid">
+                <Row>
                     <Col xs={12} md={12}>
-                        <ListGroup className='active-pledge-list'>
+                        <ListGroup id='active-pledge-list'>
                             {this.props.pledges.map((pledge) => {
                                 return (
                                     <ListGroupItem key={pledge.id} className='pledge'>
