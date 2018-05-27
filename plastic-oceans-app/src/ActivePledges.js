@@ -22,6 +22,7 @@ export default class ActivePledges extends React.Component {
     // Called when user deletes pledge
     deletePledge() {
         this.deletePledgeModalToggle();
+        this.props.deletePledge(this.state.pledge);
     }
 
     render() {
@@ -37,8 +38,15 @@ export default class ActivePledges extends React.Component {
                                             <div className='pledge-info'>
                                                 <p className='pledge-title'>{pledge.title}</p>
                                                 <p>{pledge.desc}</p>
+                                                <p>{"-" + pledge.footprintReduction + "g/week"}</p>
                                             </div>
-                                            <Button onClick={this.deletePledgeModalToggle}>Delete</Button>
+                                            <Button onClick={() =>
+                                                this.setState({
+                                                    deletePledgeModal: !this.state.deletePledgeModal,
+                                                    pledge: pledge
+                                                })}>
+                                                Delete
+                                            </Button>
                                         </ListGroupItem>
                                     )
                                 })}

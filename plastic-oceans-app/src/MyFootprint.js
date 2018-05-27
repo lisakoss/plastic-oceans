@@ -24,7 +24,7 @@ export default class MyFootprint extends React.Component {
         <Container>
             <Row>
                 <Col sm="6" md="12">
-                    <p id="my-footprint-title">Location: Urban City</p>
+                    <p id="my-footprint-title">Location: {this.props.location}</p>
                 </Col>
             </Row>
             <Row>
@@ -51,9 +51,14 @@ export default class MyFootprint extends React.Component {
             <p id="my-footprint-pledges-header">Pledges</p>
             <Pledges 
                 pledges={this.props.pledges}
+                addPledge={(pledge) => this.addPledge(pledge)}
             />
         </Container>
       </div>
     )
+  }
+
+  addPledge(pledge) {
+    this.props.addPledge(pledge);
   }
 }

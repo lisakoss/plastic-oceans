@@ -9,6 +9,7 @@ export default class Pledges extends React.Component {
             setPledgeModal: false,
             startPledgeModal: false,
             slider: 0,
+            pledge: {}
         }
         this.setPledgeModalToggle = this.setPledgeModalToggle.bind(this);
         this.startPledgeModalToggle = this.startPledgeModalToggle.bind(this);
@@ -35,6 +36,9 @@ export default class Pledges extends React.Component {
     acceptPledge() {
         this.setPledgeModalToggle();
         this.startPledgeModalToggle();
+        this.state.pledge.footprintReduction = this.state.pledge.weight * this.state.slider;
+        console.log(this.state.pledge);
+        this.props.addPledge(this.state.pledge);
     }
 
     render() {
@@ -55,10 +59,7 @@ export default class Pledges extends React.Component {
                                         <Button onClick={() => 
                                             this.setState({
                                                 setPledgeModal: !this.state.setPledgeModal, 
-                                                question: pledge.question, 
-                                                pledge: pledge.id,
-                                                footprintDesc: pledge.footprintDesc,
-                                                weight: pledge.weight,
+                                                pledge: pledge,
                                                 slider: 0
                                             })}>
                                             Accept
@@ -73,7 +74,7 @@ export default class Pledges extends React.Component {
             
             <Modal id="set-pledge-modal" isOpen={this.state.setPledgeModal} toggle={this.setPledgeModalToggle}>
                 <ModalBody>
-                    {this.state.question}
+                    {this.state.pledge.question}
                     <div className="slider-value">{this.state.slider}</div>
                     <Input type="range" min="0" max="100" value={this.state.slider} className="slider" onInput={(e) => this.setState({ slider: e.target.value })}/>
                 </ModalBody>
@@ -85,7 +86,7 @@ export default class Pledges extends React.Component {
 
             <Modal id="start-pledge-modal" isOpen={this.state.startPledgeModal} toggle={this.startPledgeModalToggle}>
                 <ModalBody>
-                    {this.state.footprintDesc + " " + (this.state.weight * this.state.slider) + "g a week."}
+                    {this.state.pledge.footprintDesc + " " + (this.state.pledge.weight * this.state.slider) + "g a week."}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.startPledgeModalToggle}>Close</Button>
