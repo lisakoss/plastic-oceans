@@ -5,17 +5,18 @@ import MyFootprint from './MyFootprint.js'
 import ActivePledges from './ActivePledges.js'
 import classnames from 'classnames';
 
-import firebase, { auth } from './firebase.js';
+import firebase from './firebase.js';
 
 export default class Footprint extends React.Component {
   constructor(props) {
     super(props);
     
-    this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
       pledges: [],
     };
+
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,8 @@ export default class Footprint extends React.Component {
             title: pledge.title,
             desc: pledge.desc,
             question: pledge.question,
+            footprintDesc: pledge.footprintDesc,
+            weight: pledge.weight
           });
         })
         this.setState({

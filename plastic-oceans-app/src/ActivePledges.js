@@ -6,45 +6,53 @@ export default class ActivePledges extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            deletePledgeModal: false,
         }
-        this.toggle = this.toggle.bind(this);
+        this.deletePledgeModalToggle = this.deletePledgeModalToggle.bind(this);
+        this.deletePledge = this.deletePledge.bind(this);
     }     
 
-    toggle() {
+    // Toggles delete pledge modal
+    deletePledgeModalToggle() {
         this.setState({
-        modal: !this.state.modal
+            deletePledgeModal: !this.state.deletePledgeModal
         }); 
     }
-  render() {
+
+    // Called when user deletes pledge
+    deletePledge() {
+        this.deletePledgeModalToggle();
+    }
+
+    render() {
         return (
             <div>
-            <Container>
-                <Row>
-                    <Col xs={12} md={12}>
-                        <ListGroup id='active-pledge-list'>
-                            {this.props.pledges.map((pledge) => {
-                                return (
-                                    <ListGroupItem key={pledge.id} className='pledge'>
-                                        <div className='pledge-info'>
-                                            <p className='pledge-title'>{pledge.title}</p>
-                                            <p>{pledge.desc}</p>
-                                        </div>
-                                        <Button onClick={this.toggle}>Delete</Button>
-                                        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                                            <ModalBody>Are you sure you want to remove this pledge?</ModalBody>
-                                            <ModalFooter>
-                                                <Button color="primary" onClick={this.toggle}>Delete</Button>
-                                                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                            </ModalFooter>
-                                        </Modal>
-                                    </ListGroupItem>
-                                )
-                            })}
-                        </ListGroup>
-                    </Col>
-                </Row>
+                <Container>
+                    <Row>
+                        <Col xs="12" md="12">
+                            <ListGroup id='active-pledge-list'>
+                                {this.props.pledges.map((pledge) => {
+                                    return (
+                                        <ListGroupItem key={pledge.id} className='pledge'>
+                                            <div className='pledge-info'>
+                                                <p className='pledge-title'>{pledge.title}</p>
+                                                <p>{pledge.desc}</p>
+                                            </div>
+                                            <Button onClick={this.deletePledgeModalToggle}>Delete</Button>
+                                        </ListGroupItem>
+                                    )
+                                })}
+                            </ListGroup>
+                        </Col>
+                    </Row>
                 </Container>
+                <Modal isOpen={this.state.deletePledgeModal} toggle={this.deletePledgeModalToggle}>
+                    <ModalBody>Are you sure you want to remove this pledge?</ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.deletePledge}>Delete</Button>
+                        <Button color="secondary" onClick={this.deletePledgeModalToggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         )
     }

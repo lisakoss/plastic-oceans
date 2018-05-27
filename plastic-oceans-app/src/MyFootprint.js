@@ -6,16 +6,7 @@ import Pledges from './Pledges'
 export default class MyFootprint extends React.Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      dropdownOpen: false,
-    }
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
+    this.state = {}
   }
 
   render() {
@@ -34,7 +25,13 @@ export default class MyFootprint extends React.Component {
                     <p>Your footprint</p>
                 </Col>
                 <Col xs="6" md="6" className='footprint'>
-                    <img src={require("./img/circle.png")} alt="circle"/>
+                    <div className="footprint-circle">
+                        <img src={require("./img/circle.png")} alt="circle"/>
+                        <div className="footprint-weight">
+                            <p>959g</p>
+                            <p>per week</p>
+                        </div>
+                    </div>
                     <p>Average footprint</p>
                 </Col>
             </Row>

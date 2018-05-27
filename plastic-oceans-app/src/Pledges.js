@@ -6,23 +6,35 @@ export default class Pledges extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            setPledgeModal: false,
+            startPledgeModal: false,
             slider: 0,
         }
-        this.toggle = this.toggle.bind(this);
+        this.setPledgeModalToggle = this.setPledgeModalToggle.bind(this);
+        this.startPledgeModalToggle = this.startPledgeModalToggle.bind(this);
         this.acceptPledge = this.acceptPledge.bind(this);
     }  
 
-    toggle() {
+    // Pledge slider modal toggle
+    // Modal appears when user clicks accept on a pledge
+    setPledgeModalToggle() {
         this.setState({
-            modal: !this.state.modal,
+            setPledgeModal: !this.state.setPledgeModal,
         }); 
     }
 
+    // Pledge info modal toggle
+    // Modal appears after user starts pledge
+    startPledgeModalToggle() {
+        this.setState({
+            startPledgeModal: !this.state.startPledgeModal,
+        }); 
+    }
+
+    // Called when user starts a pledge
     acceptPledge() {
-        this.toggle();
-        console.log(this.state.pledge + "accepted");
-        console.log(this.state.slider);
+        this.setPledgeModalToggle();
+        this.startPledgeModalToggle();
     }
 
     render() {
@@ -41,7 +53,14 @@ export default class Pledges extends React.Component {
                                             <p>{pledge.desc}</p>
                                         </div>
                                         <Button onClick={() => 
-                                            this.setState({modal: !this.state.modal, question: pledge.question, pledge: pledge.id})}>
+                                            this.setState({
+                                                setPledgeModal: !this.state.setPledgeModal, 
+                                                question: pledge.question, 
+                                                pledge: pledge.id,
+                                                footprintDesc: pledge.footprintDesc,
+                                                weight: pledge.weight,
+                                                slider: 0
+                                            })}>
                                             Accept
                                         </Button>
                                     </ListGroupItem>
@@ -51,8 +70,8 @@ export default class Pledges extends React.Component {
                     </Col>
                 </Row>
             </Container>
-                
-            <Modal isOpen={this.state.modal} toggle={this.toggle}>
+            
+            <Modal id="set-pledge-modal" isOpen={this.state.setPledgeModal} toggle={this.setPledgeModalToggle}>
                 <ModalBody>
                     {this.state.question}
                     <div className="slider-value">{this.state.slider}</div>
@@ -60,7 +79,16 @@ export default class Pledges extends React.Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.acceptPledge}>Start</Button>
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    <Button color="secondary" onClick={this.setPledgeModalToggle}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+
+            <Modal id="start-pledge-modal" isOpen={this.state.startPledgeModal} toggle={this.startPledgeModalToggle}>
+                <ModalBody>
+                    {this.state.footprintDesc + " " + (this.state.weight * this.state.slider) + "g a week."}
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.startPledgeModalToggle}>Close</Button>
                 </ModalFooter>
             </Modal>
         </div>
