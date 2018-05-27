@@ -9,6 +9,14 @@ export default class MyFootprint extends React.Component {
     this.state = {}
   }
 
+  calculateFootprint() {
+
+  }
+
+  calculateAverageFootprint() {
+      
+  }
+
   render() {
 
     return (
