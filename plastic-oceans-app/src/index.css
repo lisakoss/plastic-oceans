@@ -9,12 +9,12 @@ body {
 /* Red Error Alert */
 .red-error {
   background-color: #ffb3b3;
-  border: 1px solid #ff1a1a;
+  border: 1px solid #ff1a1a !important;
 }
 
 .alert {
   color: #5C5C5C;
-  border-radius: 10px;
+  border-radius: 10px !important;
   padding: 15px;
   margin: 0 0 15px 0;
 }
@@ -316,7 +316,7 @@ body {
   
 }
 
-/* Sign up page */
+/* Sign up/in pages */
 .sign-up-container {
   width: 90%;
   background-color: rgb(250,250,250,0.7);
@@ -416,5 +416,9 @@ body {
 
   .sign-up-container {
     width: 60%;
+  }
+
+  .sign-up h1 {
+    font-size: 70px;
   }
 }
