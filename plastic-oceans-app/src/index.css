@@ -333,6 +333,25 @@ body {
   text-align: center;
 }
 
+.sign-up a:link, a:active, a:visited {
+  color: #984fba;
+  text-transform: uppercase;
+  font-weight: bold;
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
+.sign-up a:hover {
+  color: #ffffff;
+  text-decoration: none; 
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
 .sign-up .btn-primary {
   background-color: #14b7c5 !important;
   color: #fff;
@@ -353,7 +372,6 @@ body {
 
 /* Web responsive styles */
 @media screen and (min-width: 701px) {
-
   .welcome-message h1 {
     font-size: 100px;
   }
@@ -377,5 +395,4 @@ body {
   .sign-up-container {
     width: 60%;
   }
-
 }

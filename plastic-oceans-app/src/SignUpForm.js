@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import firebase from 'firebase';
+import { Link } from 'react-router-dom';
 
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
@@ -206,7 +207,7 @@ export default class SignUpForm extends React.Component {
           </FormGroup>
           <div className="sign-up-button">
           <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
-          <p>Already have an account? Sign in here</p>
+          <p>Already have an account? <Link to="/signin">Sign in here.</Link></p>
        </div>
         </Form>
         </div>
