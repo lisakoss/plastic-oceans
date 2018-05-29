@@ -89,7 +89,7 @@ body {
 
 /* Sign up page */
 .sign-up-container {
-  width: 60%;
+  width: 90%;
   background-color: rgb(250,250,250,0.7);
   height: auto;
   border-radius: 10px;
@@ -144,8 +144,9 @@ body {
   background-color: #984fba !important;
 }
 
-/* Web responsive styles for opening screen */
+/* Web responsive styles */
 @media screen and (min-width: 701px) {
+
   .welcome-message h1 {
     font-size: 100px;
   }
@@ -165,4 +166,9 @@ body {
     margin-right: 20px;
     height: 70px;
   }
+
+  .sign-up-container {
+    width: 60%;
+  }
+
 }
