@@ -10,7 +10,7 @@ export default class SignUp extends React.Component {
     this.state = {
       error: null
     };
-
+    
     // put optional this binding here
     this.createNewUser = this.createNewUser.bind(this);
   }
@@ -58,7 +58,6 @@ export default class SignUp extends React.Component {
         }
 
         usernameRef.set(usernameData);
-
       })
       .catch((error) => { //report any errors
         let errorCode = error.code;
