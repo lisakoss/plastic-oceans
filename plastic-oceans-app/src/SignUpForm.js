@@ -1,7 +1,12 @@
 import React from 'react';
 import './index.css';
 import firebase from 'firebase';
+
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
 
 export default class SignUpForm extends React.Component {
   constructor(props) {
@@ -50,18 +55,17 @@ export default class SignUpForm extends React.Component {
       let usersKeyRef = firebase.database().ref('usernames');
       usersKeyRef.on('value', (snapshot) => {
         snapshot.forEach(function (child) {
-          console.log("USERNAMES TAKEN", child.key);
           usernamesTaken.push(child.key.toLowerCase())
         })
-        usernameTakenResult = usernamesTaken.includes(this.state.username.toLowerCase());
-        console.log("TAKEN", usernameTakenResult);
+        usernameTakenResult = usernamesTaken.includes((this.state.username + "").toLowerCase());
         if (usernameTakenResult) {
           errors.usernameTaken = true;
           errors.isValid = false;
         }
-        console.log("ERRORS", errors)
       });
     }
+
+
     if (value !== undefined) { //check validations
       //all fields are required
       if (validations.required && value === '') {
@@ -98,8 +102,41 @@ export default class SignUpForm extends React.Component {
         if (!valid) {
           errors.email = true;
           errors.isValid = false;
+        } else {
+          if (validations.emailTaken) {
+            if(this.props.emailError) {
+              errors.emailTaken = true;
+              errors.isValid = false;
+            }
+            /*let error = false;
+            firebase.auth().fetchSignInMethodsForEmail((this.state.email + ""))
+              .then(function (signInMethods) {
+                // This returns the same array as fetchProvidersForEmail but for email
+                // provider identified by 'password' string, signInMethods would contain 2
+                // different strings:
+                // 'emailLink' if the user previously signed in with an email/link
+                // 'password' if the user has a password.
+                // A user could have both.
+                console.log("SIGN LENGTH", signInMethods.length);
+                if (signInMethods.length !== 0) {
+                  console.log("ALREADY IN USE")
+                  // User can sign in with email/password.
+                  errors.emailTaken = true;
+                  errors.isValid = false;
+                }
+                console.log("SIGNIN METHODS", signInMethods);
+              })
+              .catch(function (error) {
+                // Some error occurred, you can inspect the code: error.code
+                console.log("EMAIL ERROR", error);
+              }).then(function(value) {
+                console.log("whats the val", value);
+              });
+
+          }*/
         }
       }
+    }
 
       // handle password confirmation
       if (validations.match) {
@@ -132,9 +169,22 @@ export default class SignUpForm extends React.Component {
     let locationErrors = this.validateFields(this.state.location, { required: true, });
     let passwordErrors = this.validateFields(this.state.password, { required: true, minLength: 8 });
     let passwordConfirmErrors = this.validateFields(this.state.passwordConfirm, { required: true, minLength: 8, match: true });
+    let submitDisabled = false;
+    let submitState = "primary";
 
+    //set to secondary disabled when errors show
+    //button validation
+    let signUpEnabled = (firstNameErrors.isValid && lastNameErrors.isValid && usernameErrors.isValid && emailErrors.isValid && locationErrors.isValid && passwordErrors.isValid && passwordConfirmErrors.isValid);
+
+    if(!signUpEnabled) {
+      submitDisabled = true;
+      submitState = "secondary"
+    }
+    
     return (
-      <div role="article">
+      <div className="sign-up tinted" role="article">
+      <div className="sign-up-container">
+      <div className="sign-up-form">
         <h1>sign up</h1>
         <Form>
           <FormGroup onChange={this.handleFormChange}>
@@ -158,8 +208,13 @@ export default class SignUpForm extends React.Component {
           <FormGroup onChange={this.handleFormChange}>
             <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
           </FormGroup>
-          <Button onClick={(event) => this.createNewUser(event)}>Submit</Button>
+          <div className="sign-up-button">
+          <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
+          <p>Already have an account? Sign in here</p>
+       </div>
         </Form>
+        </div>
+        </div>
       </div>
     );
   }
@@ -172,7 +227,7 @@ class ValidatedInput extends React.Component {
     let errors = this.props.errors.style != "" ? "invalid" : "";
     let errorMessage = "";
 
-    console.log("RENDER ARROEERS", this.props.errors);
+    console.log("RENDER ARROEERS", this.props.emailError);
 
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
@@ -184,7 +239,10 @@ class ValidatedInput extends React.Component {
         errorMessage += "Invalid email address.";
       }
       if (this.props.errors.usernameTaken) {
-        errorMessage += "Username is already taken.";
+        errorMessage += "Username already in use.";
+      }
+      if (this.props.errors.emailTaken) {
+        errorMessage += "This email address already has an account.";
       }
       if (this.props.errors.maxLength) {
         errorMessage += `${this.props.fieldName} is too long.`;

@@ -7,7 +7,9 @@ import SignUpForm from './SignUpForm';
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      error: null
+    };
 
     // put optional this binding here
     this.createNewUser = this.createNewUser.bind(this);
@@ -64,7 +66,6 @@ export default class SignUp extends React.Component {
         
         if (errorCode === 'auth/email-already-in-use') {
           this.setState({ error: 'The email address is already in use.' });
-          alert(this.state.error);
         } 
       });
   }
@@ -74,7 +75,7 @@ export default class SignUp extends React.Component {
 
     // show user sign up form if logged out
     if (!this.state.userId) {
-      content = (<div><SignUpForm signUpCallback={this.createNewUser} /></div>);
+      content = (<div><SignUpForm signUpCallback={this.createNewUser} emailError={this.state.error} /></div>);
     }
 
     return (
