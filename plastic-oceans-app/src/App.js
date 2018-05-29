@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Route, Switch, Link } from 'react-router-dom';
+
 import Opening from './Opening';
 import NavigationBar from './NavigationBar';
+
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 
