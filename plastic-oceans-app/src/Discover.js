@@ -44,18 +44,30 @@ export default class Discover extends React.Component {
   componentWillMount() {
     // fetch the non-profits
     let mapMarkers = [];
-    fetch('https://raw.githubusercontent.com/lisakoss/plastic-oceans/cc5c38275b68eafc0b64c446fc8b68447213c1cc/plastic-oceans-app/src/DiscoverMapData.json')
+    fetch('https://raw.githubusercontent.com/lisakoss/plastic-oceans/a18311262874ff12e5fc9abd8bd6bb51d0f285be/plastic-oceans-app/src/DiscoverMapData.json')
       .then(res => res.json())
       .then(parsedRes => {
         //console.log("parsedRes", parsedRes);
+        let previousCoords = [];
+        let currentItems = [];
         for (let debris of parsedRes) {
           //console.log("debris", debris)
-          let debrisObj = {
-            markerOffset: -25,
-            name: debris.ItemName,
-            coordinates: [debris.Longitude, debris.Latitude],
+          // if coords match
+          console.log("previos", previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude);
+          if (previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude) {
+            currentItems.push(debris.ItemName);
+          } else { // else coords don't match, create marker
+            currentItems.push(debris.ItemName);
+            previousCoords = [debris.Longitude, debris.Latitude];
+
+            let debrisObj = {
+              markerOffset: -25,
+              name: currentItems,
+              coordinates: [debris.Longitude, debris.Latitude],
+            }
+            mapMarkers.push(debrisObj);
+            currentItems = [];
           }
-          mapMarkers.push(debrisObj);
         }
 
         this.setState({ markers: mapMarkers });
