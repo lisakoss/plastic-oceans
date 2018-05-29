@@ -4,6 +4,8 @@ import firebase from 'firebase';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
+import Logout from './Logout';
+
 export default class Opening extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,7 @@ export default class Opening extends React.Component {
           <div className="welcome-buttons">
             <Link to="/signup"><Button outline color="primary" size="lg">Sign Up</Button></Link>{' '}
             <Link to="/signin"><Button color="primary" size="lg" className="sign-in-button">Sign In</Button></Link>
+            <Logout/>
           </div>
           </div>
           </div>

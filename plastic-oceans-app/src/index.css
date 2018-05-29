@@ -392,6 +392,22 @@ body {
   background-color: #984fba !important;
 }
 
+/* Logout */
+.logout-btn .btn-primary {
+  background-color: #14b7c5 !important;
+  border: none;
+  height: 46px;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #fff;
+  width: 35%;
+}
+
+.logout-btn .btn-primary:hover {
+  background-color: #984fba !important;
+}
+
 /* Web responsive styles */
 @media screen and (min-width: 701px) {
   .welcome-message h1 {

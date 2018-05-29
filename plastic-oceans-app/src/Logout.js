@@ -7,7 +7,9 @@ import { Button } from 'reactstrap'
 export default class Logout extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      userId: null,
+    }
 
     this.signOutUser = this.signOutUser.bind(this);
   }
@@ -25,8 +27,8 @@ export default class Logout extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button onClick={(event) => this.signOutUser(event)}>Sign Out</Button>
+      <div className="logout-btn">
+        <Button color="primary" onClick={(event) => this.signOutUser(event)}>Logout</Button>
       </div>
     )
   }
