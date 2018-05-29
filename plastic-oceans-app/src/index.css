@@ -6,7 +6,6 @@ body {
   font-family: sans-serif;
 }
 
-
 /* Red Error Alert */
 .red-error {
   background-color: #ffb3b3;
@@ -27,4 +26,394 @@ body {
 
 .hidden {
   display: none;
+
+/* Navigation Bar Styling for Mobile */
+#menu, #app-title {
+  display: none;
+}
+
+#nav-bar {
+  width: 100vw;
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+}
+
+#nav-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.nav-button {
+  width: 34%;
+  background-color: #14b7c5;
+  border-color: white;
+  border-width: 0.5px;
+  font-family: "Montserrat", sans-serif;
+  padding: 5px;
+}
+
+.nav-button img, #menu img {
+  width: 25px;
+  pointer-events: none;
+}
+
+.selected {
+  background-color: #0b6d90; 
+  color: white;
+}
+
+.selected img, #menu img {
+  filter: invert(100%);
+}
+
+.nav-button:focus, #menu:focus, #logout-btn:focus {
+  outline: 0;
+}
+
+.nav-button:hover, #logout-btn:hover {
+  filter: brightness(115%);
+  cursor: pointer;
+}
+
+#slide-menu {
+  display: none;
+}
+
+
+@media (min-width: 700px) {
+
+  /* Navigation Bar for Desktop */
+  #slide-menu {
+    display: block;
+    background: radial-gradient(white, #e3e9eb, #b1d8dc);
+    width: 25vw;
+    height: 100vh;
+    position: fixed;
+    top: 20vh;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    box-shadow: -4px 19px 10px 14px lightgray;
+  }
+
+  #slide-menu h2 {
+    margin-bottom: 0;
+    color: #984fba;
+  }
+
+  #profile-image {
+    width: 70%;
+  }
+
+  #slide-menu a {
+    display: block;
+    margin-bottom: 15px;
+    color: #984fba;
+    text-decoration: none;
+  }
+
+  /*#logout-btn {
+    background-color: #984fba;
+    width: 100px;
+    height: 30px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 40px;
+  }*/
+
+  #nav-bar {
+    background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
+    height: 20vh;
+    top: 0;
+    box-shadow: 15px 2px 8px 10px #b1d8dc;
+  }
+
+  #menu, #app-title {
+    display: inline;
+    position: relative;
+    top: 10vh;
+  }
+
+  #app-title {
+    font-family: "Open Sans", sans-serif;
+    color: #984fba;
+    font-weight: 100;
+    font-size: 40px;
+    cursor: default;
+  }
+
+  #nav-buttons {
+    justify-content: flex-end;
+    align-items: flex-end;  
+    position: relative;
+    top: 0.5vh;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  .nav-button, #menu {
+    width: 8%;
+    font-size: 120%;
+    padding: 0;
+    margin-left: 35px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: none;
+    color: #984fba;
+    background-color: transparent;
+    pointer-events: all;
+  }
+
+  #menu {
+    width: 30px;
+    padding: 0;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+
+  #menu img {
+    width: 30px;
+  }
+
+  #menu:hover {
+    cursor: pointer;
+  }
+
+  .nav-button img {
+    display: none;
+  }
+
+  .nav-button:hover {
+    border: none;
+    font-weight: bold;
+  }
+
+  .selected { 
+    color: white;
+  }
+
+  .slide-in {
+    animation-duration: 2.5s;
+    animation-name: slidein;
+  }
+
+  .slide-out {
+    animation-duration: 2.5s;
+    animation-name: slideout;
+  }
+
+  .open-menu {
+    margin-left: 0%;
+  }
+
+  .close-menu {
+    margin-left: -30%;
+  }
+
+  @keyframes slidein {
+    from {
+      margin-left: -30%;
+    }
+  
+    to {
+      margin-left: 0%;
+    }
+  }
+
+  @keyframes slideout {
+    from {
+      margin-left: 0%;
+    }
+  
+    to {
+      margin-left: -30%;
+    }
+  }
+}
+
+/* Welcome message on opening screen */
+.container-welcome {
+  position: absolute;
+}
+
+.welcome-message h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 50px;
+  letter-spacing: 3.5px;
+  line-height: 1;
+}
+
+.welcome-message h2 {
+  text-align: center;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 1px;
+  margin-bottom: 10%;
+  opacity: 0.8;
+}
+
+.welcome-buttons {
+  text-align: center;
+}
+
+.welcome-buttons .btn-primary {
+  background-color: #14b7c5 !important;
+  border: none;
+}
+
+.welcome-buttons .btn-outline-primary {
+  border-color: #fff !important;
+  height: 46px;
+}
+
+.welcome-buttons .btn-primary, .welcome-buttons .btn-outline-primary {
+  font-family: 'Open Sans';
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #fff;
+  width: 45%;
+}
+
+.welcome-buttons .btn-outline-primary:hover {
+  background-color: #984fba !important;
+}
+
+.welcome-buttons .btn-primary:hover {
+  background-color: #984fba !important;
+}
+
+#home {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tinted {
+  background: rgb(20,183,197);
+  background: 
+  /* top, transparent red */ 
+  linear-gradient(rgba(20,183,197, 0.90), 
+  rgba(152,79,186, 0.75)),
+  /* bottom, image */
+  url('./img/home.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+
+/* Sign up page */
+.sign-up-container {
+  width: 90%;
+  background-color: rgb(250,250,250,0.7);
+  height: auto;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.sign-up {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-up h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #14b7c5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 50px;
+  letter-spacing: 3.5px;
+  line-height: 1;
+}
+
+.sign-up-form {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.sign-up-button {
+  text-align: center;
+}
+
+.sign-up a:link, a:active, a:visited {
+  color: #984fba;
+  text-transform: uppercase;
+  font-weight: bold;
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
+.sign-up a:hover {
+  color: #ffffff;
+  text-decoration: none; 
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
+.sign-up .btn-primary {
+  background-color: #14b7c5 !important;
+  color: #fff;
+}
+
+.sign-up .btn-secondary, .sign-up .btn-primary {
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  text-transform: uppercase;
+  width: 45%;
+  margin: 0 auto;
+}
+
+.sign-up .btn-primary:hover {
+  background-color: #984fba !important;
+}
+
+/* Web responsive styles */
+@media screen and (min-width: 701px) {
+  .welcome-message h1 {
+    font-size: 100px;
+  }
+
+  .welcome-message h2 {
+    font-size: 32px;
+  }
+
+  .welcome-buttons .btn-primary, .welcome-buttons .btn-outline-primary {
+    font-size: 26px;
+    width: 25%;
+    height: 70px;
+    padding: 10px;
+  }
+
+  .welcome-buttons .btn-outline-primary {
+    margin-right: 20px;
+    height: 70px;
+  }
+
+  .sign-up-container {
+    width: 60%;
+  }
 }
