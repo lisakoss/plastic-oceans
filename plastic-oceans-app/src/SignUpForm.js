@@ -4,10 +4,6 @@ import firebase from 'firebase';
 
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
-
 export default class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
@@ -180,7 +176,7 @@ export default class SignUpForm extends React.Component {
       submitDisabled = true;
       submitState = "secondary"
     }
-    
+
     return (
       <div className="sign-up tinted" role="article">
       <div className="sign-up-container">
