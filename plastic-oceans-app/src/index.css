@@ -26,6 +26,7 @@ body {
 
 .hidden {
   display: none;
+}
 
 /* Navigation Bar Styling for Mobile */
 #menu, #app-title {
