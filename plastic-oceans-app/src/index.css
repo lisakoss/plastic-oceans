@@ -322,7 +322,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
   position: relative;
-  height: 100%;
+  min-height: 100%;
 }
 
 /* Sign up/in pages */
@@ -337,6 +337,7 @@ body {
 
 .sign-up {
   width: 100%;
+  min-height: 100%;
   padding-top: 5%;
   position: absolute;
 }
@@ -397,6 +398,10 @@ body {
 
 .sign-up .btn-primary:hover {
   background-color: #984fba !important;
+}
+
+.no-account {
+  padding-bottom: 10px;
 }
 
 /* Logout */
