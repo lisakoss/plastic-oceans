@@ -29,10 +29,11 @@ export default class Discover extends React.Component {
       ],
     }
 
-    this.handleCityClick = this.handleCityClick.bind(this)
-    this.handleReset = this.handleReset.bind(this)
-    this.handleZoomIn = this.handleZoomIn.bind(this)
-    this.handleZoomOut = this.handleZoomOut.bind(this)
+    this.handleCityClick = this.handleCityClick.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleZoomIn = this.handleZoomIn.bind(this);
+    this.handleZoomOut = this.handleZoomOut.bind(this);
+    this.hoverMarker = this.hoverMarker.bind(this)
   }
 
   componentDidMount() {
@@ -53,7 +54,7 @@ export default class Discover extends React.Component {
         for (let debris of parsedRes) {
           //console.log("debris", debris)
           // if coords match
-          console.log("previos", previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude);
+          //console.log("previos", previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude);
           if (previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude) {
             currentItems.push(debris.ItemName);
           } else { // else coords don't match, create marker
@@ -93,9 +94,14 @@ export default class Discover extends React.Component {
 
   handleReset() {
     this.setState({
-      center: [0, 1],
+      center: [-122.4821475, 47.6129432],
       zoom: 3,
     })
+  }
+
+  hoverMarker(markerName) {
+    console.log("does this work", markerName);
+    alert(markerName);
   }
 
   render() {
@@ -112,6 +118,7 @@ export default class Discover extends React.Component {
           hover: { fill: "#FFFFFF" },
           pressed: { fill: "#FF5722" },
         }}
+        onClick={() => this.hoverMarker(marker.name)}
       >
         <circle
           cx={0}
@@ -123,16 +130,6 @@ export default class Discover extends React.Component {
             opacity: 0.9,
           }}
         />
-        <text
-          textAnchor="middle"
-          y={marker.markerOffset}
-          style={{
-            fontFamily: "Roboto, sans-serif",
-            fill: "#607D8B",
-          }}
-        >
-          {marker.name}
-        </text>
       </Marker>
     ))
 
