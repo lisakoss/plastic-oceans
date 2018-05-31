@@ -1,9 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300');
 
+html {
+  display:flex;
+  width:100%;
+  height:100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  display: flex;
+  flex: 1;
+}
+
+/* Red Error Alert */
+.red-error {
+  background-color: #ffb3b3;
+  border: 1px solid #ff1a1a !important;
+}
+
+.alert {
+  color: #5C5C5C;
+  border-radius: 10px !important;
+  padding: 15px;
+  margin: 0 0 15px 0;
+}
+
+.alert p {
+  margin: 0;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Page Header Style */
@@ -401,10 +431,106 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  position: relative;
+  min-height: 100%;
+}
+
+/* Sign up/in pages */
+.sign-up-container {
+  width: 90%;
+  background-color: rgb(250,250,250,0.7);
+  height: auto;
+  border-radius: 10px;
+  margin: 0 auto;
   
 }
 
-/* Web responsive styles for opening screen */
+.sign-up {
+  width: 100%;
+  min-height: 100%;
+  padding-top: 5%;
+  position: absolute;
+}
+
+.sign-up h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #14b7c5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 50px;
+  letter-spacing: 3.5px;
+  line-height: 1;
+}
+
+.sign-up-form {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.sign-up-button {
+  text-align: center;
+}
+
+.sign-up a:link, a:active, a:visited {
+  color: #984fba;
+  text-transform: uppercase;
+  font-weight: bold;
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
+.sign-up a:hover {
+  color: #ffffff;
+  text-decoration: none; 
+  -webkit-transition: .1s ease-out;
+  -moz-transition:.1s ease-out;
+  -o-transition: .1s ease-out;
+  transition: .1s ease-out;
+}
+
+.sign-up .btn-primary {
+  background-color: #14b7c5 !important;
+  color: #fff;
+}
+
+.sign-up .btn-secondary, .sign-up .btn-primary {
+  border: none;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  text-transform: uppercase;
+  width: 45%;
+  margin: 0 auto;
+}
+
+.sign-up .btn-primary:hover {
+  background-color: #984fba !important;
+}
+
+.no-account {
+  padding-bottom: 10px;
+}
+
+/* Logout */
+.logout-btn .btn-primary {
+  background-color: #14b7c5 !important;
+  border: none;
+  height: 46px;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #fff;
+  width: 35%;
+}
+
+.logout-btn .btn-primary:hover {
+  background-color: #984fba !important;
+}
+
+/* Web responsive styles */
 @media screen and (min-width: 701px) {
   .welcome-message h1 {
     font-size: 100px;
@@ -424,5 +550,13 @@ body {
   .welcome-buttons .btn-outline-primary {
     margin-right: 20px;
     height: 70px;
+  }
+
+  .sign-up-container {
+    width: 50%;
+  }
+
+  .sign-up h1 {
+    font-size: 70px;
   }
 }

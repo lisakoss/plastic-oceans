@@ -7,8 +7,10 @@ import Opening from './Opening';
 import Footprint from './Footprint';
 import NavigationBar from './NavigationBar';
 import Quizzes from './Quizzes';
+
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import Discover from './Discover';
 
 class App extends Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class App extends Component {
           <Route exact path="/Quizzes" component={Quizzes}/>
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/discover" component={Discover} />
         </Switch>
         {this.state.isUserLoggedIn && (
           <NavigationBar 
