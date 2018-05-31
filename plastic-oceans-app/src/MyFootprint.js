@@ -9,14 +9,6 @@ export default class MyFootprint extends React.Component {
     this.state = {}
   }
 
-  calculateFootprint() {
-
-  }
-
-  calculateAverageFootprint() {
-      
-  }
-
   render() {
 
     return (
@@ -29,14 +21,20 @@ export default class MyFootprint extends React.Component {
             </Row>
             <Row>
                 <Col xs="6" md="6" className='footprint'>
-                    <img src={require("./img/circle.png")} alt="circle"/>
+                    <div className="footprint-circle">
+                        <img src={require("./img/circle.png")} alt="circle"/>
+                        <div className="footprint-weight">
+                            <p>{this.props.userFootprint}g</p>
+                            <p>per week</p>
+                        </div>
+                    </div>
                     <p>Your footprint</p>
                 </Col>
                 <Col xs="6" md="6" className='footprint'>
                     <div className="footprint-circle">
                         <img src={require("./img/circle.png")} alt="circle"/>
                         <div className="footprint-weight">
-                            <p>959g</p>
+                            <p>{this.props.avgFootprint}g</p>
                             <p>per week</p>
                         </div>
                     </div>

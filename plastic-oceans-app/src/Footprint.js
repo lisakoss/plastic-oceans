@@ -25,6 +25,7 @@ export default class Footprint extends React.Component {
     
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        // Grab all pledges
         const pledgesRef = firebase.database().ref('Pledges');
         let newState = [];
         pledgesRef.on('value', (snapshot) => {
@@ -42,31 +43,52 @@ export default class Footprint extends React.Component {
             });
           })
         });
-        let uid = "wZNQMk1ikSUH3UmkfKI39nDBJot1"
-        let currUser = firebase.database().ref('users/' + uid);
-        console.log("current user: " + currUser);
+
+        // Get current user
+        const currUser = firebase.database().ref('users/' + user.uid);
         currUser.on('value', (snapshot) => {
           let userInfo = snapshot.val();
+
+          // Save user id and all user info
           this.setState({
             user: userInfo,
-            userID: uid,
-            activePledges: userInfo.pledges.activePledges
+            userID: user.uid,
           });
-          
-          for (var i = 0; i < newState.length; i++) {
-            for (var j = 0; j < this.state.activePledges.length; j++) {
-              if (newState[i].id === this.state.activePledges[j].id) {
-                newState.splice(i, 1);
-                i--;
-                j++;
+
+          // Get user's active pledges
+          if (userInfo.pledges !== undefined) {
+            this.setState({
+              activePledges: userInfo.pledges.activePledges
+            });
+            // Remove active pledges from list of all pledges to get all pledges user can accept
+            for (var i = 0; i < newState.length; i++) {
+              for (var j = 0; j < this.state.activePledges.length; j++) {
+                if (newState[i].id === this.state.activePledges[j].id) {
+                  newState.splice(i, 1);
+                  i--;
+                  j = this.state.activePledges.length;
+                }
               }
             }
+            // Set list of pledges users can accept
+            this.setState({
+              pledges: newState
+            });
+
+          // If user has no active pledges, set list of pledges user can accept to all pledges
+          } else {
+            this.setState({
+              pledges: newState
+            });
           }
-          this.setState({
-            pledges: newState
-          });
-        })
-        
+
+          // Calculate the average footprint
+          this.calculateAverageFootprint();
+  
+          // Calculate the user's footprint
+          this.calculateFootprint();
+        }); 
+
       } else {
           // No user is signed in.
           console.log('There is no logged in user');
@@ -74,6 +96,7 @@ export default class Footprint extends React.Component {
     });
   }
 
+  // Toggle between tabs at top of page
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -110,6 +133,8 @@ export default class Footprint extends React.Component {
               pledges={this.state.pledges}
               location={this.state.user.location}
               addPledge={(pledge) => this.addPledge(pledge)}
+              userFootprint={this.state.userFootprint}
+              avgFootprint={this.state.avgFootprint}
             />
           </TabPane>
           <TabPane tabId="2">
@@ -144,5 +169,32 @@ export default class Footprint extends React.Component {
       }
     }
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({activePledges: this.state.activePledges});
+  }
+
+
+  calculateFootprint() {
+    let plasticSaved = 0;
+    this.state.activePledges.forEach((pledge) => {
+      plasticSaved += pledge.footprintReduction;
+    })
+    console.log('average footprint:' + this.state.avgFootprint);
+    this.setState({
+      userFootprint: this.state.avgFootprint - plasticSaved
+    });
+  }
+    
+  calculateAverageFootprint() {
+    const avgFootprintRef = firebase.database().ref('Average Footprint');
+    avgFootprintRef.on('value', (snapshot) => {
+      let locations = snapshot.val();
+      snapshot.forEach(function (child) {
+        let location = child.val();
+        if (location.locationName === this.state.user.location) {
+          this.setState({
+            avgFootprint: location.footprint
+          })
+        }
+      }.bind(this));
+    });
   }
 }
