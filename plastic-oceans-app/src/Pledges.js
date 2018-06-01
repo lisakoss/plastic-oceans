@@ -36,7 +36,7 @@ export default class Pledges extends React.Component {
     acceptPledge() {
         this.setPledgeModalToggle();
         this.startPledgeModalToggle();
-        this.state.pledge.footprintReduction = this.state.pledge.weight * this.state.slider;
+        this.state.pledge.footprintReduction = Math.round(this.state.pledge.weight * this.state.slider * 10)/10;
         console.log(this.state.pledge);
         this.props.addPledge(this.state.pledge);
     }
@@ -86,7 +86,7 @@ export default class Pledges extends React.Component {
 
             <Modal id="start-pledge-modal" isOpen={this.state.startPledgeModal} toggle={this.startPledgeModalToggle}>
                 <ModalBody>
-                    {this.state.pledge.footprintDesc + " " + (Math.round((this.state.pledge.weight * this.state.slider) * 10) / 10) + "g a week."}
+                    {this.state.pledge.footprintDesc + " " + this.state.pledge.footprintReduction + "g a week."}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.startPledgeModalToggle}>Close</Button>

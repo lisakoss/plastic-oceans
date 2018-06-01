@@ -15,7 +15,9 @@ export default class Footprint extends React.Component {
       activeTab: '1',
       pledges: [],
       activePledges: [],
-      user: {}
+      user: {},
+      avgFootprint: 1613.7,
+      pledgesAvailable: true
     };
 
     this.toggle = this.toggle.bind(this);
@@ -70,6 +72,17 @@ export default class Footprint extends React.Component {
                 }
               }
             }
+
+            // if (newState.length === 0) {
+            //   this.setState({
+            //     pledgesAvailable: false
+            //   })
+            // } else {
+            //   this.setState({
+            //     pledgesAvailable: true
+            //   })
+            // }
+
             // Set list of pledges users can accept
             this.setState({
               pledges: newState
@@ -82,8 +95,8 @@ export default class Footprint extends React.Component {
             });
           }
 
-          // Calculate the average footprint
-          this.calculateAverageFootprint();
+          // Calculate user's footprint
+          this.calculateFootprint();
         }); 
 
       } else {
@@ -177,22 +190,6 @@ export default class Footprint extends React.Component {
     let userFootprint = Math.round((this.state.avgFootprint - plasticSaved) * 10) / 10;
     this.setState({
       userFootprint: userFootprint
-    });
-  }
-    
-  calculateAverageFootprint() {
-    const avgFootprintRef = firebase.database().ref('Average Footprint');
-    avgFootprintRef.on('value', (snapshot) => {
-      let locations = snapshot.val();
-      snapshot.forEach(function (child) {
-        let location = child.val();
-        if (location.locationName === this.state.user.location) {
-          this.setState({
-            avgFootprint: location.footprint
-          });
-          this.calculateFootprint();
-        }
-      }.bind(this));
     });
   }
 }
