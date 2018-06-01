@@ -50,7 +50,6 @@ class NavigationBar extends Component {
   }
 
   render() {
-    console.log("WIDTH", this.state.width);
     let mobileNavBar = null;
     let navigation = null;
     let drawerContent = null;
@@ -77,32 +76,14 @@ class NavigationBar extends Component {
           <p>{this.props.title}</p>
         </div>
       );
-
-      if (this.state.userId !== null) {
-        navigation = (
-          <div ref="navBar" id="nav-bar">
-            <button id="menu" onClick={(e) => this.handleMenuClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="menu" /></button>
-            <Link to="/"><h1 id="app-title">Plastic Oceans</h1></Link>
-            <div id="nav-buttons">
-              <button ref="discoverButton" className="nav-button" id="Discover" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/44/44386.png" alt="earth icon" /><br />Discover</button>
-              <button ref="footprintButton" className="nav-button" id="Footprint" onClick={(e) => this.handleButtonClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Gnomelogo-footprint.svg" alt="footprint icon" /><br />Footprint</button>
-              <button ref="quizzesButton" className="nav-button" id="Quizzes" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/36/36601.png" alt="question mark icon" /><br />Quizzes</button>
-            </div>
-
-            <div id="slide-menu" ref="slideMenu" className="close-menu">
-              <h2>{this.props.userName}</h2>
-              <img id="profile-image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />
-              <Link to="/">Go to Profile</Link>
-              <Link to="/">Settings</Link>
-              <Logout />
-            </div>
-          </div>);
-      }
     } else {
       navigation = (
         <div ref="navBar" id="nav-bar">
           <button id="menu" onClick={(e) => this.handleMenuClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="menu" /></button>
-          <Link to="/"><h1 id="app-title">Plastic Oceans</h1></Link>
+          <Link to="/">
+            <img src="/logo.svg" alt="Plastic Oceans logo" id="logo"/> 
+            <h1 id="app-title">Plastic Oceans</h1>
+          </Link>
           <nav>
             <ul>
               <li ref="discoverButton" className="nav-button" id="Discover" onClick={(e) => this.handleButtonClick(e)}>Discover</li>
@@ -114,8 +95,6 @@ class NavigationBar extends Component {
           <div id="slide-menu" ref="slideMenu" className="close-menu">
             {drawerContent}
           </div>
-
-
         </div>);
     }
 
