@@ -3,6 +3,7 @@ import './index.css';
 import { Link } from 'react-router-dom';
 
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import NavigationBar from './NavigationBar';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -86,6 +87,7 @@ export default class SignInForm extends React.Component {
 
     return (
       <div className="sign-up tinted" role="article">
+      <NavigationBar title="Plastic Oceans"/>
         <div className="sign-up-container">
           <div className="sign-up-form">
             <h1>sign in</h1>

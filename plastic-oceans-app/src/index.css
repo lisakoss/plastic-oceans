@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300,400');
 
 html {
   display:flex;
@@ -91,6 +91,28 @@ body {
   display: none;
 }
 
+/* Navigation Styling for Mobile TOP Bar */
+
+#mobile-nav {
+  overflow: hidden;
+  background-color: #14b7c5;
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  height: 56px;
+}
+
+#mobile-nav p {
+  text-align: center;
+  color: #ffffff;
+  vertical-align: middle;
+  line-height: 56px; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 2px;
+}
 
 @media (min-width: 700px) {
 
@@ -103,8 +125,8 @@ body {
     position: fixed;
     top: 20vh;
     text-align: center;
-    font-family: Montserrat, sans-serif;
-    box-shadow: -4px 19px 10px 14px lightgray;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
   }
 
   #slide-menu h2 {
@@ -134,33 +156,36 @@ body {
   }*/
 
   #nav-bar {
-    background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
-    height: 20vh;
+    /*background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);*/
+    background-color: #14b7c5;
+    height: 100px;
     top: 0;
-    box-shadow: 15px 2px 8px 10px #b1d8dc;
+    /*box-shadow: 15px 2px 8px 10px #b1d8dc;*/
   }
 
   #menu, #app-title {
     display: inline;
     position: relative;
-    top: 10vh;
+    vertical-align: middle;
+    line-height: 100px; 
   }
 
   #app-title {
     font-family: "Open Sans", sans-serif;
-    color: #984fba;
+    color: #ffffff;
     font-weight: 100;
     font-size: 40px;
     cursor: default;
+    padding-bottom: 8px;
   }
 
   #nav-buttons {
-    justify-content: flex-end;
-    align-items: flex-end;  
-    position: relative;
-    top: 0.5vh;
-    background-color: transparent;
     pointer-events: none;
+    white-space: nowrap;
+    justify-content: flex-end;
+    align-content: flex-end;
+    align-items: flex-end;
+    display: inline;
   }
 
   .nav-button, #menu {
@@ -180,7 +205,7 @@ body {
     width: 30px;
     padding: 0;
     margin-right: 10px;
-    margin-left: 5px;
+    margin-left: 5%;
   }
 
   #menu img {
@@ -338,7 +363,7 @@ body {
 .sign-up {
   width: 100%;
   min-height: 100%;
-  padding-top: 5%;
+  padding-top: 100px;
   position: absolute;
 }
 
@@ -413,7 +438,7 @@ body {
   font-weight: 300;
   text-transform: uppercase;
   color: #fff;
-  width: 35%;
+  width: 75%;
 }
 
 .logout-btn .btn-primary:hover {
