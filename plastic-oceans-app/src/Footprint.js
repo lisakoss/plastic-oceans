@@ -84,9 +84,6 @@ export default class Footprint extends React.Component {
 
           // Calculate the average footprint
           this.calculateAverageFootprint();
-  
-          // Calculate the user's footprint
-          this.calculateFootprint();
         }); 
 
       } else {
@@ -107,8 +104,8 @@ export default class Footprint extends React.Component {
 
   render() {
     return (
-      <div>
-        <Nav tabs>
+      <div id="footprint">
+        <Nav tabs id="footprint-tabs">
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
@@ -175,11 +172,11 @@ export default class Footprint extends React.Component {
   calculateFootprint() {
     let plasticSaved = 0;
     this.state.activePledges.forEach((pledge) => {
-      plasticSaved += pledge.footprintReduction;
+      plasticSaved += pledge.footprintReduction
     })
-    console.log('average footprint:' + this.state.avgFootprint);
+    let userFootprint = Math.round((this.state.avgFootprint - plasticSaved) * 10) / 10;
     this.setState({
-      userFootprint: this.state.avgFootprint - plasticSaved
+      userFootprint: userFootprint
     });
   }
     
@@ -192,7 +189,8 @@ export default class Footprint extends React.Component {
         if (location.locationName === this.state.user.location) {
           this.setState({
             avgFootprint: location.footprint
-          })
+          });
+          this.calculateFootprint();
         }
       }.bind(this));
     });

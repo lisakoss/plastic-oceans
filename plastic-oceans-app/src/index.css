@@ -14,6 +14,10 @@ body {
   flex: 1;
 }
 
+#root {
+  width: 100%;
+}
+
 /* Red Error Alert */
 .red-error {
   background-color: #ffb3b3;
@@ -50,9 +54,14 @@ body {
 }
 
 /* Footprint Style */
-.nav-tabs > li {
+#footprint {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#footprint-tabs > li {
   width: 50%;
   font-weight: bold;
+  text-align: left;
 }
 
 .footprint {
@@ -68,8 +77,12 @@ body {
   cursor: pointer;
 }
 
-.nav-tabs .nav-item .nav-link.active {
+#footprint-tabs .nav-item .nav-link.active {
   color: black;
+}
+
+.modal {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* My Footprint Style */
@@ -105,9 +118,10 @@ body {
 }
 
 /* Pledges List Style */
-#my-footprint-pledges-header {
+.my-footprint-header {
   margin-bottom: 2%;
   font-weight: bold;
+  text-align: left;
 }
 
 #my-footprint-title {
@@ -128,12 +142,18 @@ body {
   overflow: scroll;
 }
 
-.pledge > .btn {
-  float: right;
-}
-
 .pledge > .pledge-info {
   display: inline-block;
+  flex-shrink: 1;
+}
+
+.pledge .pledge-info p{
+  margin-top: 1rem;
+}
+
+.pledge > .btn {
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .pledge-title {
@@ -143,6 +163,19 @@ body {
 .slider-value {
   font-size: 3em;
   text-align: center;
+}
+
+#pledge-list .list-group-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+#pledge-list {
+  display: flex;
 }
 
 /* Navigation Bar Style */
