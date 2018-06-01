@@ -120,7 +120,7 @@ body {
   #slide-menu {
     display: block;
     background: linear-gradient(#f6f6f6, #e3e9eb, #b1d8dc);
-    width: 25vw;
+    width: 250px;
     height: 100vh;
     position: fixed;
     top: 100px;
@@ -134,15 +134,35 @@ body {
     color: #984fba;
   }
 
+  #slide-menu p {
+    padding-top: 10px;
+    text-align: center;
+  }
+
   #profile-image {
     width: 70%;
   }
 
-  #slide-menu a {
+  #slide-menu a:link, #slide-menu a:visited, #slide-menu a:active {
     display: block;
-    margin-bottom: 15px;
     color: #984fba;
     text-decoration: none;
+    text-transform: none;
+    -webkit-transition: .1s ease-out;
+    -moz-transition:.1s ease-out;
+    -o-transition: .1s ease-out;
+    transition: .1s ease-out;
+  }
+
+  #slide-menu a:hover {
+    display: block;
+    color: #14b7c5;
+    text-decoration: none;
+    text-transform: none;
+    -webkit-transition: .1s ease-out;
+    -moz-transition:.1s ease-out;
+    -o-transition: .1s ease-out;
+    transition: .1s ease-out;
   }
 
   /*#logout-btn {
@@ -228,7 +248,7 @@ body {
 
   .nav-button, #menu {
     border: none;
-    color: #984fba;
+    color: #ffffff;
     background-color: transparent;
     pointer-events: all;
   }
@@ -255,10 +275,12 @@ body {
   .nav-button:hover {
     border: none;
     font-weight: bold;
+    color: #984fba;
   }
 
   .selected { 
-    color: white;
+    color: #984fba;
+    font-weight: bold;
   }
 
   .slide-in {
@@ -435,7 +457,7 @@ body {
   text-align: center;
 }
 
-.sign-up a:link, a:active, a:visited {
+.sign-up a:link, .sign-up a:active, .sign-up a:visited {
   color: #984fba;
   text-transform: uppercase;
   font-weight: bold;
@@ -447,6 +469,8 @@ body {
 
 .sign-up a:hover {
   color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
   text-decoration: none; 
   -webkit-transition: .1s ease-out;
   -moz-transition:.1s ease-out;

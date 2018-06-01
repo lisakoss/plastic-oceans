@@ -8,7 +8,7 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null
+      error: undefined
     };
     
     // put optional this binding here
@@ -74,7 +74,7 @@ export default class SignUp extends React.Component {
 
     // show user sign up form if logged out
     if (!this.state.userId) {
-      content = (<div><SignUpForm signUpCallback={this.createNewUser} emailError={this.state.error} /></div>);
+      content = (<div><SignUpForm signUpCallback={this.createNewUser} error={this.state.error} /></div>);
     }
 
     return (

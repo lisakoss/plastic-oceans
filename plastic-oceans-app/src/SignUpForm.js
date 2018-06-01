@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
+import NavigationBar from './NavigationBar'
+
 export default class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
@@ -63,11 +65,24 @@ export default class SignUpForm extends React.Component {
     }
 
 
+
     if (value !== undefined) { //check validations
       //all fields are required
       if (validations.required && value === '') {
         errors.required = true;
         errors.isValid = false;
+      }
+
+
+      //handle email type
+      if (validations.email) {
+        //pattern comparison that works 99.99% of the time from
+        //http://emailregex.com/ 
+        let valid = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/.test(value);
+        if (!valid) {
+          errors.email = true;
+          errors.isValid = false;
+        }
       }
 
       //password minLength
@@ -91,49 +106,7 @@ export default class SignUpForm extends React.Component {
         }
       }
 
-      //handle email type
-      if (validations.email) {
-        //pattern comparison that works 99.99% of the time from
-        //http://emailregex.com/ 
-        let valid = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/.test(value);
-        if (!valid) {
-          errors.email = true;
-          errors.isValid = false;
-        } else {
-          if (validations.emailTaken) {
-            if(this.props.emailError) {
-              errors.emailTaken = true;
-              errors.isValid = false;
-            }
-            /*let error = false;
-            firebase.auth().fetchSignInMethodsForEmail((this.state.email + ""))
-              .then(function (signInMethods) {
-                // This returns the same array as fetchProvidersForEmail but for email
-                // provider identified by 'password' string, signInMethods would contain 2
-                // different strings:
-                // 'emailLink' if the user previously signed in with an email/link
-                // 'password' if the user has a password.
-                // A user could have both.
-                console.log("SIGN LENGTH", signInMethods.length);
-                if (signInMethods.length !== 0) {
-                  console.log("ALREADY IN USE")
-                  // User can sign in with email/password.
-                  errors.emailTaken = true;
-                  errors.isValid = false;
-                }
-                console.log("SIGNIN METHODS", signInMethods);
-              })
-              .catch(function (error) {
-                // Some error occurred, you can inspect the code: error.code
-                console.log("EMAIL ERROR", error);
-              }).then(function(value) {
-                console.log("whats the val", value);
-              });
 
-          }*/
-        }
-      }
-    }
 
       // handle password confirmation
       if (validations.match) {
@@ -169,48 +142,62 @@ export default class SignUpForm extends React.Component {
     let submitDisabled = false;
     let submitState = "primary";
 
+    let emailExists = "";
+    let errorAlert = (<div className="hidden"><p></p></div>);
+
+    if(this.props.error !== undefined) {
+      emailExists = this.props.error;
+      errorAlert = (<div className="alert red-error"><p>{emailExists}</p></div>);
+    } else if(this.props.error === undefined) {
+      emailExists = null;
+      errorAlert = (<div className="hidden"><p></p></div>);
+    }
+
     //set to secondary disabled when errors show
     //button validation
     let signUpEnabled = (firstNameErrors.isValid && lastNameErrors.isValid && usernameErrors.isValid && emailErrors.isValid && locationErrors.isValid && passwordErrors.isValid && passwordConfirmErrors.isValid);
 
-    if(!signUpEnabled) {
+    if (!signUpEnabled) {
       submitDisabled = true;
       submitState = "secondary"
     }
 
+
     return (
       <div className="sign-up tinted" role="article">
-      <div className="sign-up-container">
-      <div className="sign-up-form">
-        <h1>sign up</h1>
-        <Form>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="text" name="firstName" fieldName="First Name" id="first-name" onChange={this.handleFormChange} errors={firstNameErrors} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="text" name="lastName" fieldName="Last Name" id="last-name" onChange={this.handleFormChange} errors={lastNameErrors} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="text" name="username" fieldName="Username" id="username" onChange={this.handleFormChange} errors={usernameErrors} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="email" name="email" fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInputLocation type="select" name="location" fieldName="Location" id="location" onChange={this.handleFormChange} errors={locationErrors} options={["", "Urban", "Suburban", "Rural"]} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="password" name="password" fieldName="Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
-          </FormGroup>
-          <FormGroup onChange={this.handleFormChange}>
-            <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
-          </FormGroup>
-          <div className="sign-up-button">
-          <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
-          <p className="no-account">Already have an account? <Link to="/signin">Sign in here.</Link></p>
-       </div>
-        </Form>
-        </div>
+        <NavigationBar />
+        <div className="sign-up-container">
+          <div className="sign-up-form">
+            <h1>sign up</h1>
+            {errorAlert}
+            <Form>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="text" name="firstName" fieldName="First Name" id="first-name" onChange={this.handleFormChange} errors={firstNameErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="text" name="lastName" fieldName="Last Name" id="last-name" onChange={this.handleFormChange} errors={lastNameErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="text" name="username" fieldName="Username" id="username" onChange={this.handleFormChange} errors={usernameErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="email" name="email" fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInputLocation type="select" name="location" fieldName="Location" id="location" onChange={this.handleFormChange} errors={locationErrors} options={["", "Urban", "Suburban", "Rural"]} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="password" name="password" fieldName="Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
+              </FormGroup>
+              <div className="sign-up-button">
+                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
+                <p className="no-account">Already have an account? <Link to="/signin">Sign in here.</Link></p>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     );
@@ -223,8 +210,6 @@ class ValidatedInput extends React.Component {
   render() {
     let errors = this.props.errors.style != "" ? "invalid" : "";
     let errorMessage = "";
-
-    console.log("RENDER ARROEERS", this.props.emailError);
 
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
