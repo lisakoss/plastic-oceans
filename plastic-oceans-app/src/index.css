@@ -53,11 +53,17 @@ body {
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
-.show {
+.showMarkerTooltip {
   visibility: visible !important;
   -webkit-animation: fadeIn 1s !important;
   animation: fadeIn 1s !important;
   position: absolute;
+  background-color: red !important;
+  width: 100px !important;
+}
+
+.rsm-marker {
+  width: 50px !important;
 }
 
 

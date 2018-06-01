@@ -52,27 +52,57 @@ export default class Discover extends React.Component {
       .then(parsedRes => {
         //console.log("parsedRes", parsedRes);
         let previousCoords = [];
-        let currentItems = [];
+        //let currentItems = [];
+        let currentItems = new Map();
+        let currentItemsMap = new Map();
         let count = 0;
         for (let debris of parsedRes) {
           //console.log("debris", debris)
           // if coords match
           //console.log("previos", previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude);
           if (previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude) {
-            currentItems.push(debris.ItemName);
+            //currentItems.push(`${debris.ItemName}`);
+
+            let mapCount = currentItemsMap.get(debris.ItemName);
+            if(mapCount === undefined) { 
+              currentItemsMap.set(debris.ItemName, 1);
+            } else {
+              mapCount++;
+              currentItemsMap.set(debris.ItemName, mapCount)
+            }
+            //currentItems.set(debris.ItemName, )
+            //currentItems.push(" ");
           } else { // else coords don't match, create marker
-            currentItems.push(debris.ItemName);
+            //currentItems.push(`${debris.ItemName}`);
+            console.log("NEW MARKER!!!!!!!", currentItemsMap);
             previousCoords = [debris.Longitude, debris.Latitude];
+
+            /*for(let item in currentItems) {
+              console.log("the item", currentItems[item])
+            }*/
+
+            let itemString = "";
+            let yAxisNum = 0;
+            for(let item of currentItemsMap) {
+              console.log("item", item);
+              console.log("key", item[0]);
+              console.log("val", item[1]);
+              itemString += `<tspan x="0", y="${yAxisNum}">${item[0]} x${item[1]}</tspan>`
+              yAxisNum += 15
+            }
+            console.log("item string", itemString);
 
             let debrisObj = {
               markerOffset: -25,
-              name: currentItems,
+              name: itemString,
               coordinates: [debris.Longitude, debris.Latitude],
               id: count
             }
+            
             mapMarkers.push(debrisObj);
-            currentItems = [];
+            //currentItems = [];
             count++;
+            currentItemsMap = new Map();
           }
         }
 
@@ -111,7 +141,7 @@ export default class Discover extends React.Component {
     //this.setState({ popup: "show" })
     console.log("Event", e.id);
     console.log("the element", $(`#${e.id}`));
-    $(`#${e.id}`).addClass("show");
+    $(`#${e.id}`).addClass("showMarkerTooltip");
   }
 
   render() {
@@ -127,10 +157,12 @@ export default class Discover extends React.Component {
         className={"popup"}
         key={i}
         marker={marker}
+        width="50"
         style={{
           default: { fill: "#FF5722" },
           hover: { fill: "#FFFFFF" },
           pressed: { fill: "#FF5722" },
+          width: "50"
         }}
         onClick={this.hoverMarker}
       >
@@ -145,17 +177,24 @@ export default class Discover extends React.Component {
           }}
         />
         <text
-          textAnchor="middle"
           y={marker.markerOffset}
+          width="50px"
           style={{
             fontFamily: "Roboto, sans-serif",
             fill: "#607D8B",
+            transform:"scale(1, 1)",
+            width: "50px"
           }}
           id={i}
           className={this.state.popup}
+          dangerouslySetInnerHTML={{ __html: marker.name }}
         >
-          {marker.name}
+
+
+
+
         </text>
+
       </Marker>
     ))
 
