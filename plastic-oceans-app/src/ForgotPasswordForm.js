@@ -98,7 +98,6 @@ export default class ForgotPasswordForm extends React.Component {
 
     return (
       <div className="sign-up tinted" role="article">
-        <NavigationBar title="Plastic Oceans" />
         <div className="sign-up-container">
           <div className="sign-up-form">
             <h1 className="forgot-pass">forgot password</h1>

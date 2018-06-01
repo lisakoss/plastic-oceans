@@ -165,7 +165,6 @@ export default class SignUpForm extends React.Component {
 
     return (
       <div className="sign-up tinted" role="article">
-        <NavigationBar title="Plastic Oceans" />
         <div className="sign-up-container">
           <div className="sign-up-form">
             <h1>sign up</h1>

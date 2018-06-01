@@ -44,9 +44,9 @@ body {
 #nav-bar {
   width: 100vw;
   height: 10vh;
-  position: fixed;
-  bottom: 0;
   z-index: 1000;
+  position: fixed;
+  bottom: 0px;
 }
 
 #nav-buttons {
@@ -54,6 +54,8 @@ body {
   justify-content: center;
   flex-direction: row;
   width: 100%;
+  position: fixed;
+  bottom: 0px;
 }
 
 .nav-button {
@@ -487,7 +489,7 @@ body {
 }
 
 .forgot-pass {
-  font-size: 42px !important;
+  font-size: 36px !important;
 }
 
 .sign-up-form {
@@ -594,7 +596,16 @@ body {
   }
 
   .sign-up {
-    padding-top: 150px;
+    padding-top: 80px;
   }
 
+  .forgot-pass {
+    font-size: 42px !important;
+  }
+}
+
+@media screen and (min-width: 701px) {
+  .sign-up-container {
+    width: 40%;
+  }
 }
