@@ -262,12 +262,12 @@ body {
   }
 
   .slide-in {
-    animation-duration: 2.5s;
+    animation-duration: 1s;
     animation-name: slidein;
   }
 
   .slide-out {
-    animation-duration: 2.5s;
+    animation-duration: 1s;
     animation-name: slideout;
   }
 
