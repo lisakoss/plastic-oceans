@@ -114,16 +114,16 @@ body {
   letter-spacing: 2px;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 701px) {
 
   /* Navigation Bar for Desktop */
   #slide-menu {
     display: block;
-    background: radial-gradient(white, #e3e9eb, #b1d8dc);
+    background: linear-gradient(#f6f6f6, #e3e9eb, #b1d8dc);
     width: 25vw;
     height: 100vh;
     position: fixed;
-    top: 20vh;
+    top: 100px;
     text-align: center;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -160,21 +160,50 @@ body {
     background-color: #14b7c5;
     height: 100px;
     top: 0;
+    width: 100%;
     /*box-shadow: 15px 2px 8px 10px #b1d8dc;*/
   }
 
+  #nav-bar h1 {
+    display: inline;
+    margin-right: 0px;
+  }
+
+  nav{
+    display:inline;
+    float: right;
+    margin-top: 38px;
+    padding-right: 5%;
+  }
+    
+  ul {
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+  }
+  
+  li {
+    display: inline;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 20px;
+    margin-left: -5px;
+    vertical-align: center;
+  }
+  
   #menu, #app-title {
     display: inline;
     position: relative;
     vertical-align: middle;
     line-height: 100px; 
+    float: left;
   }
 
   #app-title {
     font-family: "Open Sans", sans-serif;
     color: #ffffff;
     font-weight: 100;
-    font-size: 40px;
+    font-size: 30px;
     cursor: default;
     padding-bottom: 8px;
   }
@@ -188,13 +217,16 @@ body {
     display: inline;
   }
 
-  .nav-button, #menu {
+  .nav-button {
     width: 8%;
-    font-size: 120%;
+    font-size: 92%;
     padding: 0;
     margin-left: 35px;
     margin-right: 5px;
     margin-bottom: 10px;
+  }
+
+  .nav-button, #menu {
     border: none;
     color: #984fba;
     background-color: transparent;
@@ -265,6 +297,21 @@ body {
     to {
       margin-left: -30%;
     }
+  }
+}
+
+@media (min-width: 850px) {
+  #app-title {
+    font-size: 40px;
+  }
+
+  .nav-button {
+    width: 8%;
+    font-size: 120%;
+  }
+
+  nav {
+    margin-top: 36px;
   }
 }
 
@@ -474,4 +521,9 @@ body {
   .sign-up h1 {
     font-size: 70px;
   }
+
+  .sign-up {
+    padding-top: 150px;
+  }
+
 }

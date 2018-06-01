@@ -40,6 +40,10 @@ class NavigationBar extends Component {
 
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
+
+    if(this.state.width <= 700) {
+      this.setState({ isMenuOpen: false });
+    }
   }
 
   render() {
@@ -53,34 +57,38 @@ class NavigationBar extends Component {
           <p>{this.props.title}</p>
         </div>
       );
-      if(this.state.userId == null) {
-        navigation = (<div ref="navBar" id="nav-bar">
-        <button id="menu" onClick={(e) => this.handleMenuClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="menu" /></button>
-        <h1 id="app-title">Plastic Oceans</h1>
-        <div id="nav-buttons">
-          <button ref="discoverButton" className="nav-button selected" id="Discover" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/44/44386.png" alt="earth icon" /><br />Discover</button>
-          <button ref="footprintButton" className="nav-button" id="Footprint" onClick={(e) => this.handleButtonClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Gnomelogo-footprint.svg" alt="footprint icon" /><br />Footprint</button>
-          <button ref="quizzesButton" className="nav-button" id="Quizzes" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/36/36601.png" alt="question mark icon" /><br />Quizzes</button>
-        </div>
+      if (this.state.userId !== null) {
+        navigation = (
+          <div ref="navBar" id="nav-bar">
+            <button id="menu" onClick={(e) => this.handleMenuClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="menu" /></button>
+            <h1 id="app-title">Plastic Oceans</h1>
+            <div id="nav-buttons">
+              <button ref="discoverButton" className="nav-button selected" id="Discover" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/44/44386.png" alt="earth icon" /><br />Discover</button>
+              <button ref="footprintButton" className="nav-button" id="Footprint" onClick={(e) => this.handleButtonClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Gnomelogo-footprint.svg" alt="footprint icon" /><br />Footprint</button>
+              <button ref="quizzesButton" className="nav-button" id="Quizzes" onClick={(e) => this.handleButtonClick(e)}><img src="https://image.flaticon.com/icons/png/512/36/36601.png" alt="question mark icon" /><br />Quizzes</button>
+            </div>
 
-        <div id="slide-menu" ref="slideMenu" className="close-menu">
-          <h2>{this.props.userName}</h2>
-          <img id="profile-image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />
-          <a href="">Go to Profile</a>
-          <a href="">Settings</a>
-          <Logout />
-        </div>
-      </div>);
+            <div id="slide-menu" ref="slideMenu" className="close-menu">
+              <h2>{this.props.userName}</h2>
+              <img id="profile-image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />
+              <a href="">Go to Profile</a>
+              <a href="">Settings</a>
+              <Logout />
+            </div>
+          </div>);
       }
     } else {
-      navigation = (<div ref="navBar" id="nav-bar">
+      navigation = (
+      <div ref="navBar" id="nav-bar">
         <button id="menu" onClick={(e) => this.handleMenuClick(e)}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="menu" /></button>
         <h1 id="app-title">Plastic Oceans</h1>
-        <div id="nav-buttons">
-          <button ref="discoverButton" className="nav-button selected" id="Discover" onClick={(e) => this.handleButtonClick(e)}>Discover</button>
-          <button ref="footprintButton" className="nav-button" id="Footprint" onClick={(e) => this.handleButtonClick(e)}>Footprint</button>
-          <button ref="quizzesButton" className="nav-button" id="Quizzes" onClick={(e) => this.handleButtonClick(e)}>Quizzes</button>
-        </div>
+        <nav>
+        <ul>
+          <li ref="discoverButton" className="nav-button selected" id="Discover" onClick={(e) => this.handleButtonClick(e)}>Discover</li>
+          <li ref="footprintButton" className="nav-button" id="Footprint" onClick={(e) => this.handleButtonClick(e)}>Footprint</li>
+          <li ref="quizzesButton" className="nav-button" id="Quizzes" onClick={(e) => this.handleButtonClick(e)}>Quizzes</li>
+        </ul>
+        </nav>
 
         <div id="slide-menu" ref="slideMenu" className="close-menu">
           <h2>{this.props.userName}</h2>
