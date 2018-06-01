@@ -100,7 +100,7 @@ export default class SignInForm extends React.Component {
               <div className="sign-up-button">
                 <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.signInUser(event)}>Submit</Button>
                 <p>Forgot password?</p>
-                <p>Don't have an account? <Link to="/signup">Sign up here.</Link></p>
+                <p className="no-account">Don't have an account? <Link to="/signup">Sign up here.</Link></p>
               </div>
             </Form>
           </div>

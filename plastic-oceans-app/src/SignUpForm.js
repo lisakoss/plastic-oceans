@@ -207,7 +207,7 @@ export default class SignUpForm extends React.Component {
           </FormGroup>
           <div className="sign-up-button">
           <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
-          <p>Already have an account? <Link to="/signin">Sign in here.</Link></p>
+          <p className="no-account">Already have an account? <Link to="/signin">Sign in here.</Link></p>
        </div>
         </Form>
         </div>
