@@ -41,7 +41,8 @@ export default class Footprint extends React.Component {
               desc: pledge.desc,
               question: pledge.question,
               footprintDesc: pledge.footprintDesc,
-              weight: pledge.weight
+              weight: pledge.weight,
+              icon: pledge.icon
             });
           })
         });

@@ -53,8 +53,11 @@ export default class Pledges extends React.Component {
                                 return (
                                     <ListGroupItem key={pledge.id} className='pledge'>
                                         <div className='pledge-info'>
-                                            <p className='pledge-title'>{pledge.title}</p>
-                                            <p>{pledge.desc}</p>
+                                        <img src={require("./img/" + pledge.icon + ".png")} alt={pledge.icon + "icon"} className="pledge-icon"/>
+                                            <div className="pledge-text">
+                                                <p className='pledge-title'>{pledge.title}</p>
+                                                <p>{pledge.desc}</p>
+                                            </div>
                                         </div>
                                         <Button onClick={() => 
                                             this.setState({
