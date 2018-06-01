@@ -122,7 +122,7 @@ body {
   #slide-menu {
     display: block;
     background: linear-gradient(#f6f6f6, #e3e9eb, #b1d8dc);
-    width: 250px;
+    width: 25vw;
     height: 100vh;
     position: fixed;
     top: 100px;
@@ -225,14 +225,14 @@ body {
     font-family: "Open Sans", sans-serif;
     color: #ffffff;
     font-weight: 100;
-    font-size: 30px;
+    font-size: 22px;
     cursor: default;
     padding-bottom: 8px;
   }
 
   #logo {
-    margin-top: 30px;
-    width: 45px;
+    margin-top: 32px;
+    width: 40px;
     margin-right: 10px;
     margin-left: 10px;
   }
@@ -248,7 +248,7 @@ body {
 
   .nav-button {
     width: 8%;
-    font-size: 92%;
+    font-size: 95%;
     padding: 0;
     margin-left: 35px;
     margin-right: 5px;
@@ -331,7 +331,33 @@ body {
   }
 }
 
-@media (min-width: 850px) {
+@media (min-width: 790px) {
+  #app-title {
+    font-size: 30px;
+  }
+
+  .nav-button {
+    width: 8%;
+    font-size: 100%;
+  }
+
+  nav {
+    margin-top: 38px;
+  }
+
+  #logo {
+    margin-top: 30px;
+    width: 45px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  #slide-menu {
+    width: 25vw;
+  }
+}
+
+@media (min-width: 920px) {
   #app-title {
     font-size: 40px;
   }
@@ -343,6 +369,10 @@ body {
 
   nav {
     margin-top: 36px;
+  }
+
+  #slide-menu {
+    width: 20vw;
   }
 }
 
@@ -456,14 +486,22 @@ body {
   line-height: 1;
 }
 
+.forgot-pass {
+  font-size: 42px !important;
+}
+
 .sign-up-form {
   width: 90%;
   margin: 0 auto;
   padding-top: 20px;
 }
 
-.sign-up-button {
+.sign-up-button, .forgot-button {
   text-align: center;
+}
+
+.forgot-button .btn-secondary, .forgot-button .btn-primary {
+  margin-bottom: 20px !important;
 }
 
 .sign-up a:link, .sign-up a:active, .sign-up a:visited {

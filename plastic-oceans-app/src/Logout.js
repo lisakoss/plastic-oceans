@@ -22,7 +22,7 @@ export default class Logout extends React.Component {
 			if(user) {
 				this.setState({userId:user.uid}); //grabs user id
 			} else { //redirects to home page once logged out
-				this.setState({userId: null}); //null out the saved state
+        this.setState({userId: null}); //null out the saved state
 			}
 		});
   }
