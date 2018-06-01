@@ -11,6 +11,7 @@ import {
 import { Motion, spring } from "react-motion"
 import fetch from 'node-fetch';
 import ReactTooltip from "react-tooltip";
+import $ from "jquery";
 
 const wrapperStyles = {
   width: "100%",
@@ -27,6 +28,7 @@ export default class Discover extends React.Component {
       markers: [
         { name: "Caracas", coordinates: [-66.9036, 10.4806] },
       ],
+      popup: "popuptext"
     }
 
     this.handleCityClick = this.handleCityClick.bind(this);
@@ -51,6 +53,7 @@ export default class Discover extends React.Component {
         //console.log("parsedRes", parsedRes);
         let previousCoords = [];
         let currentItems = [];
+        let count = 0;
         for (let debris of parsedRes) {
           //console.log("debris", debris)
           // if coords match
@@ -65,9 +68,11 @@ export default class Discover extends React.Component {
               markerOffset: -25,
               name: currentItems,
               coordinates: [debris.Longitude, debris.Latitude],
+              id: count
             }
             mapMarkers.push(debrisObj);
             currentItems = [];
+            count++;
           }
         }
 
@@ -99,26 +104,35 @@ export default class Discover extends React.Component {
     })
   }
 
-  hoverMarker(markerName) {
-    console.log("does this work", markerName);
-    alert(markerName);
+  hoverMarker(e) {
+    var popup = document.getElementById("myPopup");
+    //console.log("the popup", $("#popup"))
+    //popup.classList.toggle("show");
+    //this.setState({ popup: "show" })
+    console.log("Event", e.id);
+    console.log("the element", $(`#${e.id}`));
+    $(`#${e.id}`).addClass("show");
   }
 
   render() {
+    $('.popuptext').on('click', function () {
+      alert(this.id);
+  });
+
     console.log("the state", this.state.markers);
     let markersForMap = [];
 
     markersForMap = this.state.markers.map((marker, i) => (
       <Marker
+        className={"popup"}
         key={i}
         marker={marker}
-        onClick={this.handleCityClick}
         style={{
           default: { fill: "#FF5722" },
           hover: { fill: "#FFFFFF" },
           pressed: { fill: "#FF5722" },
         }}
-        onClick={() => this.hoverMarker(marker.name)}
+        onClick={this.hoverMarker}
       >
         <circle
           cx={0}
@@ -130,6 +144,18 @@ export default class Discover extends React.Component {
             opacity: 0.9,
           }}
         />
+        <text
+          textAnchor="middle"
+          y={marker.markerOffset}
+          style={{
+            fontFamily: "Roboto, sans-serif",
+            fill: "#607D8B",
+          }}
+          id={i}
+          className={this.state.popup}
+        >
+          {marker.name}
+        </text>
       </Marker>
     ))
 
@@ -210,6 +236,7 @@ export default class Discover extends React.Component {
             </div>
           )}
         </Motion>
+
       </div>
     )
   }
