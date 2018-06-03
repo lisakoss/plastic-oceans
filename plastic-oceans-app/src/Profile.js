@@ -36,7 +36,7 @@ export default class Profile extends React.Component {
             this.setState({ level: snapshot.child("Level").val() });
             this.setState({ avatar: snapshot.child("avatar").val() });
             this.setState({ pledgesSigned: snapshot.child("pledges/activePledges").val() });
-            this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val().length })
+            this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val() !== null ? snapshot.child("pledges/activePledges").val().length : 0 });
             pledges = snapshot.child("pledges/activePledges").val()
 
             var avgFootRef = firebase.database().ref('Average Footprint');
@@ -44,10 +44,11 @@ export default class Profile extends React.Component {
               .then(snapshot => {
                 let thisComponent = this;
                 this.setState({ averageFootPrint: snapshot.val() });
-
+              if (this.state.pledgeCount !== 0) {
                 pledges.forEach(function (pledge) {
                   thisComponent.setState({ averageFootPrint: snapshot.val() - pledge.footprintReduction });
                 });
+              }
               });
           });
       }
