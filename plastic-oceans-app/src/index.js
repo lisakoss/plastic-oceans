@@ -17,7 +17,8 @@ var config = {
   storageBucket: "plastic-oceans.appspot.com",
   messagingSenderId: "244318961535"
 };
-firebase.initializeApp(config);
+var app = firebase.initializeApp(config);
+export var auth = app.auth();
 
 // Render the application view
 ReactDOM.render(

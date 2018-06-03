@@ -12,6 +12,8 @@ import { Motion, spring } from "react-motion"
 import fetch from 'node-fetch';
 import ReactTooltip from "react-tooltip";
 
+import NavigationBar from './NavigationBar'
+
 const wrapperStyles = {
   width: "100%",
   maxWidth: 980,
@@ -136,80 +138,83 @@ export default class Discover extends React.Component {
 
     console.log("map markers", markersForMap);
     return (
-      <div style={wrapperStyles}>
-        <button onClick={this.handleZoomIn}>
-          {"Zoom in"}
-        </button>
-        <button onClick={this.handleZoomOut}>
-          {"Zoom out"}
-        </button>
-        <button onClick={this.handleReset}>
-          {"Reset"}
-        </button>
-        <Motion
-          defaultStyle={{
-            zoom: 1,
-            x: 0,
-            y: 20,
-          }}
-          style={{
-            zoom: spring(this.state.zoom, { stiffness: 210, damping: 20 }),
-            x: spring(this.state.center[0], { stiffness: 210, damping: 20 }),
-            y: spring(this.state.center[1], { stiffness: 210, damping: 20 }),
-          }}
-        >
-          {({ zoom, x, y }) => (
-            <div>
-              <ComposableMap
-                projectionConfig={{ scale: 205 }}
-                width={980}
-                height={551}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-              >
-                <ZoomableGroup center={[x, y]} zoom={zoom}>
-                  <Geographies geography="https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/examples/with-react-tooltip/static/world-50m.json">
-                    {(geographies, projection) =>
-                      geographies.map((geography, i) => geography.id !== "ATA" && (
-                        <Geography
-                          key={i}
-                          data-tip={geography.properties.name}
-                          geography={geography}
-                          projection={projection}
-                          style={{
-                            default: {
-                              fill: "#ECEFF1",
-                              stroke: "#607D8B",
-                              strokeWidth: 0.75,
-                              outline: "none",
-                            },
-                            hover: {
-                              fill: "#CFD8DC",
-                              stroke: "#607D8B",
-                              strokeWidth: 0.75,
-                              outline: "none",
-                            },
-                            pressed: {
-                              fill: "#FF5722",
-                              stroke: "#607D8B",
-                              strokeWidth: 0.75,
-                              outline: "none",
-                            },
-                          }}
-                        />
-                      ))}
-                  </Geographies>
-                  <Markers>
-                    {markersForMap}
-                  </Markers>
-                </ZoomableGroup>
-              </ComposableMap>
-              <ReactTooltip />
-            </div>
-          )}
-        </Motion>
+      <div>
+        <NavigationBar title="Discover" selected="discover"/>
+        <div style={wrapperStyles}>
+          <button onClick={this.handleZoomIn}>
+            {"Zoom in"}
+          </button>
+          <button onClick={this.handleZoomOut}>
+            {"Zoom out"}
+          </button>
+          <button onClick={this.handleReset}>
+            {"Reset"}
+          </button>
+          <Motion
+            defaultStyle={{
+              zoom: 1,
+              x: 0,
+              y: 20,
+            }}
+            style={{
+              zoom: spring(this.state.zoom, { stiffness: 210, damping: 20 }),
+              x: spring(this.state.center[0], { stiffness: 210, damping: 20 }),
+              y: spring(this.state.center[1], { stiffness: 210, damping: 20 }),
+            }}
+          >
+            {({ zoom, x, y }) => (
+              <div>
+                <ComposableMap
+                  projectionConfig={{ scale: 205 }}
+                  width={980}
+                  height={551}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                >
+                  <ZoomableGroup center={[x, y]} zoom={zoom}>
+                    <Geographies geography="https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/examples/with-react-tooltip/static/world-50m.json">
+                      {(geographies, projection) =>
+                        geographies.map((geography, i) => geography.id !== "ATA" && (
+                          <Geography
+                            key={i}
+                            data-tip={geography.properties.name}
+                            geography={geography}
+                            projection={projection}
+                            style={{
+                              default: {
+                                fill: "#ECEFF1",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.75,
+                                outline: "none",
+                              },
+                              hover: {
+                                fill: "#CFD8DC",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.75,
+                                outline: "none",
+                              },
+                              pressed: {
+                                fill: "#FF5722",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.75,
+                                outline: "none",
+                              },
+                            }}
+                          />
+                        ))}
+                    </Geographies>
+                    <Markers>
+                      {markersForMap}
+                    </Markers>
+                  </ZoomableGroup>
+                </ComposableMap>
+                <ReactTooltip />
+              </div>
+            )}
+          </Motion>
+        </div>
       </div>
     )
   }

@@ -12,6 +12,77 @@ body {
   font-family: sans-serif;
   display: flex;
   flex: 1;
+  background-color: #f6f6f6;
+}
+
+/* General */
+/* FLEX */
+.row {
+  display: flex;
+}
+
+.column1 {
+  flex: 50%;
+  padding: 10px;
+}
+
+.column1 img {
+  float: right;
+}
+
+.column2 {
+  flex: 50%;
+  padding: 10px;
+  padding-top: 65px;
+}
+
+@media (max-width: 850px) { 
+  .column1 {
+    flex: 50%;
+  }
+  
+  .column1 img {
+    float: right;
+  }
+  
+  .column2 {
+    flex: 50%;
+  }
+}
+
+@media (max-width: 450px) { 
+  .column1 {
+    flex: 25%;
+  }
+  
+  .column1 img {
+    display: block;
+    margin: 0 auto;
+    float: none !important;
+  }
+  
+  .column2 {
+    flex: 25%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 284px) { 
+  .column1 {
+    flex: 25%;
+  }
+  
+  .column1 img {
+    display: block;
+    margin: 0 auto;
+    float: none !important;
+  }
+  
+  .column2 {
+    flex: 25%;
+    padding-top: 0px !important;
+    text-align: center;
+  }
 }
 
 /* Red Error Alert */
@@ -104,10 +175,10 @@ body {
   width: 100%; 
   height: 56px;
   z-index: 1000;
+  text-align: center;
 }
 
 #mobile-nav p {
-  text-align: center;
   color: #ffffff;
   vertical-align: middle;
   line-height: 56px; 
@@ -116,6 +187,23 @@ body {
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 2px;
+  margin: auto 0;
+  display: inline;
+}
+
+.profile-header {
+  padding-left: 45px;
+}
+
+.mobile-nav-header {
+  padding-left: 56px;
+}
+
+.settings-icon {
+  clear: both;
+  float: right !important;
+  padding-right: 25px;
+  padding-left: 0px !important;
 }
 
 @media (min-width: 701px) {
@@ -145,6 +233,17 @@ body {
 
   #profile-image {
     width: 70%;
+  }
+
+  .profile-nav {
+    padding-top: -5px;
+  }
+
+  #profile-custom {
+    text-align: center;
+    width: 150px !important;
+    height: 150px !important;
+    margin: 0 auto;
   }
 
   #slide-menu a:link, #slide-menu a:visited, #slide-menu a:active {
@@ -312,6 +411,14 @@ body {
     margin-left: -30%;
   }
 
+  .drawer-name {
+    margin-top: 10px;
+  }
+
+  .drawer-links {
+    margin-bottom: 10px;
+  }
+
   @keyframes slidein {
     from {
       margin-left: -30%;
@@ -376,6 +483,32 @@ body {
   #slide-menu {
     width: 20vw;
   }
+}
+
+/* Profile */
+.profile h2 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #14b7c5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: 3.5px;
+  line-height: 1;
+}
+
+.average-footprint, .week {
+  text-align: center !important;
+  font-size: 26px !important;
+}
+
+.week, .pledges {
+  padding-bottom: 20px !important;
+}
+
+.pledges {
+  text-align: center !important;
+  font-size: 36px !important;
 }
 
 /* Welcome message on opening screen */
@@ -467,14 +600,42 @@ body {
   height: auto;
   border-radius: 10px;
   margin: 0 auto;
-  
 }
 
-.sign-up {
+.profile-container {
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  border-top: 1px solid #ffffff;
+}
+
+.profile-container p {
+  margin-bottom: 0px !important;
+}
+
+.profile-container h2 {
+  margin-top: 20px !important;
+}
+
+.sign-up, .profile {
   width: 100%;
   min-height: 100%;
   padding-top: 100px;
   position: absolute;
+}
+
+.profile-white {
+  width: 100%;
+  min-height: 100%;
+  padding-top: 0px !important;
+  position: absolute; 
+  top: 0px;
+  padding-top: 56px !important;
+  background-color: rgb(250,250,250,0.7);
+}
+
+.profile {
+  padding-top: 56px !important;
 }
 
 .sign-up h1 {
@@ -597,6 +758,14 @@ body {
 
   .sign-up {
     padding-top: 80px;
+  }
+
+  .profile {
+    padding-top: 100px !important;
+  }
+
+  .profile-white {
+    padding-top: 100px !important;
   }
 
   .forgot-pass {
