@@ -1,4 +1,6 @@
 import React from 'react';
+import {findDOMNode} from 'react-dom'
+import ReactDOMServer from 'react-dom/server';
 import './index.css';
 import {
   ComposableMap,
@@ -12,12 +14,12 @@ import { Motion, spring } from "react-motion"
 import fetch from 'node-fetch';
 import ReactTooltip from "react-tooltip";
 import $ from "jquery";
+import { Button } from 'reactstrap';
 
 import NavigationBar from './NavigationBar'
 
 const wrapperStyles = {
   width: "100%",
-  maxWidth: 980,
   margin: "0 auto",
 }
 
@@ -25,19 +27,14 @@ export default class Discover extends React.Component {
   constructor() {
     super()
     this.state = {
-      center: [-122.4821475, 47.6129432],
-      zoom: 3,
+      center: [-98.58, 39.83],
+      zoom: 6,
       markers: [
         { name: "Caracas", coordinates: [-66.9036, 10.4806] },
       ],
-      popup: "popuptext"
     }
 
     this.handleCityClick = this.handleCityClick.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.handleZoomIn = this.handleZoomIn.bind(this);
-    this.handleZoomOut = this.handleZoomOut.bind(this);
-    this.hoverMarker = this.hoverMarker.bind(this)
   }
 
   componentDidMount() {
@@ -46,51 +43,67 @@ export default class Discover extends React.Component {
     }, 100)
   }
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild()
+  }
+
   componentWillMount() {
-    // fetch the non-profits
+    ReactTooltip.rebuild()
+    // fetch the trash collection sites
     let mapMarkers = [];
+    let itemLengths = [];
     fetch('https://raw.githubusercontent.com/lisakoss/plastic-oceans/a18311262874ff12e5fc9abd8bd6bb51d0f285be/plastic-oceans-app/src/DiscoverMapData.json')
       .then(res => res.json())
       .then(parsedRes => {
-        //console.log("parsedRes", parsedRes);
         let previousCoords = [];
-        let currentItems = [];
+        let currentItems = new Map();
+        let currentItemsMap = new Map();
         let count = 0;
+
         for (let debris of parsedRes) {
-          //console.log("debris", debris)
           // if coords match
-          //console.log("previos", previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude);
           if (previousCoords[0] == debris.Longitude && previousCoords[1] == debris.Latitude) {
-            currentItems.push(debris.ItemName);
+            let mapCount = currentItemsMap.get(debris.ItemName);
+            if (mapCount === undefined) {
+              currentItemsMap.set(debris.ItemName, 1);
+            } else {
+              mapCount++;
+              currentItemsMap.set(debris.ItemName, mapCount)
+            }
           } else { // else coords don't match, create marker
-            currentItems.push(debris.ItemName);
             previousCoords = [debris.Longitude, debris.Latitude];
+
+            let itemString = "";
+            let itemLength = 0;
+            let numOfItemsCollected = 0;
+            for (let item of currentItemsMap) {
+              let newItemLength = `${item[0]} x${item[1]}`.length;
+              if (itemLength < newItemLength) {
+                itemLength = newItemLength;
+              }
+              itemString += `${item[0]} x${item[1]} <br/>`;
+              numOfItemsCollected += item[1];
+            }
 
             let debrisObj = {
               markerOffset: -25,
-              name: currentItems,
+              name: `${numOfItemsCollected} pieces of trash have been collected:<br/> ${itemString}`,
               coordinates: [debris.Longitude, debris.Latitude],
-              id: count
+              id: count,
+              numOfItemsCollected: numOfItemsCollected,
             }
+
             mapMarkers.push(debrisObj);
-            currentItems = [];
+            itemLengths.push(itemLength);
             count++;
+            currentItemsMap = new Map();
           }
         }
 
         this.setState({ markers: mapMarkers });
+        this.setState({ markerLength: itemLengths });
       })
-  }
 
-  handleZoomIn() {
-    this.setState({
-      zoom: this.state.zoom * 2,
-    })
-  }
-  handleZoomOut() {
-    this.setState({
-      zoom: this.state.zoom / 2,
-    })
   }
 
   handleCityClick(city) {
@@ -99,29 +112,13 @@ export default class Discover extends React.Component {
     })
   }
 
-  handleReset() {
-    this.setState({
-      center: [-122.4821475, 47.6129432],
-      zoom: 3,
-    })
-  }
-
-  hoverMarker(e) {
-    var popup = document.getElementById("myPopup");
-    //console.log("the popup", $("#popup"))
-    //popup.classList.toggle("show");
-    //this.setState({ popup: "show" })
-    console.log("Event", e.id);
-    console.log("the element", $(`#${e.id}`));
-    $(`#${e.id}`).addClass("show");
-  }
-
   render() {
-    $('.popuptext').on('click', function () {
-      alert(this.id);
-  });
-
-    console.log("the state", this.state.markers);
+    const tooltipStyle = {
+      pointerEvents: 'auto', // enable click/selection etc. events inside tooltip
+      overflowY: 'auto', // make content scrollable,
+      ...this.props.style // apply style overrides
+    }
+    let content = ReactDOMServer.renderToString((<Button style={tooltipStyle}>CLOSE</Button>));
     let markersForMap = [];
 
     markersForMap = this.state.markers.map((marker, i) => (
@@ -129,51 +126,51 @@ export default class Discover extends React.Component {
         className={"popup"}
         key={i}
         marker={marker}
+        width="50"
         style={{
-          default: { fill: "#FF5722" },
-          hover: { fill: "#FFFFFF" },
-          pressed: { fill: "#FF5722" },
+          default: { fill: "#14b7c5" },
+          hover: { fill: "#8de3ea" },
+          pressed: { fill: "#14b7c5" },
+          width: "50"
         }}
-        onClick={this.hoverMarker}
       >
         <circle
           cx={0}
           cy={0}
           r={10}
           style={{
-            stroke: "#FF5722",
+            stroke: "#14b7c5",
             strokeWidth: 3,
             opacity: 0.9,
           }}
+
         />
         <text
-          textAnchor="middle"
-          y={marker.markerOffset}
+          y={6}
+          x={-9}
           style={{
             fontFamily: "Roboto, sans-serif",
             fill: "#607D8B",
+            transform: "scale(1, 1)",
           }}
           id={i}
           className={this.state.popup}
+          ref='foo'
+          data-html="true"
+          data-tip={`${marker.name} ${content}`}
+          data-event={"click"}
         >
-          {marker.name}
+          {marker.numOfItemsCollected}
         </text>
       </Marker>
-    ))
+    ));
 
+    $(".__react_component_tooltip").click(() => {
+      ReactTooltip.hide(findDOMNode(this.refs.foo));
+    });
 
-    console.log("map markers", markersForMap);
     return (
       <div style={wrapperStyles}>
-        <button onClick={this.handleZoomIn}>
-          {"Zoom in"}
-        </button>
-        <button onClick={this.handleZoomOut}>
-          {"Zoom out"}
-        </button>
-        <button onClick={this.handleReset}>
-          {"Reset"}
-        </button>
         <Motion
           defaultStyle={{
             zoom: 1,
@@ -203,7 +200,6 @@ export default class Discover extends React.Component {
                       geographies.map((geography, i) => geography.id !== "ATA" && (
                         <Geography
                           key={i}
-                          data-tip={geography.properties.name}
                           geography={geography}
                           projection={projection}
                           style={{
@@ -234,7 +230,7 @@ export default class Discover extends React.Component {
                   </Markers>
                 </ZoomableGroup>
               </ComposableMap>
-              <ReactTooltip />
+              <ReactTooltip style={tooltipStyle} globalEventOff="click"  />
             </div>
           )}
         </Motion>
