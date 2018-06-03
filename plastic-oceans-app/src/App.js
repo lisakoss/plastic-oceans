@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       currentScreen: "Opening",
       currentQuiz: "",
-      isUserLoggedIn: true,
+      isUserLoggedIn: false,
       userName: "Username",
     };
   }
@@ -25,12 +25,12 @@ class App extends Component {
     console.log(this.state.currentScreen)
     return (
       <div role="main">
-        {/*<Switch>
+        <Switch>
           <Route exact path="/" component={Opening} />
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/discover" component={Discover} />
-        </Switch>*/}
+        </Switch>
 
         {(this.state.currentScreen == "Quizzes") && (
           <Quizzes 
