@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import firebase from 'firebase';
-import QuizResult from './QuizResult';
+import QuizResult from './QuizAnswer';
 import QuizQuestion from './QuizQuestion';
 import NavigationBar from './NavigationBar';
+import QuizAnswer from "./QuizAnswer";
+import QuizResults from "./QuizResults";
 
 class Quiz extends Component {
 
@@ -29,7 +31,7 @@ class Quiz extends Component {
             <div id="quiz-container">
                 <NavigationBar title="Footprint" selected="footprint" />
                     {this.state.showResult && (
-                        <QuizResult
+                        <QuizAnswer 
                             selectedAnswer={this.state.selectedAnswer}
                             currentCorrectAnswer={this.state.currentCorrectAnswer}
                             totalQuestions={this.state.totalQuestions}
@@ -49,10 +51,12 @@ class Quiz extends Component {
                         />
                     )}
                     {this.state.showFinalResult && (
-                        <div id="quiz-final-results">
-                            <p className="quiz-result-text">You got {this.state.numberCorrect} of {this.state.totalQuestions} questions correct!</p>
-                            <button className="quiz-button" onClick={(e) => this.handleFinishQuiz(e)}>Done</button>
-                        </div>
+                        <QuizResults 
+                            numberCorrect={this.state.numberCorrect}
+                            totalQuestions={this.state.totalQuestions}
+                            exitResults={this.exitResults.bind(this)}
+                            quizName={this.props.match.params.quizID}
+                        />
                     )}
                 </div>
         );
@@ -66,9 +70,7 @@ class Quiz extends Component {
         this.setState({ quizName: quizName })
     }
 
-    handleFinishQuiz(e) {
-        // Save quiz results
-        // Go back to quiz select screen
+    exitResults() {
         this.props.history.push(`/quizzes/`);
     }
 
@@ -97,8 +99,6 @@ class Quiz extends Component {
         this.setState({
             selectedAnswer: answer
         });
-        console.log(answer);
-        console.log(this.state.currentCorrectAnswer);
         if (answer == this.state.currentCorrectAnswer) {
             this.setState({
                 numberCorrect: this.state.numberCorrect + 1,

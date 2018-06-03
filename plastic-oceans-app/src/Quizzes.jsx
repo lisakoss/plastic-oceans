@@ -7,11 +7,14 @@ class Quizzes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quizList: []
+            quizList: [],
+            quizResultsList: []
         };
     }
 
     render() {
+        console.log(this.state.quizList);
+        console.log(this.state.quizResultsList);
         return (
             <div id="quizzes-home">
                 <NavigationBar title="Footprint" selected="footprint" />
@@ -20,7 +23,7 @@ class Quizzes extends Component {
                         return (
                             <ListGroupItem className="quiz-select" id={item} key={index} action onClick={(e) => this.handleQuizClick(e)}>
                                 <ListGroupItemHeading className="disable-click">{item}</ListGroupItemHeading>
-                                <ListGroupItemText className="disable-click">Not Taken</ListGroupItemText>
+                                <ListGroupItemText className="disable-click">{this.state.quizResultsList[index] || ("Not Taken")}</ListGroupItemText>
                             </ListGroupItem>
                         );
                     })}
@@ -30,8 +33,9 @@ class Quizzes extends Component {
     }
 
     componentDidMount() {
-        this.createListOfQuizzes((quizzesList) => {
+        this.createListOfQuizzes((quizzesList, quizResultsArr) => {
             this.setState({ quizList: quizzesList });
+            this.setState({ quizResultsList: quizResultsArr});
         });
     }
 
@@ -39,12 +43,28 @@ class Quizzes extends Component {
         var quizzesRef = firebase.database().ref('/Quizzes');
         var quizzesList = [];
         var componentRef = this;
-        quizzesRef.on('value', function (snapshot) {
+        quizzesRef.on('value', function(snapshot) {
             snapshot.forEach(function (quiz) {
                 quizzesList.push(quiz.key);
             });
-            callback(quizzesList);
-            componentRef.setState({ quizList: quizzesList });
+        });
+
+        var uid = "";
+        var quizResultsArr = []
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                uid = user.uid;
+                var quizResultsRef = firebase.database().ref('/users/' + uid + '/QuizRecord');
+                quizResultsRef.on('value', function(snapshot) { 
+                    if (snapshot != null) {
+                        console.log(snapshot.val());
+                        snapshot.forEach(function(quizResult) {
+                            quizResultsArr.push(quizResult.val()["NumberCorrect"] + "/" + quizResult.val()["Total"] + " Correct");
+                        })
+                    }
+                    callback(quizzesList, quizResultsArr);
+                });
+            }
         });
     }
 
