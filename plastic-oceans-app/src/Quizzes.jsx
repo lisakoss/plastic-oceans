@@ -18,7 +18,7 @@ class Quizzes extends Component {
                         return (
                             <ListGroupItem className="quiz-select" id={item} key={index} action onClick={(e) => this.handleQuizClick(e)}>
                                 <ListGroupItemHeading className="disable-click">{item}</ListGroupItemHeading>
-                                <ListGroupItemText className="disable-click">Quiz status</ListGroupItemText>
+                                <ListGroupItemText className="disable-click">Not Taken</ListGroupItemText>
                             </ListGroupItem>
                         );
                     })}

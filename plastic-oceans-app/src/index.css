@@ -144,6 +144,7 @@ body {
   background-size: cover;
   background-image: url('http://getwallpapers.com/wallpaper/full/0/8/7/355148.jpg');
   padding-top: 60vh;
+  width: 100vw;
 }
 
 
@@ -154,6 +155,7 @@ body {
 #question-container {
   margin: auto;
   text-align: center;
+  width: 100vw;
 }
 
 #quiz-title {
@@ -200,6 +202,7 @@ body {
 .quiz-options {
   margin: auto !important;
   width: 100% !important;
+  cursor: pointer;
 }
 
 .selected-answer {
@@ -210,11 +213,13 @@ body {
 #result-container {
   margin: auto;
   text-align: center;
+  width: 100vw;
 }
 
 #quiz-final-results {
   margin: auto;
   text-align: center;
+  width: 100vw;
 }
 
 .quiz-result-text {

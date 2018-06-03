@@ -16,20 +16,21 @@ class App extends Component {
     this.state = {
       currentScreen: "Opening",
       currentQuiz: "",
-      isUserLoggedIn: false,
+      isUserLoggedIn: true,
       userName: "Username",
     };
   }
 
   render() {
+    console.log(this.state.currentScreen)
     return (
       <div role="main">
-        <Switch>
+        {/*<Switch>
           <Route exact path="/" component={Opening} />
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/discover" component={Discover} />
-        </Switch>
+        </Switch>*/}
 
         {(this.state.currentScreen == "Quizzes") && (
           <Quizzes 
@@ -43,7 +44,7 @@ class App extends Component {
         {(this.state.currentScreen == "Enter Quiz") && (
           <Quiz
             quizName={this.state.currentQuiz}
-            goBackToQuizSelect={this.changeScreenState("Quizzes")}
+            goBackToQuizSelect={() => this.changeScreenState("Quizzes")}
           />
         )}
         {this.state.isUserLoggedIn && (
