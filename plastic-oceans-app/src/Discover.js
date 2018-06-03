@@ -1,5 +1,5 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom'
+import { findDOMNode } from 'react-dom'
 import ReactDOMServer from 'react-dom/server';
 import './index.css';
 import {
@@ -21,13 +21,14 @@ import NavigationBar from './NavigationBar'
 const wrapperStyles = {
   width: "100%",
   margin: "0 auto",
+  height: "100%",
 }
 
 export default class Discover extends React.Component {
   constructor() {
     super()
     this.state = {
-      center: [-98.58, 39.83],
+      center: [-122.33, 52.61],
       zoom: 6,
       markers: [
         { name: "Caracas", coordinates: [-66.9036, 10.4806] },
@@ -35,12 +36,17 @@ export default class Discover extends React.Component {
     }
 
     this.handleCityClick = this.handleCityClick.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   componentDidMount() {
     setTimeout(() => {
       ReactTooltip.rebuild()
     }, 100)
+
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+    window.onresize = function(){ window.location.reload(); }
   }
 
   componentDidUpdate() {
@@ -106,6 +112,10 @@ export default class Discover extends React.Component {
 
   }
 
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
   handleCityClick(city) {
     this.setState({
       center: city.coordinates,
@@ -113,6 +123,8 @@ export default class Discover extends React.Component {
   }
 
   render() {
+    const height = this.state.height;
+    const width = this.state.width;
     const tooltipStyle = {
       pointerEvents: 'auto', // enable click/selection etc. events inside tooltip
       overflowY: 'auto', // make content scrollable,
@@ -169,8 +181,11 @@ export default class Discover extends React.Component {
       ReactTooltip.hide(findDOMNode(this.refs.foo));
     });
 
+    console.log("width", this.state.width);
+
     return (
       <div style={wrapperStyles}>
+        <NavigationBar title="Discover" selected="discover" />
         <Motion
           defaultStyle={{
             zoom: 1,
@@ -187,10 +202,10 @@ export default class Discover extends React.Component {
             <div>
               <ComposableMap
                 projectionConfig={{ scale: 205 }}
-                width={980}
-                height={551}
+                width={width}
+height={height}
                 style={{
-                  width: "100%",
+                  width: "auto",
                   height: "auto",
                 }}
               >
@@ -216,7 +231,7 @@ export default class Discover extends React.Component {
                               outline: "none",
                             },
                             pressed: {
-                              fill: "#FF5722",
+                              fill: "#8de3ea",
                               stroke: "#607D8B",
                               strokeWidth: 0.75,
                               outline: "none",
@@ -230,7 +245,7 @@ export default class Discover extends React.Component {
                   </Markers>
                 </ZoomableGroup>
               </ComposableMap>
-              <ReactTooltip style={tooltipStyle} globalEventOff="click"  />
+              <ReactTooltip style={tooltipStyle} globalEventOff="click" />
             </div>
           )}
         </Motion>
