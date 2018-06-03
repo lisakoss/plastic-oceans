@@ -61,8 +61,105 @@ body {
   display: none;
 }
 
+/* Quiz Styling for Mobile */
+#quizzes-home {
+  height: 120vh;
+  background-size: cover;
+  background-image: url('http://getwallpapers.com/wallpaper/full/0/8/7/355148.jpg');
+  padding-top: 60vh;
+}
+
+
+.disable-click {
+  pointer-events: none !important;
+}
+
+#question-container {
+  margin: auto;
+  text-align: center;
+}
+
+#quiz-title {
+  display: none;
+}
+
+.quiz-select {
+  margin-top: 3vh !important;
+  color: #984fba !important;
+  cursor: pointer;
+}
+
+.quiz-button {
+  margin-top: 20px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #14b7c5;
+  color: white;
+  border: 5px solid #14b7c5;
+  margin-top: 20px;
+}
+
+.quiz-button-disabled {
+  margin-top: 20px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: lightgrey;
+  color: white;
+  border: 5px solid lightgrey;
+  margin-top: 20px;
+  pointer-events: none;
+}
+
+.quiz-button:hover {
+  filter: brightness(110%);
+}
+
+.quiz-button:focus {
+  outline: 0;
+}
+
+.quiz-options {
+  margin: auto !important;
+  width: 100% !important;
+}
+
+.selected-answer {
+  background-color: #14b7c5 !important;
+  color: white !important;
+}
+
+#result-container {
+  margin: auto;
+  text-align: center;
+}
+
+#quiz-final-results {
+  margin: auto;
+  text-align: center;
+}
+
+.quiz-result-text {
+  font-size: 36px;
+  font-family: Montserrat, sans-serif;
+}
+
 
 @media (min-width: 700px) {
+
+  /*Quiz for Desktop*/
+  .quiz-options {
+    width: 60% !important;
+  }
+
+  #quiz-container {
+    margin-top: 24vh;
+  }
+
+  #quiz-title {
+    display: block;
+  }
 
   /* Navigation Bar for Desktop */
   #slide-menu {
@@ -74,7 +171,6 @@ body {
     top: 20vh;
     text-align: center;
     font-family: Montserrat, sans-serif;
-    box-shadow: -4px 19px 10px 14px lightgray;
   }
 
   #slide-menu h2 {
@@ -93,27 +189,15 @@ body {
     text-decoration: none;
   }
 
-  /*#logout-btn {
-    background-color: #984fba;
-    width: 100px;
-    height: 30px;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    margin-top: 40px;
-  }*/
-
   #nav-bar {
     background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
     height: 20vh;
     top: 0;
-    box-shadow: 15px 2px 8px 10px #b1d8dc;
   }
 
   #menu, #app-title {
     display: inline;
     position: relative;
-    top: 10vh;
   }
 
   #app-title {
@@ -122,13 +206,14 @@ body {
     font-weight: 100;
     font-size: 40px;
     cursor: default;
+    top: 10vh;
   }
 
   #nav-buttons {
     justify-content: flex-end;
     align-items: flex-end;  
     position: relative;
-    top: 0.5vh;
+    top: -1.5vw;
     background-color: transparent;
     pointer-events: none;
   }
@@ -151,6 +236,7 @@ body {
     padding: 0;
     margin-right: 10px;
     margin-left: 5px;
+    top: 8.5vh;
   }
 
   #menu img {
@@ -175,12 +261,12 @@ body {
   }
 
   .slide-in {
-    animation-duration: 2.5s;
+    animation-duration: 2s;
     animation-name: slidein;
   }
 
   .slide-out {
-    animation-duration: 2.5s;
+    animation-duration: 2s;
     animation-name: slideout;
   }
 
