@@ -3,9 +3,12 @@ import './index.css';
 import firebase from 'firebase';
 import { Link } from 'react-router-dom';
 
+import Avatar from '@material-ui/core/Avatar';
+
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
-import NavigationBar from './NavigationBar'
+import NavigationBar from './NavigationBar';
+import Logout from './Logout';
 
 export default class SettingsForm extends React.Component {
   constructor(props) {
@@ -19,52 +22,70 @@ export default class SettingsForm extends React.Component {
       password: undefined,
       passwordConfirm: undefined,
       location: '',
+      showLogout: false 
     };
 
     // put optional this binding here
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
-    // executed when the component appears on the screen
-    componentDidMount() {
-        // Add a listener and callback for authentication events
-        this.unregister = firebase.auth().onAuthStateChanged(user => {
-          if (user) {
-            this.setState({ userId: user.uid });
-            var profileRef = firebase.database().ref('users/' + this.state.userId);
-            profileRef.once("value")
-              .then(snapshot => {
-                this.setState({ firstName: snapshot.child("firstName").val() });
-                this.setState({ lastName: snapshot.child("lastName").val() });
-                this.setState({ username: snapshot.child("username").val() });
-                this.setState({ avatar: snapshot.child("avatar").val() });
-                this.setState({ email: snapshot.child("email").val() });
-                this.setState({ location: snapshot.child("location").val() });
-    
-              });
-          }
-          else {
-            this.setState({ userId: null }); // null out the saved state if not logged in
-            this.setState({ firstName: null });
-            this.setState({ lastName: null });
-            this.setState({ username: null });
-            this.setState({ avatar: null });
-            this.setState({ email: null });
-            this.setState({ location: null });
-            this.setState({ password: null });
-            this.setState({ passwordConfirm: null });
-            this.props.history.push('/signin'); // redirect to home page
-          }
-        });
+  // executed when the component appears on the screen
+  componentDidMount() {
+    // Add a listener and callback for authentication events
+    window.addEventListener('resize', this.updateWindowDimensions);
+
+    this.unregister = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ userId: user.uid });
+        var profileRef = firebase.database().ref('users/' + this.state.userId);
+        profileRef.once("value")
+          .then(snapshot => {
+            this.setState({ firstName: snapshot.child("firstName").val() });
+            this.setState({ lastName: snapshot.child("lastName").val() });
+            this.setState({ username: snapshot.child("username").val() });
+            if (snapshot.child("avatar").val() === null) {
+              this.setState({ avatar: '' });
+            } else {
+              this.setState({ avatar: snapshot.child("avatar").val() });
+            }
+            this.setState({ email: snapshot.child("email").val() });
+            this.setState({ location: snapshot.child("location").val() });
+
+          });
       }
-    
-      // unregister saved funcs
-      componentWillUnmount() {
-        firebase.database().ref('users/' + this.state.userId).off();
-        if (this.unregister) {
-          this.unregister();
-        }
+      else {
+        this.setState({ userId: null }); // null out the saved state if not logged in
+        this.setState({ firstName: null });
+        this.setState({ lastName: null });
+        this.setState({ username: null });
+        this.setState({ avatar: null });
+        this.setState({ email: null });
+        this.setState({ location: null });
+        this.setState({ password: null });
+        this.setState({ passwordConfirm: null });
+        this.props.history.push('/signin'); // redirect to home page
       }
+    });
+  }
+
+  // unregister saved funcs
+  componentWillUnmount() {
+    firebase.database().ref('users/' + this.state.userId).off();
+    if (this.unregister) {
+      this.unregister();
+    }
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+
+    if (this.state.width <= 700) {
+      this.setState({ showLogout: true });
+    } else {
+      this.setState({ showLogout: false });
+    }
+  }
 
   // create new user callback to transfer the data to the SignUp form
   updateProfile(event) {
@@ -127,6 +148,14 @@ export default class SettingsForm extends React.Component {
         }
       }
 
+      if (validations.avatar) {
+        let valid = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value);
+        if (!valid && value !== "") {
+          errors.avatar = true;
+          errors.isValid = false;
+        }
+      }
+
       //password minLength
       if (validations.minLength && value.length < validations.minLength) {
         errors.minLength = validations.minLength;
@@ -178,19 +207,21 @@ export default class SettingsForm extends React.Component {
     let lastNameErrors = this.validateFields(this.state.lastName, { required: true, invalidCharacters: true });
     var usernameErrors = this.validateFields(this.state.username, { required: true, maxLength: 20, invalidCharacters: true, usernameTaken: true });
     let emailErrors = this.validateFields(this.state.email, { required: true, email: true, emailTaken: true });
+    let avatarErrors = this.validateFields(this.state.avatar, { avatar: true });
     let locationErrors = this.validateFields(this.state.location, { required: true, });
     let passwordErrors = this.validateFields(this.state.password, { required: true, minLength: 8 });
     let passwordConfirmErrors = this.validateFields(this.state.passwordConfirm, { required: true, minLength: 8, match: true });
     let submitDisabled = false;
     let submitState = "primary";
+    let logout = null;
 
     let emailExists = "";
     let errorAlert = (<div className="hidden"><p></p></div>);
 
-    if(this.props.error !== undefined) {
+    if (this.props.error !== undefined) {
       emailExists = this.props.error;
       errorAlert = (<div className="alert red-error"><p>{emailExists}</p></div>);
-    } else if(this.props.error === undefined) {
+    } else if (this.props.error === undefined) {
       emailExists = null;
       errorAlert = (<div className="hidden"><p></p></div>);
     }
@@ -204,15 +235,30 @@ export default class SettingsForm extends React.Component {
       submitState = "secondary"
     }
 
+    let img = null;
+
+    if (this.state.avatar === '' || this.state.avatar === null || this.state.avatar === undefined) {
+      img = (<img className="settings-avatar" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />);
+    } else {
+      img = (<Avatar className="settings-avatar" width="150" alt="profile icon" src={this.state.avatar} />);
+    }
+
+    if(this.state.showLogout) {
+      logout = <Logout />
+    }
 
     return (
-        <div className="settings tinted" role="article">
-        <div className="settings-white">
-          <NavigationBar title="Settings" selected="settings" />
-          <div className="settings-container">
+      <div className="settings tinted" role="article">
+        <NavigationBar title="Settings" selected="settings" />
+        <div className="settings-container">
+
+          <div className="settings-form">
+
+
             <h1>manage account</h1>
             {errorAlert}
             <Form>
+              {img}
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="text" name="firstName" value={this.state.firstName} fieldName="First Name" id="first-name" onChange={this.handleFormChange} errors={firstNameErrors} />
               </FormGroup>
@@ -221,6 +267,9 @@ export default class SettingsForm extends React.Component {
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="text" name="username" value={this.state.username} fieldName="Username" id="username" onChange={this.handleFormChange} errors={usernameErrors} />
+              </FormGroup>
+              <FormGroup onChange={this.handleFormChange}>
+                <ValidatedInput type="text" name="avatar" value={this.state.avatar} fieldName="Avatar" id="avatar" onChange={this.handleFormChange} errors={avatarErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="email" name="email" value={this.state.email} fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
@@ -234,8 +283,9 @@ export default class SettingsForm extends React.Component {
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
               </FormGroup>
-              <div className="sign-up-button">
+              <div className="settings-btn">
                 <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.updateProfile(event)}>SAVE</Button>
+                {logout}
               </div>
             </Form>
           </div>
@@ -260,6 +310,9 @@ class ValidatedInput extends React.Component {
       }
       if (this.props.errors.email) {
         errorMessage += "Invalid email address.";
+      }
+      if (this.props.errors.avatar) {
+        errorMessage += "The avatar URL is invalid.";
       }
       if (this.props.errors.usernameTaken) {
         errorMessage += "Username already in use.";

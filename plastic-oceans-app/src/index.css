@@ -21,6 +21,14 @@ body {
 
 /* General */
 /* FLEX */
+.settings-avatar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px !important;
+  height: 150px !important;
+}
+
 .row {
   display: flex;
 }
@@ -546,6 +554,10 @@ body {
     padding-top: -5px;
   }
 
+  .custom-avatar {
+    float: right;
+  }
+
   #profile-custom {
     text-align: center;
     width: 150px !important;
@@ -890,7 +902,7 @@ body {
 }
 
 /* Sign up/in pages */
-.sign-up-container {
+.sign-up-container, .settings-container {
   width: 90%;
   background-color: rgb(250,250,250,0.7);
   height: auto;
@@ -898,7 +910,7 @@ body {
   margin: 0 auto;
 }
 
-.profile-container, .settings-container {
+.profile-container {
   width: 100%;
   margin: 0 auto;
   height: auto;
@@ -925,7 +937,7 @@ body {
   position: absolute;
 }
 
-.profile-white, .settings-white {
+.profile-white {
   width: 100%;
   min-height: 100%;
   padding-top: 0px !important;
@@ -933,13 +945,19 @@ body {
   top: 0px;
   padding-top: 56px !important;
   background-color: rgb(250,250,250,0.7);
+  bottom: -60px;
 }
 
-.profile, .settings {
+.profile {
   padding-top: 56px !important;
 }
 
-.sign-up h1 {
+.settings {
+  padding-top: 80px !important;
+  padding-bottom: 85px !important;
+}
+
+.sign-up h1, .settings h1 {
   text-align: center;
   text-transform: uppercase;
   color: #14b7c5;
@@ -950,21 +968,25 @@ body {
   line-height: 1;
 }
 
+.settings h1 {
+  font-size: 36px;
+}
+
 .forgot-pass {
   font-size: 36px !important;
 }
 
-.sign-up-form {
+.sign-up-form, .settings-form {
   width: 90%;
   margin: 0 auto;
   padding-top: 20px;
 }
 
-.sign-up-button, .forgot-button {
+.sign-up-button, .settings-btn, .forgot-button {
   text-align: center;
 }
 
-.forgot-button .btn-secondary, .forgot-button .btn-primary {
+.forgot-button .btn-secondary, .forgot-button .btn-primary, .settings-btn .btn-secondary, .settings-btn .btn-primary {
   margin-bottom: 20px !important;
 }
 
@@ -989,12 +1011,12 @@ body {
   transition: .1s ease-out;
 }
 
-.sign-up .btn-primary {
+.sign-up .btn-primary, .settings-btn .btn-primary {
   background-color: #14b7c5 !important;
   color: #fff;
 }
 
-.sign-up .btn-secondary, .sign-up .btn-primary {
+.sign-up .btn-secondary, .sign-up .btn-primary , .settings-btn .btn-primary, .settings-btn .btn-secondary{
   border: none;
   font-family: 'Open Sans';
   font-weight: 300;
@@ -1003,7 +1025,7 @@ body {
   margin: 0 auto;
 }
 
-.sign-up .btn-primary:hover {
+.sign-up .btn-primary:hover, .settings-btn .btn-primary:hover {
   background-color: #984fba !important;
 }
 
@@ -1021,6 +1043,12 @@ body {
   text-transform: uppercase;
   color: #fff;
   width: 75%;
+}
+
+.settings-logout .btn-primary, .settings-logout .btn-seconday {
+  width: 100px;
+  margin: 0 auto;
+  text-align: center !important;
 }
 
 .logout-btn .btn-primary:hover {
@@ -1050,7 +1078,7 @@ body {
     height: 70px;
   }
 
-  .sign-up-container {
+  .sign-up-container, .settings container {
     width: 50%;
   }
 
@@ -1062,15 +1090,20 @@ body {
     padding-top: 80px;
   }
 
-  .profile, .settings {
+  .settings {
+    padding-top: 140px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .profile {
     padding-top: 100px !important;
   }
 
-  .profile-white, .settings-white {
+  .profile-white {
     padding-top: 100px !important;
   }
 
-  .forgot-pass {
+  .forgot-pass, .settings h1 {
     font-size: 42px !important;
   }
 }
@@ -1078,6 +1111,16 @@ body {
 @media screen and (min-width: 701px) {
   .sign-up-container {
     width: 40%;
+  }
+
+  .settings-container {
+    width: 70% !important;
+  }
+}
+
+@media screen and (max-width: 892px) {
+  #app-title {
+    font-size: 22px !important;
   }
 }
 
