@@ -64,6 +64,8 @@ export default class Setting extends React.Component {
     user.updatePassword(password)
       .catch(function (error) {
       });
+
+      this.props.history.push('/profile/' + this.state.userId); // redirect to home page
   }
 
   render() {
