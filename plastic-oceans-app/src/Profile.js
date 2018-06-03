@@ -33,7 +33,7 @@ export default class Profile extends React.Component {
           .then(snapshot => {
             this.setState({ username: snapshot.child("username").val() });
             this.setState({ location: snapshot.child("location").val() });
-            this.setState({ level: snapshot.child("level").val() });
+            this.setState({ level: snapshot.child("Level").val() });
             this.setState({ avatar: snapshot.child("avatar").val() });
             this.setState({ pledgesSigned: snapshot.child("pledges/activePledges").val() });
             this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val().length })
