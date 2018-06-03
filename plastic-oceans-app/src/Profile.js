@@ -60,6 +60,7 @@ export default class Profile extends React.Component {
         this.setState({ pledgesSigned: null });
         this.setState({ averageFootPrint: null });
         this.setState({ userFootPrint: null });
+        this.props.history.push('/signin'); // redirect to home page
       }
     });
   }

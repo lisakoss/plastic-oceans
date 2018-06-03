@@ -602,11 +602,16 @@ body {
   margin: 0 auto;
 }
 
-.profile-container {
+.profile-container, .settings-container {
   width: 100%;
   margin: 0 auto;
   height: auto;
   border-top: 1px solid #ffffff;
+}
+
+.settings-container {
+  width: 90% !important;
+  border-top: none !important;
 }
 
 .profile-container p {
@@ -617,14 +622,14 @@ body {
   margin-top: 20px !important;
 }
 
-.sign-up, .profile {
+.sign-up, .profile, .settings {
   width: 100%;
   min-height: 100%;
   padding-top: 100px;
   position: absolute;
 }
 
-.profile-white {
+.profile-white, .settings-white {
   width: 100%;
   min-height: 100%;
   padding-top: 0px !important;
@@ -634,7 +639,7 @@ body {
   background-color: rgb(250,250,250,0.7);
 }
 
-.profile {
+.profile, .settings {
   padding-top: 56px !important;
 }
 
@@ -760,11 +765,11 @@ body {
     padding-top: 80px;
   }
 
-  .profile {
+  .profile, .settings {
     padding-top: 100px !important;
   }
 
-  .profile-white {
+  .profile-white, .settings-white {
     padding-top: 100px !important;
   }
 
