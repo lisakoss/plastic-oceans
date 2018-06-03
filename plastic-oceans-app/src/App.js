@@ -4,7 +4,6 @@ import { Route, Switch, Link } from 'react-router-dom';
 import Opening from './Opening';
 import Footprint from './Footprint';
 import NavigationBar from './NavigationBar';
-
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import ForgotPassword from './ForgotPassword';
@@ -28,7 +27,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.currentScreen)
     return (
       <div role="main">
         <Switch>

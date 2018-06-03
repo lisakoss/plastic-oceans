@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-class QuizResult extends Component {
+class QuizAnswer extends Component {
     render() {
         return (
-            <div id="result-container">
+            <div id="answer-container">
                 {this.props.didScore ? (
                     <div>
                     <h2>Correct!</h2>
@@ -36,4 +36,4 @@ class QuizResult extends Component {
     }
 }
 
-export default QuizResult;
+export default QuizAnswer;
