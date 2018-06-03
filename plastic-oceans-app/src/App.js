@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Route, Switch, Link } from 'react-router-dom';
-import firebase, { auth } from './firebase.js';
 import Opening from './Opening';
 import Footprint from './Footprint';
 import NavigationBar from './NavigationBar';
-import Quizzes from './Quizzes';
 
 import SignUp from './SignUp';
 import SignIn from './SignIn';

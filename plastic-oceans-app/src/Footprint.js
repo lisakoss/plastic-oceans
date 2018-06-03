@@ -1,11 +1,10 @@
 import React from 'react';
 import './index.css';
 import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
-import MyFootprint from './MyFootprint.js'
-import ActivePledges from './ActivePledges.js'
+import MyFootprint from './MyFootprint.js';
+import ActivePledges from './ActivePledges.js';
 import classnames from 'classnames';
-
-import firebase from './firebase.js';
+import firebase from 'firebase';
 
 export default class Footprint extends React.Component {
   constructor(props) {
