@@ -8,7 +8,7 @@ class Quizzes extends Component {
         super(props);
         this.state = {
             quizList: [],
-            quizResultsList: []
+            quizResultsList: new Map()
         };
     }
 
@@ -22,7 +22,7 @@ class Quizzes extends Component {
                             <ListGroupItem className="quiz-select" id={item} key={index} action onClick={(e) => this.handleQuizClick(e)}>
                                 <img src="https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_black_192x192.png" alt="right arrow" />
                                 <ListGroupItemHeading className="disable-click">{item}</ListGroupItemHeading>
-                                <ListGroupItemText className="quiz-record disable-click">{this.state.quizResultsList[index] || ("Not Taken")}</ListGroupItemText>
+                                <ListGroupItemText className="quiz-record disable-click">{this.state.quizResultsList.get(item) || ("Not Taken")}</ListGroupItemText>
                                 <ListGroupItemText className="quiz-type"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-6096188ce806c80cf30dca727fe7c237.png" alt="map marker icon" /> Global</ListGroupItemText>
                             </ListGroupItem>
                         );
@@ -50,15 +50,16 @@ class Quizzes extends Component {
         });
 
         var uid = "";
-        var quizResultsArr = []
+        var quizResultsArr = new Map();
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 uid = user.uid;
                 var quizResultsRef = firebase.database().ref('/users/' + uid + '/QuizRecord');
+                var count = 0;
                 quizResultsRef.on('value', function(snapshot) { 
                     if (snapshot != null) {
                         snapshot.forEach(function(quizResult) {
-                            quizResultsArr.push(quizResult.val()["NumberCorrect"] + "/" + quizResult.val()["Total"] + " Correct");
+                            quizResultsArr.set(quizResult.key, quizResult.val()["NumberCorrect"] + "/" + quizResult.val()["Total"] + " Correct");
                         })
                     }
                     callback(quizzesList, quizResultsArr);
