@@ -273,7 +273,7 @@ li {
 }
 
 #pledge-list{
-  max-height: 40vh;
+  max-height: 25vh;
   overflow: scroll;
   display: flex;
 }
@@ -542,6 +542,11 @@ li {
 }
 
 @media (min-width: 701px) {
+
+  /*Pledge List for Desktop*/
+  #pledge-list{
+    max-height: 40vh;
+  }
 
   /*Quiz for Desktop*/
   .quiz-options {
