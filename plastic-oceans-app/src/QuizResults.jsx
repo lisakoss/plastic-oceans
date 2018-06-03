@@ -20,22 +20,32 @@ class QuizResults extends Component {
             if (user) {
                 uid = user.uid;
                 var quizRecordRef = firebase.database().ref("/users/" + uid + "/QuizRecord/" + componentRef.props.quizName);
-                quizRecordRef.on("value", function(snapshot) {
+                quizRecordRef.once("value", function(snapshot) {
                     if (snapshot.val() != null) {
                         currentRecord = snapshot.val()["NumberCorrect"];
+                    }
+                    console.log("currentRecord : " + currentRecord);
+                    console.log("total questions : " + componentRef.props.totalQuestions);
+                    console.log("number correct : " + componentRef.props.numberCorrect);
+                    if (currentRecord != componentRef.props.totalQuestions && componentRef.props.numberCorrect == componentRef.props.totalQuestions) {
+                        var levelRef = firebase.database().ref("/users/" + uid + "/Level");
+                        var currentLevel = 0;
+                        levelRef.once("value", function(levelSnapshot) {
+                            if (levelSnapshot.val() != null) {
+                                currentLevel = levelSnapshot.val();
+                            }
+                            levelRef.set(currentLevel + 1);
+                        })
                     }
                     if (currentRecord < componentRef.props.numberCorrect) {
                         quizRecordRef.set({
                             Total: componentRef.props.totalQuestions,
                             NumberCorrect: componentRef.props.numberCorrect
                         })
-                    }
+                    } 
                 })
             }
         })
-
-
-        // Go back to quiz select screen
         this.props.exitResults();
     }
 }

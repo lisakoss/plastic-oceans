@@ -430,7 +430,7 @@ li {
   height: 120vh;
   background-size: cover;
   background-image: url('http://getwallpapers.com/wallpaper/full/0/8/7/355148.jpg');
-  padding-top: 60vh;
+  padding-top: 20vh;
   width: 100vw;
 }
 
@@ -452,6 +452,25 @@ li {
   margin-top: 3vh !important;
   color: #984fba !important;
   cursor: pointer;
+}
+
+.quiz-select img {
+  float: right;
+  height: 75px;
+}
+
+.quiz-record {
+  float: right;
+  margin-top: 25px;
+}
+
+.quiz-type {
+  margin-top: 30px;
+}
+
+.quiz-type img {
+  height: 20px;
+  float: left;
 }
 
 .quiz-button {
@@ -525,6 +544,10 @@ li {
   /*Quiz for Desktop*/
   .quiz-options {
     width: 60% !important;
+  }
+
+  #quizzes-home {
+    padding-top: 60vh;
   }
 
   #quiz-container {
