@@ -205,8 +205,8 @@ export default class Discover extends React.Component {
                 width={width}
 height={height}
                 style={{
-                  width: "auto",
-                  height: "auto",
+                  width: "100vw",
+                  height: "100vh",
                 }}
               >
                 <ZoomableGroup center={[x, y]} zoom={zoom}>

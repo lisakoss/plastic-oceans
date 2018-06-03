@@ -29,7 +29,7 @@ class Quiz extends Component {
     render() {
         return (
             <div id="quiz-container">
-                <NavigationBar title="Footprint" selected="footprint" />
+                <NavigationBar title="Quizzes" selected="quizzes" />
                     {this.state.showResult && (
                         <QuizAnswer 
                             selectedAnswer={this.state.selectedAnswer}
