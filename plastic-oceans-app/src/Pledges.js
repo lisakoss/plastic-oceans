@@ -45,7 +45,7 @@ export default class Pledges extends React.Component {
 
         return (
         <div>
-            <Container>
+            <Container id="pledges-container">
                 <Row>
                     <Col xs="12" md="12">
                         <ListGroup id='pledge-list'>

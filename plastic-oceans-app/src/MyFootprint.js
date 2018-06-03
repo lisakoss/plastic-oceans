@@ -13,7 +13,7 @@ export default class MyFootprint extends React.Component {
 
     return (
       <div>
-        <Container>
+        <Container id="footprint-container">
             <Row>
                 <Col sm="6" md="12">
                     <p className="my-footprint-header">Location: {this.props.location}</p>
@@ -56,6 +56,7 @@ export default class MyFootprint extends React.Component {
     )
   }
 
+  // Adds pledge to active pledges
   addPledge(pledge) {
     this.props.addPledge(pledge);
   }
