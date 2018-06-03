@@ -7,6 +7,7 @@ import App from './App';
 
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Initialize Firebase
 var config = {
@@ -17,6 +18,7 @@ var config = {
   storageBucket: "plastic-oceans.appspot.com",
   messagingSenderId: "244318961535"
 };
+
 var app = firebase.initializeApp(config);
 export var auth = app.auth();
 

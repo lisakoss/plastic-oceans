@@ -15,6 +15,10 @@ body {
   background-color: #f6f6f6;
 }
 
+#root {
+  width: 100%;
+}
+
 /* General */
 /* FLEX */
 .row {
@@ -136,7 +140,6 @@ body {
   width: 50px !important;
 }
 
-
 /* Red Error Alert */
 .red-error {
   background-color: #ffb3b3;
@@ -159,6 +162,157 @@ body {
   display: none;
 }
 
+/* Page Header Style */
+.navbar{
+  background-color: #14b7c5;
+  margin-bottom: 0;
+  color: white;
+}
+
+.header-title{
+  padding-top: 1.5%;
+  padding-bottom: .5%;
+  margin-bottom: .75%;
+}
+
+/* Footprint Style */
+#footprint {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#footprint-tabs > li {
+  width: 50%;
+  font-weight: bold;
+  text-align: left;
+}
+
+.footprint {
+  text-align: center;
+}
+
+.nav-item {
+  color: #14b7c5;
+}
+
+.nav-item:hover {
+  color: purple;
+  cursor: pointer;
+}
+
+#footprint-tabs .nav-item .nav-link.active {
+  color: black;
+}
+
+.modal {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* My Footprint Style */
+.pledge-list .btn-secondary, .dropdown .btn-secondary, .modal-footer .btn-primary, .pledge .btn-secondary {
+  background-color: #14b7c5;
+  border: 0;
+}
+
+.pledge-list .btn-secondary:hover, .dropdown .btn-secondary:hover, #accept-pledge .btn-secondary:hover, .modal-footer .btn-primary:hover, .pledge .btn-secondary:hover{
+  background-color: purple;
+}
+
+.footprint-circle {
+  text-align: center;
+  position: relative;
+  color: white;
+}
+
+.footprint-weight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.footprint-weight > p {
+  margin: 0;
+}
+
+/* Tab Content Style */
+.tab-content {
+  padding-top: 2.5%;
+}
+
+/* Pledges List Style */
+.my-footprint-header {
+  margin-bottom: 2%;
+  font-weight: bold;
+  text-align: left;
+}
+
+#my-footprint-title {
+  font-weight: bold;
+}
+
+#my-footprint-pledges {
+  margin-top: 2%;
+}
+
+#pledge-list{
+  max-height: 40vh;
+  overflow: scroll;
+  display: flex;
+}
+
+#active-pledge-list {
+  max-height: 60vh;
+  overflow: scroll;
+  display: flex;
+}
+
+.pledge > .pledge-info {
+  display: inline-block;
+  flex-shrink: 1;
+  margin-right: 1rem;
+  vertical-align: top;
+}
+
+.pledge .pledge-info p{
+  margin-top: 1rem;
+}
+
+.pledge > .btn {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.pledge-title {
+  font-weight: bold;
+}
+
+.pledge-text {
+  display: inline-block;
+}
+
+.slider-value {
+  font-size: 3em;
+  text-align: center;
+}
+
+#pledge-list .list-group-item, #active-pledge-list .list-group-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-shrink: 0;
+} 
+
+.pledge-icon {
+  width: 7%;
+  height: 7%;
+  vertical-align: top;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+/* Navigation Bar Style */
 /* Navigation Bar Styling for Mobile */
 #menu, #app-title {
   display: none;
