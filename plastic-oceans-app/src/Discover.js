@@ -1,4 +1,6 @@
 import React from 'react';
+import {findDOMNode} from 'react-dom'
+import ReactDOMServer from 'react-dom/server';
 import './index.css';
 import {
   ComposableMap,
@@ -12,10 +14,10 @@ import { Motion, spring } from "react-motion"
 import fetch from 'node-fetch';
 import ReactTooltip from "react-tooltip";
 import $ from "jquery";
+import { Button } from 'reactstrap';
 
 const wrapperStyles = {
   width: "100%",
-  maxWidth: 980,
   margin: "0 auto",
 }
 
@@ -31,6 +33,8 @@ export default class Discover extends React.Component {
     }
 
     this.handleCityClick = this.handleCityClick.bind(this);
+    this.hoverMarker = this.hoverMarker.bind(this);
+    this.activateKey = this.activateKey.bind(this);
   }
 
   componentDidMount() {
@@ -71,19 +75,22 @@ export default class Discover extends React.Component {
 
             let itemString = "";
             let itemLength = 0;
+            let numOfItemsCollected = 0;
             for (let item of currentItemsMap) {
               let newItemLength = `${item[0]} x${item[1]}`.length;
-              if(itemLength < newItemLength) {
+              if (itemLength < newItemLength) {
                 itemLength = newItemLength;
               }
-              itemString += `${item[0]} x${item[1]} <br/>`
+              itemString += `${item[0]} x${item[1]} <br/>`;
+              numOfItemsCollected += item[1];
             }
 
-            let debrisObj = { 
+            let debrisObj = {
               markerOffset: -25,
-              name: itemString,
+              name: `${numOfItemsCollected} pieces of trash have been collected:<br/> ${itemString}`,
               coordinates: [debris.Longitude, debris.Latitude],
-              id: count
+              id: count,
+              numOfItemsCollected: numOfItemsCollected,
             }
 
             mapMarkers.push(debrisObj);
@@ -94,8 +101,9 @@ export default class Discover extends React.Component {
         }
 
         this.setState({ markers: mapMarkers });
-        this.setState( {markerLength: itemLengths });
+        this.setState({ markerLength: itemLengths });
       })
+
   }
 
   handleCityClick(city) {
@@ -104,7 +112,41 @@ export default class Discover extends React.Component {
     })
   }
 
+  activateKey() {
+    console.log("ddd");
+
+
+    let someLink = document.getElementsByClassName("markerContent")[0]
+    console.log("link", someLink)
+    if(someLink){
+      console.log("wor")
+        someLink.setAttribute("data-tip", 'NEW STUFF')
+        ReactTooltip.rebuild()
+    }
+}
+
+  hoverMarker(e) {
+    var popup = document.getElementById("myPopup");
+    console.log("HEY")
+    console.log("Event", e.id);
+    console.log("the element", $(`#${e.id}`));
+    $(`#${e.id}`).addClass("showMarkerTooltip");
+
+  
+  }
+  
+
   render() {
+    const tooltipStyle = {
+      pointerEvents: 'auto', // enable click/selection etc. events inside tooltip
+      overflowY: 'auto', // make content scrollable,
+      ...this.props.style // apply style overrides
+    }
+    let content = ReactDOMServer.renderToString((<button id="trashBtn" onClick={this.activateKey} className="tooltipPopup" style={tooltipStyle}>btn</button>));
+    $(content).on('click', function(event) {
+      event.preventDefault();
+      console.log("SKJFKLDFDS")
+    });
     let markersForMap = [];
     markersForMap = this.state.markers.map((marker, i) => (
       <Marker
@@ -113,9 +155,9 @@ export default class Discover extends React.Component {
         marker={marker}
         width="50"
         style={{
-          default: { fill: "#FF5722" },
-          hover: { fill: "#FFFFFF" },
-          pressed: { fill: "#FF5722" },
+          default: { fill: "#14b7c5" },
+          hover: { fill: "#8de3ea" },
+          pressed: { fill: "#14b7c5" },
           width: "50"
         }}
       >
@@ -124,20 +166,47 @@ export default class Discover extends React.Component {
           cy={0}
           r={10}
           style={{
-            stroke: "#FF5722",
+            stroke: "#14b7c5",
             strokeWidth: 3,
             opacity: 0.9,
           }}
-          data-tip={marker.name}
-          data-event='click'
+
         />
+        <text
+          y={6}
+          x={-9}
+          style={{
+            fontFamily: "Roboto, sans-serif",
+            fill: "#607D8B",
+            transform: "scale(1, 1)",
+          }}
+          id={i}
+          className={this.state.popup}
+          ref='foo'
+          data-html="true"
+          data-tip={`${marker.name} ${content}`}
+          onClick={this.activateKey}
+          data-event='click'
+        >
+          {marker.numOfItemsCollected}
+        </text>
       </Marker>
     ));
 
+    $("#trashBtn").click(function() {
+      alert( "Handler for .click() called." );
+    });
 
+
+    $( ".tooltipPopup" ).css( "border", "3px solid red" );
+
+    console.log("Ddfgd", $(".tooltipPopup"))
     console.log("map markers", markersForMap);
+
+    console.log("markers for map", markersForMap)
     return (
       <div style={wrapperStyles}>
+      <Button onClick={() => { ReactTooltip.hide(findDOMNode(this.refs.foo)) }}>btn</Button>
         <Motion
           defaultStyle={{
             zoom: 1,
@@ -167,8 +236,6 @@ export default class Discover extends React.Component {
                       geographies.map((geography, i) => geography.id !== "ATA" && (
                         <Geography
                           key={i}
-                          data-tip={geography.properties.name}
-                          data-event='click'
                           geography={geography}
                           projection={projection}
                           style={{
@@ -199,7 +266,9 @@ export default class Discover extends React.Component {
                   </Markers>
                 </ZoomableGroup>
               </ComposableMap>
-              <ReactTooltip html={true} globalEventOff='click' />
+              <ReactTooltip style={tooltipStyle} className="trashTooltip">
+                 
+              </ReactTooltip>
             </div>
           )}
         </Motion>
