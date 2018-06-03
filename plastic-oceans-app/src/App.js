@@ -34,7 +34,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Opening} />
           <Route exact path="/Footprint" component={Footprint}/>
-          <Route exact path="/Quizzes" component={Quizzes}/>
+          <Route exact path="/quizzes" component={Quizzes}/>
+          <Route exact path="/quizzes/:quizID" component={Quiz}/>
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/forgot" component={ForgotPassword} />
@@ -42,7 +43,7 @@ class App extends Component {
           <Route exact path="/profile/:profileID" component={Profile} />
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/discover" component={Discover} />
-        </Switch>
+        </Switch> 
 
         {(this.state.currentScreen == "Quizzes") && (
           <Quizzes 

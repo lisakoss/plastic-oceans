@@ -57,14 +57,17 @@ class Quiz extends Component {
     }
 
     componentDidMount() {
-        this.getQuestionCount(this.props.quizName);
-        this.setUpQuestion(this.props.quizName);
+        let quizName = this.props.match.params.quizID;
+        this.getQuestionCount(quizName);
+        this.setUpQuestion(quizName);
+
+        this.setState({quizName: quizName})
     }
 
     handleFinishQuiz(e) {
         // Save quiz results
         // Go back to quiz select screen
-        this.props.goBackToQuizSelect();
+        this.props.history.push(`/quizzes/`);
     }
 
     finishQuiz() {
@@ -80,7 +83,7 @@ class Quiz extends Component {
         this.setState({
             currentQuestionNum: questionNum,
         }, () => {
-            this.setUpQuestion(this.props.quizName);
+            this.setUpQuestion(this.state.quizName);
         });
         this.setState({
             showResult: false,

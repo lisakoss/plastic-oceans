@@ -48,8 +48,8 @@ class Quizzes extends Component {
 
     handleQuizClick(e) {
         var quizTitle = e.target.id;
-        this.props.chooseQuiz("Enter Quiz", quizTitle);
-    }
+        this.props.history.push(`/quizzes/${quizTitle}`);
+    } 
 
 }
 
