@@ -13,8 +13,6 @@ class Quizzes extends Component {
     }
 
     render() {
-        console.log(this.state.quizList);
-        console.log(this.state.quizResultsList);
         return (
             <div id="quizzes-home">
                 <NavigationBar title="Quizzes" selected="quizzes" />
@@ -22,8 +20,10 @@ class Quizzes extends Component {
                     {this.state.quizList.map((item, index) => {
                         return (
                             <ListGroupItem className="quiz-select" id={item} key={index} action onClick={(e) => this.handleQuizClick(e)}>
+                                <img src="https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_black_192x192.png" alt="right arrow" />
                                 <ListGroupItemHeading className="disable-click">{item}</ListGroupItemHeading>
-                                <ListGroupItemText className="disable-click">{this.state.quizResultsList[index] || ("Not Taken")}</ListGroupItemText>
+                                <ListGroupItemText className="quiz-record disable-click">{this.state.quizResultsList[index] || ("Not Taken")}</ListGroupItemText>
+                                <ListGroupItemText className="quiz-type"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-6096188ce806c80cf30dca727fe7c237.png" alt="map marker icon" /> Global</ListGroupItemText>
                             </ListGroupItem>
                         );
                     })}
@@ -57,7 +57,6 @@ class Quizzes extends Component {
                 var quizResultsRef = firebase.database().ref('/users/' + uid + '/QuizRecord');
                 quizResultsRef.on('value', function(snapshot) { 
                     if (snapshot != null) {
-                        console.log(snapshot.val());
                         snapshot.forEach(function(quizResult) {
                             quizResultsArr.push(quizResult.val()["NumberCorrect"] + "/" + quizResult.val()["Total"] + " Correct");
                         })
