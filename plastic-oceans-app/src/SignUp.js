@@ -7,8 +7,10 @@ import SignUpForm from './SignUpForm';
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-
+    this.state = {
+      error: null
+    };
+    
     // put optional this binding here
     this.createNewUser = this.createNewUser.bind(this);
   }
@@ -49,6 +51,13 @@ export default class SignUp extends React.Component {
         }
 
         userRef.set(userData); //update entry in JOITC, return promise for chaining
+
+        let usernameRef = firebase.database().ref('usernames/' + username);
+        let usernameData = {
+          username
+        }
+
+        usernameRef.set(usernameData);
       })
       .catch((error) => { //report any errors
         let errorCode = error.code;
@@ -56,15 +65,7 @@ export default class SignUp extends React.Component {
         
         if (errorCode === 'auth/email-already-in-use') {
           this.setState({ error: 'The email address is already in use.' });
-        } else if (errorCode === 'auth/invalid-email') {
-          this.setState({ error: 'The email address is invalid' });
-        } else if (errorCode === 'auth/operation-not-allowed') {
-          this.setState({ error: 'Unable to create an account at this time, try again later.' });
-        } else if (errorCode === 'auth/weak-password') {
-          this.setState({ error: 'Password is not long enough' });
-        } else {
-          this.setState({ error: errorMessage });
-        }
+        } 
       });
   }
 
@@ -73,7 +74,7 @@ export default class SignUp extends React.Component {
 
     // show user sign up form if logged out
     if (!this.state.userId) {
-      content = (<div><SignUpForm signUpCallback={this.createNewUser} /></div>);
+      content = (<div><SignUpForm signUpCallback={this.createNewUser} emailError={this.state.error} /></div>);
     }
 
     return (
