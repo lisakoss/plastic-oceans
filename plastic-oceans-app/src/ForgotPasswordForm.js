@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import NavigationBar from './NavigationBar';
 
-export default class SignInForm extends React.Component {
+export default class ForgotPasswordForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       'email': undefined,
-      'password': undefined
     };
 
     // put optional this binding here
@@ -18,9 +17,9 @@ export default class SignInForm extends React.Component {
   }
 
   // sign the user in with the details provided in the form
-  signInUser(event) {
+  getForgotPassword(event) {
     event.preventDefault(); //don't submit
-    this.props.signInCallback(this.state.email, this.state.password);
+    this.props.forgotPasswordCallback(this.state.email);
   }
 
   // update the state for specific sign in form field
@@ -47,6 +46,18 @@ export default class SignInForm extends React.Component {
         errors.required = true;
         errors.isValid = false;
       }
+
+      //handle email type
+      if (validations.email) {
+        //pattern comparison that works 99.99% of the time from
+        //http://emailregex.com/ 
+        let valid = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/.test(value);
+        if (!valid) {
+          errors.email = true;
+          errors.isValid = false;
+        }
+      }
+
     }
 
     //display details
@@ -61,24 +72,24 @@ export default class SignInForm extends React.Component {
   }
 
   render() {
-    let emailErrors = this.validateFields(this.state.email, { required: true, });
-    let passwordErrors = this.validateFields(this.state.password, { required: true, });
+    let emailErrors = this.validateFields(this.state.email, { required: true, email: true, });
+
     let submitDisabled = false;
     let submitState = "primary";
-    let incorrectCredentials = "";
+    let emailDoesNotExist = "";
     let errorAlert = (<div className="hidden"><p></p></div>);
 
-    if(this.props.error !== undefined) {
-      incorrectCredentials = this.props.error;
-      errorAlert = (<div className="alert red-error"><p>{incorrectCredentials}</p></div>);
-    } else if(this.props.error === undefined) {
-      incorrectCredentials = null;
+    if (this.props.error !== undefined) {
+      emailDoesNotExist = this.props.error;
+      errorAlert = (<div className="alert red-error"><p>{emailDoesNotExist}</p></div>);
+    } else if (this.props.error === undefined) {
+      emailDoesNotExist = null;
       errorAlert = (<div className="hidden"><p></p></div>);
     }
 
     //set to secondary disabled when errors show
     //button validation
-    let signInEnabled = (emailErrors.isValid && passwordErrors.isValid);
+    let signInEnabled = (emailErrors.isValid);
 
     if (!signInEnabled) {
       submitDisabled = true;
@@ -89,19 +100,14 @@ export default class SignInForm extends React.Component {
       <div className="sign-up tinted" role="article">
         <div className="sign-up-container">
           <div className="sign-up-form">
-            <h1>sign in</h1>
+            <h1 className="forgot-pass">forgot password</h1>
             {errorAlert}
             <Form>
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="text" name="email" fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
               </FormGroup>
-              <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="password" name="password" fieldName="Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
-              </FormGroup>
-              <div className="sign-up-button">
-                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.signInUser(event)}>Submit</Button>
-                <p><Link to="/forgot">Forgot Password?</Link></p>
-                <p className="no-account">Don't have an account? <Link to="/signup">Sign up here.</Link></p>
+              <div className="forgot-button">
+                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.getForgotPassword(event)}>Submit</Button>
               </div>
             </Form>
           </div>
@@ -118,10 +124,12 @@ class ValidatedInput extends React.Component {
     let errors = this.props.errors.style != "" ? "invalid" : "";
     let errorMessage = "";
 
-    console.log("RENDER ARROEERS", this.props.emailError);
-
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
+    } else {
+      if (this.props.errors.email) {
+        errorMessage += "Email address is invalid.";
+      }
     }
 
     let field = (
