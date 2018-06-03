@@ -28,7 +28,7 @@ export default class ActivePledges extends React.Component {
     render() {
         return (
             <div>
-                <Container>
+                <Container id="active-pledges-container">
                     <Row>
                         <Col xs="12" md="12">
                             <ListGroup id='active-pledge-list'>

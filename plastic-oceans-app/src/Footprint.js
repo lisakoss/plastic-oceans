@@ -23,7 +23,7 @@ export default class Footprint extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -63,6 +63,7 @@ export default class Footprint extends React.Component {
             this.setState({
               activePledges: userInfo.pledges.activePledges
             });
+
             // Remove active pledges from list of all pledges to get all pledges user can accept
             for (var i = 0; i < newState.length; i++) {
               for (var j = 0; j < this.state.activePledges.length; j++) {
@@ -73,36 +74,19 @@ export default class Footprint extends React.Component {
                 }
               }
             }
-
-            // if (newState.length === 0) {
-            //   this.setState({
-            //     pledgesAvailable: false
-            //   })
-            // } else {
-            //   this.setState({
-            //     pledgesAvailable: true
-            //   })
-            // }
-
-            // Set list of pledges users can accept
-            this.setState({
-              pledges: newState
-            });
-
-            // If user has no active pledges, set list of pledges user can accept to all pledges
-          } else {
-            this.setState({
-              pledges: newState
-            });
           }
-
-          // Calculate user's footprint
+          // Calculate the user's footprint
           this.calculateFootprint();
+
+          // Pledges user can accept
+          this.setState({
+            pledges: newState
+          });
         });
 
       } else {
         // No user is signed in.
-        console.log('There is no logged in user');
+        this.props.history.push('/'); // Redirect to opening page
       }
     });
   }
@@ -162,6 +146,7 @@ export default class Footprint extends React.Component {
     )
   }
 
+  // Adds a pledge to active pledges
   addPledge(pledge) {
     this.state.activePledges.push(pledge);
 
@@ -174,6 +159,7 @@ export default class Footprint extends React.Component {
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
   }
 
+  // Deletes a pledge from active pledges
   deletePledge(pledge) {
     this.state.pledges.push(pledge);
 
@@ -185,7 +171,7 @@ export default class Footprint extends React.Component {
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
   }
 
-
+  // Calculates the user's footprint
   calculateFootprint() {
     let plasticSaved = 0;
     this.state.activePledges.forEach((pledge) => {

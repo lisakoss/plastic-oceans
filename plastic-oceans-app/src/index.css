@@ -224,12 +224,12 @@ li {
 }
 
 /* My Footprint Style */
-.pledge-list .btn-secondary, .dropdown .btn-secondary, .modal-footer .btn-primary, .pledge .btn-secondary {
+.modal-footer .btn-primary, .pledge .btn-secondary {
   background-color: #14b7c5;
   border: 0;
 }
 
-.pledge-list .btn-secondary:hover, .dropdown .btn-secondary:hover, #accept-pledge .btn-secondary:hover, .modal-footer .btn-primary:hover, .pledge .btn-secondary:hover{
+#accept-pledge .btn-secondary:hover, .modal-footer .btn-primary:hover, .pledge .btn-secondary:hover{
   background-color: purple;
 }
 
@@ -280,6 +280,10 @@ li {
   max-height: 60vh;
   overflow: scroll;
   display: flex;
+}
+
+#my-footprint-pledges.container, #pledges-container, #active-pledges-container, #footprint-container {
+  padding-top: 0;
 }
 
 .pledge > .pledge-info {
