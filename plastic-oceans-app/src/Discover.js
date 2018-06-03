@@ -228,7 +228,7 @@ export default class Discover extends React.Component {
                   </Markers>
                 </ZoomableGroup>
               </ComposableMap>
-              <ReactTooltip style={tooltipStyle} />
+              <ReactTooltip style={tooltipStyle} globalEventOff="click"  />
             </div>
           )}
         </Motion>
