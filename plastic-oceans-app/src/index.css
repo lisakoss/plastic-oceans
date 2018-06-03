@@ -208,6 +208,7 @@ li {
 
 .nav-item {
   color: #14b7c5;
+  padding-bottom: 0;
 }
 
 .nav-item:hover {
