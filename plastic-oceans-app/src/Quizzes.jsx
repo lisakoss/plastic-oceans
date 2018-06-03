@@ -17,7 +17,7 @@ class Quizzes extends Component {
         console.log(this.state.quizResultsList);
         return (
             <div id="quizzes-home">
-                <NavigationBar title="Footprint" selected="footprint" />
+                <NavigationBar title="Quizzes" selected="quizzes" />
                 <ListGroup className="quiz-list">
                     {this.state.quizList.map((item, index) => {
                         return (
