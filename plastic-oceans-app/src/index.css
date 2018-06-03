@@ -19,6 +19,14 @@ body {
   width: 100%;
 }
 
+.container {
+  padding-top: 100px;
+}
+
+li {
+  border: none !important;
+}
+
 /* General */
 /* FLEX */
 .row {

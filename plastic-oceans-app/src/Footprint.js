@@ -1,15 +1,16 @@
 import React from 'react';
 import './index.css';
-import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import MyFootprint from './MyFootprint.js';
 import ActivePledges from './ActivePledges.js';
 import classnames from 'classnames';
 import firebase from 'firebase';
+import NavigationBar from './NavigationBar';
 
 export default class Footprint extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       activeTab: '1',
       pledges: [],
@@ -23,7 +24,7 @@ export default class Footprint extends React.Component {
   }
 
   componentDidMount() {
-    
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         // Grab all pledges
@@ -31,7 +32,7 @@ export default class Footprint extends React.Component {
         let newState = [];
         pledgesRef.on('value', (snapshot) => {
           let pledges = snapshot.val();
-    
+
           snapshot.forEach(function (child) {
             let pledge = child.val();
             newState.push({
@@ -88,7 +89,7 @@ export default class Footprint extends React.Component {
               pledges: newState
             });
 
-          // If user has no active pledges, set list of pledges user can accept to all pledges
+            // If user has no active pledges, set list of pledges user can accept to all pledges
           } else {
             this.setState({
               pledges: newState
@@ -97,11 +98,11 @@ export default class Footprint extends React.Component {
 
           // Calculate user's footprint
           this.calculateFootprint();
-        }); 
+        });
 
       } else {
-          // No user is signed in.
-          console.log('There is no logged in user');
+        // No user is signed in.
+        console.log('There is no logged in user');
       }
     });
   }
@@ -118,42 +119,45 @@ export default class Footprint extends React.Component {
   render() {
     return (
       <div id="footprint">
-        <Nav tabs id="footprint-tabs">
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '1' })}
-              onClick={() => { this.toggle('1'); }}
-            >
-              My Footprint
+        <NavigationBar title="Footprint" selected="footprint" />
+        <div className="container">
+          <Nav tabs id="footprint-tabs">
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === '1' })}
+                onClick={() => { this.toggle('1'); }}
+              >
+                My Footprint
             </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}
-            >
-              Active Pledges
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === '2' })}
+                onClick={() => { this.toggle('2'); }}
+              >
+                Active Pledges
             </NavLink>
-          </NavItem>
-        </Nav>
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            <MyFootprint 
-              uid={this.uid}
-              pledges={this.state.pledges}
-              location={this.state.user.location}
-              addPledge={(pledge) => this.addPledge(pledge)}
-              userFootprint={this.state.userFootprint}
-              avgFootprint={this.state.avgFootprint}
-            />
-          </TabPane>
-          <TabPane tabId="2">
-            <ActivePledges 
-              pledges={this.state.activePledges}
-              deletePledge={(pledge) => this.deletePledge(pledge)}
-            />
-          </TabPane>
-        </TabContent>
+            </NavItem>
+          </Nav>
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId="1">
+              <MyFootprint
+                uid={this.uid}
+                pledges={this.state.pledges}
+                location={this.state.user.location}
+                addPledge={(pledge) => this.addPledge(pledge)}
+                userFootprint={this.state.userFootprint}
+                avgFootprint={this.state.avgFootprint}
+              />
+            </TabPane>
+            <TabPane tabId="2">
+              <ActivePledges
+                pledges={this.state.activePledges}
+                deletePledge={(pledge) => this.deletePledge(pledge)}
+              />
+            </TabPane>
+          </TabContent>
+        </div>
       </div>
     )
   }
@@ -167,18 +171,18 @@ export default class Footprint extends React.Component {
       }
     }
 
-    firebase.database().ref('users/' + this.state.userID + "/pledges").set({activePledges: this.state.activePledges});
+    firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
   }
 
   deletePledge(pledge) {
     this.state.pledges.push(pledge);
-    
+
     for (var i = 0; i < this.state.activePledges.length; i++) {
       if (this.state.activePledges[i] === pledge) {
         this.state.activePledges.splice(i, 1);
       }
     }
-    firebase.database().ref('users/' + this.state.userID + "/pledges").set({activePledges: this.state.activePledges});
+    firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
   }
 
 
