@@ -25,7 +25,7 @@ export default class Discover extends React.Component {
   constructor() {
     super()
     this.state = {
-      center: [-122.4821475, 47.6129432],
+      center: [-98.58, 39.83],
       zoom: 6,
       markers: [
         { name: "Caracas", coordinates: [-66.9036, 10.4806] },
@@ -33,8 +33,6 @@ export default class Discover extends React.Component {
     }
 
     this.handleCityClick = this.handleCityClick.bind(this);
-    this.hoverMarker = this.hoverMarker.bind(this);
-    this.activateKey = this.activateKey.bind(this);
   }
 
   componentDidMount() {
@@ -112,42 +110,15 @@ export default class Discover extends React.Component {
     })
   }
 
-  activateKey() {
-    console.log("ddd");
-
-
-    let someLink = document.getElementsByClassName("markerContent")[0]
-    console.log("link", someLink)
-    if(someLink){
-      console.log("wor")
-        someLink.setAttribute("data-tip", 'NEW STUFF')
-        ReactTooltip.rebuild()
-    }
-}
-
-  hoverMarker(e) {
-    var popup = document.getElementById("myPopup");
-    console.log("HEY")
-    console.log("Event", e.id);
-    console.log("the element", $(`#${e.id}`));
-    $(`#${e.id}`).addClass("showMarkerTooltip");
-
-  
-  }
-  
-
   render() {
     const tooltipStyle = {
       pointerEvents: 'auto', // enable click/selection etc. events inside tooltip
       overflowY: 'auto', // make content scrollable,
       ...this.props.style // apply style overrides
     }
-    let content = ReactDOMServer.renderToString((<button id="trashBtn" onClick={this.activateKey} className="tooltipPopup" style={tooltipStyle}>btn</button>));
-    $(content).on('click', function(event) {
-      event.preventDefault();
-      console.log("SKJFKLDFDS")
-    });
+    let content = ReactDOMServer.renderToString((<Button style={tooltipStyle}>CLOSE</Button>));
     let markersForMap = [];
+
     markersForMap = this.state.markers.map((marker, i) => (
       <Marker
         className={"popup"}
@@ -185,28 +156,19 @@ export default class Discover extends React.Component {
           ref='foo'
           data-html="true"
           data-tip={`${marker.name} ${content}`}
-          onClick={this.activateKey}
-          data-event='click'
+          data-event={"click"}
         >
           {marker.numOfItemsCollected}
         </text>
       </Marker>
     ));
 
-    $("#trashBtn").click(function() {
-      alert( "Handler for .click() called." );
+    $(".__react_component_tooltip").click(() => {
+      ReactTooltip.hide(findDOMNode(this.refs.foo));
     });
 
-
-    $( ".tooltipPopup" ).css( "border", "3px solid red" );
-
-    console.log("Ddfgd", $(".tooltipPopup"))
-    console.log("map markers", markersForMap);
-
-    console.log("markers for map", markersForMap)
     return (
       <div style={wrapperStyles}>
-      <Button onClick={() => { ReactTooltip.hide(findDOMNode(this.refs.foo)) }}>btn</Button>
         <Motion
           defaultStyle={{
             zoom: 1,
@@ -266,9 +228,7 @@ export default class Discover extends React.Component {
                   </Markers>
                 </ZoomableGroup>
               </ComposableMap>
-              <ReactTooltip style={tooltipStyle} className="trashTooltip">
-                 
-              </ReactTooltip>
+              <ReactTooltip style={tooltipStyle} />
             </div>
           )}
         </Motion>
