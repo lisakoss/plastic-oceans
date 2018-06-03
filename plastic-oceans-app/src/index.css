@@ -209,6 +209,7 @@ li {
 .nav-item {
   color: #14b7c5;
   padding-bottom: 0;
+  padding-left: 0;
 }
 
 .nav-item:hover {

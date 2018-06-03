@@ -39,14 +39,14 @@ export default class Profile extends React.Component {
             this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val().length })
             pledges = snapshot.child("pledges/activePledges").val()
 
-            var avgFootRef = firebase.database().ref('Average Footprint/' + this.state.location);
+            var avgFootRef = firebase.database().ref('Average Footprint');
             avgFootRef.once("value")
               .then(snapshot => {
                 let thisComponent = this;
-                this.setState({ averageFootPrint: snapshot.child("footprint").val() });
+                this.setState({ averageFootPrint: snapshot.val() });
 
                 pledges.forEach(function (pledge) {
-                  thisComponent.setState({ averageFootPrint: snapshot.child("footprint").val() - pledge.footprintReduction });
+                  thisComponent.setState({ averageFootPrint: snapshot.val() - pledge.footprintReduction });
                 });
               });
           });

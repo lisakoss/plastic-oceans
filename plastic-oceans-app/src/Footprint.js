@@ -16,7 +16,7 @@ export default class Footprint extends React.Component {
       pledges: [],
       activePledges: [],
       user: {},
-      avgFootprint: 1613.7,
+      avgFootprint: 0,
       pledgesAvailable: true
     };
 
@@ -46,6 +46,12 @@ export default class Footprint extends React.Component {
             });
           })
         });
+
+        var avgFootRef = firebase.database().ref('Average Footprint');
+        avgFootRef.once("value")
+          .then(snapshot => {
+            this.setState({ avgFootprint: snapshot.val() });
+          });
 
         // Get current user
         const currUser = firebase.database().ref('users/' + user.uid);
