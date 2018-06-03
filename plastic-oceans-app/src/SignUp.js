@@ -47,7 +47,7 @@ export default class SignUp extends React.Component {
           lastName: lastName,
           username: username,
           email: email,
-          location: location,
+          location: location
         }
 
         userRef.set(userData); //update entry in JOITC, return promise for chaining

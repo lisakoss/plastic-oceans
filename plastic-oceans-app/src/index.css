@@ -83,7 +83,52 @@ body {
     padding-top: 0px !important;
     text-align: center;
   }
+
+/* tooltip */ 
+ /* Popup container */
+ .popup {
+  position: relative !important;
+  display: inline-block !important;
+  cursor: pointer !important;
 }
+
+/* The actual popup (appears on top) */
+.popuptext {
+  visibility: hidden !important;
+  width: 160px !important;
+  background-color: #555 !important;
+  color: #fff !important;
+  text-align: center !important;
+  border-radius: 6px !important;
+  padding: 8px 0 !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  bottom: 125% !important;
+  left: 50% !important;
+  margin-left: -80px !important;
+  color: red !important
+}
+
+/* Popup arrow */
+.popuptext::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 50% !important;
+  margin-left: -5px !important;
+  border-width: 5px !important;
+  border-style: solid !important;
+  border-color: #555 transparent transparent transparent !important;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.show {
+  visibility: visible !important;
+  -webkit-animation: fadeIn 1s !important;
+  animation: fadeIn 1s !important;
+  position: absolute;
+}
+
 
 /* Red Error Alert */
 .red-error {
@@ -198,6 +243,94 @@ body {
 .mobile-nav-header {
   padding-left: 56px;
 }
+  
+/* Quiz Styling for Mobile */
+#quizzes-home {
+  height: 120vh;
+  background-size: cover;
+  background-image: url('http://getwallpapers.com/wallpaper/full/0/8/7/355148.jpg');
+  padding-top: 60vh;
+  width: 100vw;
+}
+
+.disable-click {
+  pointer-events: none !important;
+}
+
+#question-container {
+  margin: auto;
+  text-align: center;
+  width: 100vw;
+}
+
+#quiz-title {
+  display: none;
+}
+
+.quiz-select {
+  margin-top: 3vh !important;
+  color: #984fba !important;
+  cursor: pointer;
+}
+
+.quiz-button {
+  margin-top: 20px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #14b7c5;
+  color: white;
+  border: 5px solid #14b7c5;
+  margin-top: 20px;
+}
+
+.quiz-button-disabled {
+  margin-top: 20px;
+  width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: lightgrey;
+  color: white;
+  border: 5px solid lightgrey;
+  margin-top: 20px;
+  pointer-events: none;
+}
+
+.quiz-button:hover {
+  filter: brightness(110%);
+}
+
+.quiz-button:focus {
+  outline: 0;
+}
+
+.quiz-options {
+  margin: auto !important;
+  width: 100% !important;
+  cursor: pointer;
+}
+
+.selected-answer {
+  background-color: #14b7c5 !important;
+  color: white !important;
+}
+
+#result-container {
+  margin: auto;
+  text-align: center;
+  width: 100vw;
+}
+
+#quiz-final-results {
+  margin: auto;
+  text-align: center;
+  width: 100vw;
+}
+
+.quiz-result-text {
+  font-size: 36px;
+  font-family: Montserrat, sans-serif;
+}
 
 .settings-icon {
   clear: both;
@@ -207,6 +340,19 @@ body {
 }
 
 @media (min-width: 701px) {
+
+  /*Quiz for Desktop*/
+  .quiz-options {
+    width: 60% !important;
+  }
+
+  #quiz-container {
+    margin-top: 24vh;
+  }
+
+  #quiz-title {
+    display: block;
+  }
 
   /* Navigation Bar for Desktop */
   #slide-menu {
@@ -268,23 +414,12 @@ body {
     transition: .1s ease-out;
   }
 
-  /*#logout-btn {
-    background-color: #984fba;
-    width: 100px;
-    height: 30px;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    margin-top: 40px;
-  }*/
-
   #nav-bar {
     /*background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);*/
     background-color: #14b7c5;
     height: 100px;
     top: 0;
     width: 100%;
-    /*box-shadow: 15px 2px 8px 10px #b1d8dc;*/
   }
 
   #nav-bar h1 {
@@ -731,6 +866,7 @@ body {
   background-color: #984fba !important;
 }
 
+
 /* Web responsive styles */
 @media screen and (min-width: 701px) {
   .welcome-message h1 {
@@ -783,3 +919,15 @@ body {
     width: 40%;
   }
 }
+
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+} 
