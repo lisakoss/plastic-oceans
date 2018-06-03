@@ -17,6 +17,7 @@ export default class SettingsForm extends React.Component {
       firstName: '',
       lastName: '',
       username: '',
+      oldUsername: '',
       avatar: '',
       email: '',
       password: undefined,
@@ -44,6 +45,7 @@ export default class SettingsForm extends React.Component {
             this.setState({ firstName: snapshot.child("firstName").val() });
             this.setState({ lastName: snapshot.child("lastName").val() });
             this.setState({ username: snapshot.child("username").val() });
+            this.setState({ oldUsername: snapshot.child("username").val() });
             if (snapshot.child("avatar").val() === null) {
               this.setState({ avatar: '' });
             } else {
@@ -120,7 +122,7 @@ export default class SettingsForm extends React.Component {
           usernamesTaken.push(child.key.toLowerCase())
         })
         usernameTakenResult = usernamesTaken.includes((this.state.username + "").toLowerCase());
-        if (usernameTakenResult) {
+        if (usernameTakenResult && usernameTakenResult !== this.state.oldUsername) {
           errors.usernameTaken = true;
           errors.isValid = false;
         }
