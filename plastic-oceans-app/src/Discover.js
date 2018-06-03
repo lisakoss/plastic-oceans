@@ -13,6 +13,8 @@ import fetch from 'node-fetch';
 import ReactTooltip from "react-tooltip";
 import $ from "jquery";
 
+import NavigationBar from './NavigationBar'
+
 const wrapperStyles = {
   width: "100%",
   maxWidth: 980,
@@ -236,7 +238,6 @@ export default class Discover extends React.Component {
             </div>
           )}
         </Motion>
-
       </div>
     )
   }

@@ -7,27 +7,69 @@ import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap'
 
 import NavigationBar from './NavigationBar'
 
-export default class SignUpForm extends React.Component {
+export default class SettingsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: undefined,
-      lastName: undefined,
-      username: undefined,
-      email: undefined,
+      firstName: '',
+      lastName: '',
+      username: '',
+      avatar: '',
+      email: '',
       password: undefined,
       passwordConfirm: undefined,
-      location: undefined,
+      location: '',
     };
 
     // put optional this binding here
     this.handleFormChange = this.handleFormChange.bind(this);
   }
 
+    // executed when the component appears on the screen
+    componentDidMount() {
+        // Add a listener and callback for authentication events
+        this.unregister = firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            this.setState({ userId: user.uid });
+            var profileRef = firebase.database().ref('users/' + this.state.userId);
+            profileRef.once("value")
+              .then(snapshot => {
+                this.setState({ firstName: snapshot.child("firstName").val() });
+                this.setState({ lastName: snapshot.child("lastName").val() });
+                this.setState({ username: snapshot.child("username").val() });
+                this.setState({ avatar: snapshot.child("avatar").val() });
+                this.setState({ email: snapshot.child("email").val() });
+                this.setState({ location: snapshot.child("location").val() });
+    
+              });
+          }
+          else {
+            this.setState({ userId: null }); // null out the saved state if not logged in
+            this.setState({ firstName: null });
+            this.setState({ lastName: null });
+            this.setState({ username: null });
+            this.setState({ avatar: null });
+            this.setState({ email: null });
+            this.setState({ location: null });
+            this.setState({ password: null });
+            this.setState({ passwordConfirm: null });
+            this.props.history.push('/signin'); // redirect to home page
+          }
+        });
+      }
+    
+      // unregister saved funcs
+      componentWillUnmount() {
+        firebase.database().ref('users/' + this.state.userId).off();
+        if (this.unregister) {
+          this.unregister();
+        }
+      }
+
   // create new user callback to transfer the data to the SignUp form
-  createNewUser(event) {
+  updateProfile(event) {
     event.preventDefault(); //don't submit
-    this.props.signUpCallback(this.state.firstName, this.state.lastName, this.state.username, this.state.email, this.state.location, this.state.password);
+    this.props.settingsCallback(this.state.firstName, this.state.lastName, this.state.username, this.state.avatar, this.state.email, this.state.location, this.state.password);
   }
 
   // update the state for specific sign up form field
@@ -164,26 +206,27 @@ export default class SignUpForm extends React.Component {
 
 
     return (
-      <div className="sign-up tinted" role="article">
-        <div className="sign-up-container">
-          <div className="sign-up-form">
-            <h1>sign up</h1>
+        <div className="settings tinted" role="article">
+        <div className="settings-white">
+          <NavigationBar title="Settings" selected="settings" />
+          <div className="settings-container">
+            <h1>manage account</h1>
             {errorAlert}
             <Form>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="text" name="firstName" fieldName="First Name" id="first-name" onChange={this.handleFormChange} errors={firstNameErrors} />
+                <ValidatedInput type="text" name="firstName" value={this.state.firstName} fieldName="First Name" id="first-name" onChange={this.handleFormChange} errors={firstNameErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="text" name="lastName" fieldName="Last Name" id="last-name" onChange={this.handleFormChange} errors={lastNameErrors} />
+                <ValidatedInput type="text" name="lastName" value={this.state.lastName} fieldName="Last Name" id="last-name" onChange={this.handleFormChange} errors={lastNameErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="text" name="username" fieldName="Username" id="username" onChange={this.handleFormChange} errors={usernameErrors} />
+                <ValidatedInput type="text" name="username" value={this.state.username} fieldName="Username" id="username" onChange={this.handleFormChange} errors={usernameErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="email" name="email" fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
+                <ValidatedInput type="email" name="email" value={this.state.email} fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInputLocation type="select" name="location" fieldName="Location" id="location" onChange={this.handleFormChange} errors={locationErrors} options={["", "Urban", "Suburban", "Rural"]} />
+                <ValidatedInputLocation type="select" value={this.state.location} name="location" fieldName="Location" id="location" onChange={this.handleFormChange} errors={locationErrors} options={["", "Urban", "Suburban", "Rural"]} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
                 <ValidatedInput type="password" name="password" fieldName="Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
@@ -192,8 +235,7 @@ export default class SignUpForm extends React.Component {
                 <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
               </FormGroup>
               <div className="sign-up-button">
-                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.createNewUser(event)}>Submit</Button>
-                <p className="no-account">Already have an account? <Link to="/signin">Sign in here.</Link></p>
+                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.updateProfile(event)}>SAVE</Button>
               </div>
             </Form>
           </div>
@@ -239,7 +281,7 @@ class ValidatedInput extends React.Component {
     let field = (
       <span>
         <Label for={this.props.name}>{this.props.fieldName}</Label>
-        <Input type={this.props.type} name={this.props.name} id={this.props.id} invalid={errors != "" ? true : false} />
+        <Input type={this.props.type} value={this.props.value} name={this.props.name} id={this.props.id} invalid={errors != "" ? true : false} />
         <FormFeedback>{errorMessage}</FormFeedback>
       </span>
     );
@@ -261,7 +303,7 @@ class ValidatedInputLocation extends React.Component {
     }
 
     let options = (
-      <Input type={this.props.type} name={this.props.name} id={this.props.id} invalid={errors != "" ? true : false}>
+      <Input type={this.props.type} value={this.props.value} name={this.props.name} id={this.props.id} invalid={errors != "" ? true : false}>
         <option>{this.props.options[0]}</option>
         <option>{this.props.options[1]}</option>
         <option>{this.props.options[2]}</option>

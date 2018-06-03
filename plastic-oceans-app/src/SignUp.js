@@ -8,7 +8,7 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null
+      error: undefined
     };
     
     // put optional this binding here
@@ -21,7 +21,7 @@ export default class SignUp extends React.Component {
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
-        this.props.history.push('/'); // redirect to home page
+        this.props.history.push('/discover'); // redirect to home page
       }
       else {
         this.setState({ userId: null }); // null out the saved state if not logged in
@@ -74,7 +74,7 @@ export default class SignUp extends React.Component {
 
     // show user sign up form if logged out
     if (!this.state.userId) {
-      content = (<div><SignUpForm signUpCallback={this.createNewUser} emailError={this.state.error} /></div>);
+      content = (<div><SignUpForm signUpCallback={this.createNewUser} error={this.state.error} /></div>);
     }
 
     return (

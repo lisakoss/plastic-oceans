@@ -2,9 +2,9 @@ import React from 'react';
 import './index.css';
 import firebase from 'firebase';
 
-import SignInForm from './SignInForm';
+import ForgotPasswordForm from './ForgotPasswordForm';
 
-export default class SignIn extends React.Component {
+export default class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ export default class SignIn extends React.Component {
     };
 
     // put optional this binding here
-    this.signInUser = this.signInUser.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   // executed when the component appears on the screen
@@ -21,7 +21,7 @@ export default class SignIn extends React.Component {
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
-        this.props.history.push('/discover'); // redirect to home page
+        this.props.history.push('/'); // redirect to home page
       }
       else {
         this.setState({ userId: null }); // null out the saved state if not logged in
@@ -37,20 +37,29 @@ export default class SignIn extends React.Component {
   }
 
   //A callback function for logging in existing users
-  signInUser(email, password) {
-    // Sign in the user 
+  forgotPassword(email) {
+    var auth = firebase.auth();
     let thisComponent = this;
-    firebase.auth().signInWithEmailAndPassword(email, password) //logs in user with email and password
-      .catch(function (error) { //displays an error if there is a mistake with logging a user in
-        thisComponent.setState({ error: 'You provided incorrect credentials.' });
-      });
+
+    auth.sendPasswordResetEmail(email).then(function() {
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log("ERROR FORGOT PASS", error);
+
+      if (errorCode === 'auth/user-not-found') {
+        thisComponent.setState({ error: 'This email address does not have an account.' });
+      } 
+    });
   }
 
   render() {
     let content = null; //what main content to show
 
-    if (!this.state.userId) { //if logged out, show signup form
-      content = (<div><SignInForm signInCallback={this.signInUser} error={this.state.error} /></div>);
+    if (!this.state.userId) { //if logged out, show forgot password
+      content = (<div><ForgotPasswordForm forgotPasswordCallback={this.forgotPassword} error={this.state.error} /></div>);
     }
 
     return (

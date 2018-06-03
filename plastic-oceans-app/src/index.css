@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,600|Open+Sans:300,400');
 
 html {
   display:flex;
@@ -12,8 +12,77 @@ body {
   font-family: sans-serif;
   display: flex;
   flex: 1;
-  background-color: red;
+  background-color: #f6f6f6;
 }
+
+/* General */
+/* FLEX */
+.row {
+  display: flex;
+}
+
+.column1 {
+  flex: 50%;
+  padding: 10px;
+}
+
+.column1 img {
+  float: right;
+}
+
+.column2 {
+  flex: 50%;
+  padding: 10px;
+  padding-top: 65px;
+}
+
+@media (max-width: 850px) { 
+  .column1 {
+    flex: 50%;
+  }
+  
+  .column1 img {
+    float: right;
+  }
+  
+  .column2 {
+    flex: 50%;
+  }
+}
+
+@media (max-width: 450px) { 
+  .column1 {
+    flex: 25%;
+  }
+  
+  .column1 img {
+    display: block;
+    margin: 0 auto;
+    float: none !important;
+  }
+  
+  .column2 {
+    flex: 25%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 284px) { 
+  .column1 {
+    flex: 25%;
+  }
+  
+  .column1 img {
+    display: block;
+    margin: 0 auto;
+    float: none !important;
+  }
+  
+  .column2 {
+    flex: 25%;
+    padding-top: 0px !important;
+    text-align: center;
+  }
 
 /* tooltip */ 
  /* Popup container */
@@ -91,8 +160,9 @@ body {
 #nav-bar {
   width: 100vw;
   height: 10vh;
+  z-index: 1000;
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
 }
 
 #nav-buttons {
@@ -100,6 +170,8 @@ body {
   justify-content: center;
   flex-direction: row;
   width: 100%;
+  position: fixed;
+  bottom: 0px;
 }
 
 .nav-button {
@@ -138,6 +210,40 @@ body {
   display: none;
 }
 
+/* Navigation Styling for Mobile TOP Bar */
+
+#mobile-nav {
+  overflow: hidden;
+  background-color: #14b7c5;
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  height: 56px;
+  z-index: 1000;
+  text-align: center;
+}
+
+#mobile-nav p {
+  color: #ffffff;
+  vertical-align: middle;
+  line-height: 56px; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin: auto 0;
+  display: inline;
+}
+
+.profile-header {
+  padding-left: 45px;
+}
+
+.mobile-nav-header {
+  padding-left: 56px;
+}
+  
 /* Quiz Styling for Mobile */
 #quizzes-home {
   height: 120vh;
@@ -146,7 +252,6 @@ body {
   padding-top: 60vh;
   width: 100vw;
 }
-
 
 .disable-click {
   pointer-events: none !important;
@@ -227,8 +332,14 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
+.settings-icon {
+  clear: both;
+  float: right !important;
+  padding-right: 25px;
+  padding-left: 0px !important;
+}
 
-@media (min-width: 700px) {
+@media (min-width: 701px) {
 
   /*Quiz for Desktop*/
   .quiz-options {
@@ -246,13 +357,14 @@ body {
   /* Navigation Bar for Desktop */
   #slide-menu {
     display: block;
-    background: radial-gradient(white, #e3e9eb, #b1d8dc);
+    background: linear-gradient(#f6f6f6, #e3e9eb, #b1d8dc);
     width: 25vw;
     height: 100vh;
     position: fixed;
-    top: 20vh;
+    top: 100px;
     text-align: center;
-    font-family: Montserrat, sans-serif;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
   }
 
   #slide-menu h2 {
@@ -260,55 +372,128 @@ body {
     color: #984fba;
   }
 
+  #slide-menu p {
+    padding-top: 10px;
+    text-align: center;
+  }
+
   #profile-image {
     width: 70%;
   }
 
-  #slide-menu a {
+  .profile-nav {
+    padding-top: -5px;
+  }
+
+  #profile-custom {
+    text-align: center;
+    width: 150px !important;
+    height: 150px !important;
+    margin: 0 auto;
+  }
+
+  #slide-menu a:link, #slide-menu a:visited, #slide-menu a:active {
     display: block;
-    margin-bottom: 15px;
     color: #984fba;
     text-decoration: none;
+    text-transform: none;
+    -webkit-transition: .1s ease-out;
+    -moz-transition:.1s ease-out;
+    -o-transition: .1s ease-out;
+    transition: .1s ease-out;
+  }
+
+  #slide-menu a:hover {
+    display: block;
+    color: #14b7c5;
+    text-decoration: none;
+    text-transform: none;
+    -webkit-transition: .1s ease-out;
+    -moz-transition:.1s ease-out;
+    -o-transition: .1s ease-out;
+    transition: .1s ease-out;
   }
 
   #nav-bar {
-    background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);
-    height: 20vh;
+    /*background: linear-gradient(to bottom right, #b1d8dc, #14b7c5);*/
+    background-color: #14b7c5;
+    height: 100px;
     top: 0;
+    width: 100%;
   }
 
-  #menu, #app-title {
+  #nav-bar h1 {
+    display: inline;
+    margin-right: 0px;
+  }
+
+  nav{
+    display:inline;
+    float: right;
+    margin-top: 38px;
+    padding-right: 5%;
+  }
+    
+  ul {
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+  }
+  
+  li {
+    display: inline;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 20px;
+    margin-left: -5px;
+    vertical-align: center;
+  }
+  
+  #menu, #app-title, #logo {
     display: inline;
     position: relative;
+    vertical-align: middle;
+    line-height: 100px; 
+    float: left;
   }
 
   #app-title {
     font-family: "Open Sans", sans-serif;
-    color: #984fba;
+    color: #ffffff;
     font-weight: 100;
-    font-size: 40px;
+    font-size: 22px;
     cursor: default;
-    top: 10vh;
+    padding-bottom: 8px;
+  }
+
+  #logo {
+    margin-top: 32px;
+    width: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 
   #nav-buttons {
-    justify-content: flex-end;
-    align-items: flex-end;  
-    position: relative;
-    top: -1.5vw;
-    background-color: transparent;
     pointer-events: none;
+    white-space: nowrap;
+    justify-content: flex-end;
+    align-content: flex-end;
+    align-items: flex-end;
+    display: inline;
   }
 
-  .nav-button, #menu {
+  .nav-button {
     width: 8%;
-    font-size: 120%;
+    font-size: 95%;
     padding: 0;
     margin-left: 35px;
     margin-right: 5px;
     margin-bottom: 10px;
+  }
+
+  .nav-button, #menu {
     border: none;
-    color: #984fba;
+    color: #ffffff;
     background-color: transparent;
     pointer-events: all;
   }
@@ -317,8 +502,7 @@ body {
     width: 30px;
     padding: 0;
     margin-right: 10px;
-    margin-left: 5px;
-    top: 8.5vh;
+    margin-left: 5%;
   }
 
   #menu img {
@@ -336,19 +520,21 @@ body {
   .nav-button:hover {
     border: none;
     font-weight: bold;
+    color: #984fba;
   }
 
   .selected { 
-    color: white;
+    color: #984fba;
+    font-weight: bold;
   }
 
   .slide-in {
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-name: slidein;
   }
 
   .slide-out {
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-name: slideout;
   }
 
@@ -358,6 +544,14 @@ body {
 
   .close-menu {
     margin-left: -30%;
+  }
+
+  .drawer-name {
+    margin-top: 10px;
+  }
+
+  .drawer-links {
+    margin-bottom: 10px;
   }
 
   @keyframes slidein {
@@ -379,6 +573,77 @@ body {
       margin-left: -30%;
     }
   }
+}
+
+@media (min-width: 790px) {
+  #app-title {
+    font-size: 30px;
+  }
+
+  .nav-button {
+    width: 8%;
+    font-size: 100%;
+  }
+
+  nav {
+    margin-top: 38px;
+  }
+
+  #logo {
+    margin-top: 30px;
+    width: 45px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  #slide-menu {
+    width: 25vw;
+  }
+}
+
+@media (min-width: 920px) {
+  #app-title {
+    font-size: 40px;
+  }
+
+  .nav-button {
+    width: 8%;
+    font-size: 120%;
+  }
+
+  nav {
+    margin-top: 36px;
+  }
+
+  #slide-menu {
+    width: 20vw;
+  }
+}
+
+/* Profile */
+.profile h2 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #14b7c5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: 3.5px;
+  line-height: 1;
+}
+
+.average-footprint, .week {
+  text-align: center !important;
+  font-size: 26px !important;
+}
+
+.week, .pledges {
+  padding-bottom: 20px !important;
+}
+
+.pledges {
+  text-align: center !important;
+  font-size: 36px !important;
 }
 
 /* Welcome message on opening screen */
@@ -470,14 +735,47 @@ body {
   height: auto;
   border-radius: 10px;
   margin: 0 auto;
-  
 }
 
-.sign-up {
+.profile-container, .settings-container {
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  border-top: 1px solid #ffffff;
+}
+
+.settings-container {
+  width: 90% !important;
+  border-top: none !important;
+}
+
+.profile-container p {
+  margin-bottom: 0px !important;
+}
+
+.profile-container h2 {
+  margin-top: 20px !important;
+}
+
+.sign-up, .profile, .settings {
   width: 100%;
   min-height: 100%;
-  padding-top: 5%;
+  padding-top: 100px;
   position: absolute;
+}
+
+.profile-white, .settings-white {
+  width: 100%;
+  min-height: 100%;
+  padding-top: 0px !important;
+  position: absolute; 
+  top: 0px;
+  padding-top: 56px !important;
+  background-color: rgb(250,250,250,0.7);
+}
+
+.profile, .settings {
+  padding-top: 56px !important;
 }
 
 .sign-up h1 {
@@ -491,17 +789,25 @@ body {
   line-height: 1;
 }
 
+.forgot-pass {
+  font-size: 36px !important;
+}
+
 .sign-up-form {
   width: 90%;
   margin: 0 auto;
   padding-top: 20px;
 }
 
-.sign-up-button {
+.sign-up-button, .forgot-button {
   text-align: center;
 }
 
-.sign-up a:link, a:active, a:visited {
+.forgot-button .btn-secondary, .forgot-button .btn-primary {
+  margin-bottom: 20px !important;
+}
+
+.sign-up a:link, .sign-up a:active, .sign-up a:visited {
   color: #984fba;
   text-transform: uppercase;
   font-weight: bold;
@@ -513,6 +819,8 @@ body {
 
 .sign-up a:hover {
   color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
   text-decoration: none; 
   -webkit-transition: .1s ease-out;
   -moz-transition:.1s ease-out;
@@ -551,7 +859,7 @@ body {
   font-weight: 300;
   text-transform: uppercase;
   color: #fff;
-  width: 35%;
+  width: 75%;
 }
 
 .logout-btn .btn-primary:hover {
@@ -587,6 +895,28 @@ body {
 
   .sign-up h1 {
     font-size: 70px;
+  }
+
+  .sign-up {
+    padding-top: 80px;
+  }
+
+  .profile, .settings {
+    padding-top: 100px !important;
+  }
+
+  .profile-white, .settings-white {
+    padding-top: 100px !important;
+  }
+
+  .forgot-pass {
+    font-size: 42px !important;
+  }
+}
+
+@media screen and (min-width: 701px) {
+  .sign-up-container {
+    width: 40%;
   }
 }
 

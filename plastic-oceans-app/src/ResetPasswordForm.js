@@ -1,16 +1,15 @@
 import React from 'react';
 import './index.css';
-import { Link } from 'react-router-dom';
+import firebase from 'firebase';
 
 import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
-import NavigationBar from './NavigationBar';
 
-export default class SignInForm extends React.Component {
+export default class ResetPasswordForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'email': undefined,
-      'password': undefined
+      password: undefined,
+      passwordConfirm: undefined,
     };
 
     // put optional this binding here
@@ -18,9 +17,21 @@ export default class SignInForm extends React.Component {
   }
 
   // sign the user in with the details provided in the form
-  signInUser(event) {
+  resetPassword(event) {
     event.preventDefault(); //don't submit
-    this.props.signInCallback(this.state.email, this.state.password);
+    let fbCode = this.getParameterByName('oobCode')
+    this.props.resetPasswordCallback(fbCode, this.state.password);
+  }
+
+  getParameterByName( name ){
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+      return "";
+    else
+      return decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
   // update the state for specific sign in form field
@@ -47,6 +58,14 @@ export default class SignInForm extends React.Component {
         errors.required = true;
         errors.isValid = false;
       }
+
+      // handle password confirmation
+      if (validations.match) {
+        if (this.state.password !== this.state.passwordConfirm) {
+          errors.match = true;
+          errors.isValid = false;
+        }
+      }
     }
 
     //display details
@@ -61,24 +80,15 @@ export default class SignInForm extends React.Component {
   }
 
   render() {
-    let emailErrors = this.validateFields(this.state.email, { required: true, });
     let passwordErrors = this.validateFields(this.state.password, { required: true, });
+    let passwordConfirmErrors = this.validateFields(this.state.passwordConfirm, { required: true, match: true });
+
     let submitDisabled = false;
     let submitState = "primary";
-    let incorrectCredentials = "";
-    let errorAlert = (<div className="hidden"><p></p></div>);
-
-    if(this.props.error !== undefined) {
-      incorrectCredentials = this.props.error;
-      errorAlert = (<div className="alert red-error"><p>{incorrectCredentials}</p></div>);
-    } else if(this.props.error === undefined) {
-      incorrectCredentials = null;
-      errorAlert = (<div className="hidden"><p></p></div>);
-    }
 
     //set to secondary disabled when errors show
     //button validation
-    let signInEnabled = (emailErrors.isValid && passwordErrors.isValid);
+    let signInEnabled = (passwordErrors.isValid && passwordConfirmErrors.isValid);
 
     if (!signInEnabled) {
       submitDisabled = true;
@@ -89,19 +99,16 @@ export default class SignInForm extends React.Component {
       <div className="sign-up tinted" role="article">
         <div className="sign-up-container">
           <div className="sign-up-form">
-            <h1>sign in</h1>
-            {errorAlert}
+            <h1 className="forgot-pass">reset password</h1>
             <Form>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="text" name="email" fieldName="Email Address" id="email" onChange={this.handleFormChange} errors={emailErrors} />
+                <ValidatedInput type="password" name="password" fieldName="New Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
               </FormGroup>
               <FormGroup onChange={this.handleFormChange}>
-                <ValidatedInput type="password" name="password" fieldName="Password" id="password" onChange={this.handleFormChange} errors={passwordErrors} />
+                <ValidatedInput type="password" name="passwordConfirm" fieldName="Confirm Password" id="password-confirm" onChange={this.handleFormChange} errors={passwordConfirmErrors} />
               </FormGroup>
-              <div className="sign-up-button">
-                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.signInUser(event)}>Submit</Button>
-                <p><Link to="/forgot">Forgot Password?</Link></p>
-                <p className="no-account">Don't have an account? <Link to="/signup">Sign up here.</Link></p>
+              <div className="forgot-button">
+                <Button color={submitState} disabled={submitDisabled} onClick={(event) => this.resetPassword(event)}>Reset</Button>
               </div>
             </Form>
           </div>
@@ -118,10 +125,12 @@ class ValidatedInput extends React.Component {
     let errors = this.props.errors.style != "" ? "invalid" : "";
     let errorMessage = "";
 
-    console.log("RENDER ARROEERS", this.props.emailError);
-
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
+    } else {
+      if (this.props.errors.match) {
+        errorMessage += " Passwords do not match.";
+      }
     }
 
     let field = (

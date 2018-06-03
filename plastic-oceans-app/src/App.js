@@ -3,8 +3,13 @@ import logo from './logo.svg';
 import { Route, Switch, Link } from 'react-router-dom';
 import Opening from './Opening';
 import NavigationBar from './NavigationBar';
+
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword'
+import Profile from './Profile';
+import Settings from './Settings';
 import Quizzes from './Quizzes';
 import QuizQuestion from './Quiz';
 import Quiz from './Quiz';
@@ -29,6 +34,10 @@ class App extends Component {
           <Route exact path="/" component={Opening} />
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/forgot" component={ForgotPassword} />
+          <Route exact path="/reset" component={ResetPassword} />
+          <Route exact path="/profile/:profileID" component={Profile} />
+          <Route exact path="/settings" component={Settings} />
           <Route exact path="/discover" component={Discover} />
         </Switch>
 
