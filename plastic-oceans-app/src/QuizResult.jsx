@@ -8,11 +8,13 @@ class QuizResult extends Component {
                     <div>
                     <h2>Correct!</h2>
                     <p>{this.props.selectedAnswer} is the correct answer.</p>
+                    <a href={this.props.source} target="_blank">Learn More</a>
                 </div>
                 ) : (
                     <div>
                         <h2>Incorrect!</h2>
                         <p>{this.props.selectedAnswer} is not the right answer. {this.props.currentCorrectAnswer} is the correct answer.</p>
+                        <a href={this.props.source} target="_blank">Learn More</a>
                     </div>
                 )}
                 {(this.props.currentQuestionNum != this.props.totalQuestions) ? (

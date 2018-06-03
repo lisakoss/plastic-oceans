@@ -18,7 +18,8 @@ class Quiz extends Component {
             showResult: false,
             showQuestion: true,
             showFinalResult: false,
-            didScore: false
+            didScore: false,
+            currentSource: ""
         };
     }
 
@@ -34,6 +35,7 @@ class Quiz extends Component {
                 nextQuestion={this.goToNextQuestion.bind(this)}
                 didScore={this.state.didScore}
                 finishQuiz={this.finishQuiz.bind(this)}
+                source={this.state.currentSource}
             />
             )}
             {this.state.showQuestion && (
@@ -122,7 +124,8 @@ class Quiz extends Component {
             answers.push(snapshot.val()["Wrong2"]);
             componentRef.setState({
                 currentQuestion: question,
-                currentCorrectAnswer: snapshot.val()["Correct"]
+                currentCorrectAnswer: snapshot.val()["Correct"],
+                currentSource: snapshot.val()["Source"]
             })
         });
 
