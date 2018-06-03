@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import firebase from 'firebase';
+import NavigationBar from './NavigationBar';
 
 class Quizzes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          quizList: []
+            quizList: []
         };
     }
 
     render() {
-        return(
+        return (
             <div id="quizzes-home">
+                <NavigationBar title="Footprint" selected="footprint" />
                 <ListGroup className="quiz-list">
                     {this.state.quizList.map((item, index) => {
                         return (
@@ -29,7 +31,7 @@ class Quizzes extends Component {
 
     componentDidMount() {
         this.createListOfQuizzes((quizzesList) => {
-            this.setState({quizList: quizzesList});
+            this.setState({ quizList: quizzesList });
         });
     }
 
@@ -37,19 +39,19 @@ class Quizzes extends Component {
         var quizzesRef = firebase.database().ref('/Quizzes');
         var quizzesList = [];
         var componentRef = this;
-        quizzesRef.on('value', function(snapshot) {
-            snapshot.forEach(function(quiz) {
+        quizzesRef.on('value', function (snapshot) {
+            snapshot.forEach(function (quiz) {
                 quizzesList.push(quiz.key);
             });
             callback(quizzesList);
-            componentRef.setState( {quizList: quizzesList} );
+            componentRef.setState({ quizList: quizzesList });
         });
     }
 
     handleQuizClick(e) {
         var quizTitle = e.target.id;
         this.props.history.push(`/quizzes/${quizTitle}`);
-    } 
+    }
 
 }
 

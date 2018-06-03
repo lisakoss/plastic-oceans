@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import firebase from 'firebase';
 import QuizResult from './QuizResult';
 import QuizQuestion from './QuizQuestion';
+import NavigationBar from './NavigationBar';
 
 class Quiz extends Component {
 
@@ -24,35 +25,36 @@ class Quiz extends Component {
     }
 
     render() {
-        return(
+        return (
             <div id="quiz-container">
-            {this.state.showResult && (
-                <QuizResult 
-                selectedAnswer={this.state.selectedAnswer}
-                currentCorrectAnswer={this.state.currentCorrectAnswer}
-                totalQuestions={this.state.totalQuestions}
-                currentQuestionNum={this.state.currentQuestionNum}
-                nextQuestion={this.goToNextQuestion.bind(this)}
-                didScore={this.state.didScore}
-                finishQuiz={this.finishQuiz.bind(this)}
-                source={this.state.currentSource}
-            />
-            )}
-            {this.state.showQuestion && (
-                <QuizQuestion 
-                quizName={this.props.quizName}
-                currentQuestion={this.state.currentQuestion}
-                currentAnswers={this.state.currentAnswers}
-                submitAnswer={(answer) => this.handleSubmitAnswer(answer)}
-                />
-            )}
-            {this.state.showFinalResult && (
-                <div id="quiz-final-results">
-                    <p className="quiz-result-text">You got {this.state.numberCorrect} of {this.state.totalQuestions} questions correct!</p>
-                    <button className="quiz-button" onClick={(e) => this.handleFinishQuiz(e)}>Done</button>
+                <NavigationBar title="Footprint" selected="footprint" />
+                    {this.state.showResult && (
+                        <QuizResult
+                            selectedAnswer={this.state.selectedAnswer}
+                            currentCorrectAnswer={this.state.currentCorrectAnswer}
+                            totalQuestions={this.state.totalQuestions}
+                            currentQuestionNum={this.state.currentQuestionNum}
+                            nextQuestion={this.goToNextQuestion.bind(this)}
+                            didScore={this.state.didScore}
+                            finishQuiz={this.finishQuiz.bind(this)}
+                            source={this.state.currentSource}
+                        />
+                    )}
+                    {this.state.showQuestion && (
+                        <QuizQuestion
+                            quizName={this.props.quizName}
+                            currentQuestion={this.state.currentQuestion}
+                            currentAnswers={this.state.currentAnswers}
+                            submitAnswer={(answer) => this.handleSubmitAnswer(answer)}
+                        />
+                    )}
+                    {this.state.showFinalResult && (
+                        <div id="quiz-final-results">
+                            <p className="quiz-result-text">You got {this.state.numberCorrect} of {this.state.totalQuestions} questions correct!</p>
+                            <button className="quiz-button" onClick={(e) => this.handleFinishQuiz(e)}>Done</button>
+                        </div>
+                    )}
                 </div>
-            )}
-            </div>
         );
     }
 
@@ -61,7 +63,7 @@ class Quiz extends Component {
         this.getQuestionCount(quizName);
         this.setUpQuestion(quizName);
 
-        this.setState({quizName: quizName})
+        this.setState({ quizName: quizName })
     }
 
     handleFinishQuiz(e) {
@@ -115,12 +117,12 @@ class Quiz extends Component {
 
     // Sets up question
     setUpQuestion(quizTitle) {
-        var quizRef = firebase.database().ref('/Quizzes/' + quizTitle + '/Question' 
+        var quizRef = firebase.database().ref('/Quizzes/' + quizTitle + '/Question'
             + this.state.currentQuestionNum);
         var question = "";
         var answers = [];
         var componentRef = this;
-        quizRef.on('value', function(snapshot) {
+        quizRef.on('value', function (snapshot) {
             question = snapshot.val()["Question"];
             answers.push(snapshot.val()["Correct"]);
             answers.push(snapshot.val()["Wrong1"]);
@@ -146,8 +148,8 @@ class Quiz extends Component {
         var quizRef = firebase.database().ref('/Quizzes/' + quizTitle);
         var count = 0;
         var componentRef = this;
-        quizRef.on('value', function(snapshot) {
-            snapshot.forEach(function(question) {
+        quizRef.on('value', function (snapshot) {
+            snapshot.forEach(function (question) {
                 count++;
             });
             componentRef.setState({
