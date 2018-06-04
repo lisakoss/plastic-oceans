@@ -8,7 +8,7 @@ export default class Pledges extends React.Component {
         this.state = {
             setPledgeModal: false,
             startPledgeModal: false,
-            slider: 0,
+            slider: 1,
             pledge: {}
         }
         this.setPledgeModalToggle = this.setPledgeModalToggle.bind(this);
@@ -62,7 +62,7 @@ export default class Pledges extends React.Component {
                                             this.setState({
                                                 setPledgeModal: !this.state.setPledgeModal, 
                                                 pledge: pledge,
-                                                slider: 0
+                                                slider: 1
                                             })}>
                                             Accept
                                         </Button>
