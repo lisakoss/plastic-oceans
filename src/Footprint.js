@@ -168,7 +168,7 @@ export default class Footprint extends React.Component {
   // Deletes a pledge from active pledges
   deletePledge(pledge) {
     this.state.pledges.push(pledge);
-
+    
     for (var i = 0; i < this.state.activePledges.length; i++) {
       if (this.state.activePledges[i] === pledge) {
         this.state.activePledges.splice(i, 1);
