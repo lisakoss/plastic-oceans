@@ -530,6 +530,7 @@ li {
   margin: auto;
   text-align: center;
   width: 100vw;
+  margin-top: 15vh;
 }
 
 .quiz-result-text {
@@ -566,6 +567,10 @@ li {
 
   #quiz-container {
     margin-top: 24vh;
+  }
+
+  #quiz-final-results {
+    margin-top: 0;
   }
 
   #quiz-title {
