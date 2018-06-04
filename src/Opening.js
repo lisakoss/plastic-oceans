@@ -21,6 +21,7 @@ executed when the component appears on the screen. */
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
+        this.props.history.push('/discover'); // redirect to home page
       } else { // redircts user to login page if not logged in
         this.setState({ userId: null }); //null out the saved state
       }
