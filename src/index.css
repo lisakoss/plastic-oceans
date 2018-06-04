@@ -444,6 +444,7 @@ li {
   margin: auto;
   text-align: center;
   width: 100vw;
+  margin-top: 15vh;
 }
 
 #quiz-title {
@@ -459,6 +460,7 @@ li {
 .quiz-select img {
   float: right;
   height: 75px;
+  pointer-events: none;
 }
 
 .quiz-record {
@@ -521,6 +523,7 @@ li {
   margin: auto;
   text-align: center;
   width: 100vw;
+  margin-top: 15vh;
 }
 
 #quiz-final-results {
@@ -555,6 +558,10 @@ li {
 
   #quizzes-home {
     padding-top: 60vh;
+  }
+
+  #answer-container {
+    margin-top: 0;
   }
 
   #quiz-container {
