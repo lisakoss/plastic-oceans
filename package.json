@@ -1,5 +1,5 @@
 {
-  "name": "plastic-oceans-app",
+  "name": "plastic-oceans461.github.io",
   "homepage": "https://plastic-oceans461.github.io/",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +12,7 @@
     "ajv": "^6.5.0",
     "bootstrap": "^4.1.1",
     "firebase": "^5.0.2",
+    "heroku": "^7.0.86",
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2",
     "react": "^16.3.2",
