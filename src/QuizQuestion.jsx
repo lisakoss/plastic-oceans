@@ -27,6 +27,7 @@ class QuizQuestion extends Component {
         );
     }
 
+    // Submits answer and rerouts to answer screen
     handleSubmitAnswer(e) {
         this.props.submitAnswer(this.state.selectedAnswer);
     }
