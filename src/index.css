@@ -254,12 +254,12 @@ li {
 
 /* Tab Content Style */
 .tab-content {
-  padding-top: 2.5%;
+  padding-top: 1rem;
 }
 
 /* Pledges List Style */
 .my-footprint-header {
-  margin-bottom: 2%;
+  margin-bottom: 1rem;
   font-weight: bold;
   text-align: left;
 }
@@ -273,7 +273,7 @@ li {
 }
 
 #pledge-list{
-  max-height: 25vh;
+  max-height: 20vh;
   overflow: scroll;
   display: flex;
 }
@@ -545,7 +545,7 @@ li {
 
   /*Pledge List for Desktop*/
   #pledge-list{
-    max-height: 40vh;
+    max-height: 28vh;
   }
 
   /*Quiz for Desktop*/

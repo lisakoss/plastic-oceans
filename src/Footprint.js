@@ -167,14 +167,47 @@ export default class Footprint extends React.Component {
 
   // Deletes a pledge from active pledges
   deletePledge(pledge) {
-    this.state.pledges.push(pledge);
-
     for (var i = 0; i < this.state.activePledges.length; i++) {
       if (this.state.activePledges[i] === pledge) {
         this.state.activePledges.splice(i, 1);
       }
     }
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
+
+    const pledgesRef = firebase.database().ref('Pledges');
+    let newState = [];
+    pledgesRef.on('value', (snapshot) => {
+      let pledges = snapshot.val();
+
+      snapshot.forEach(function (child) {
+        let currPledge = child.val();
+        newState.push({
+          id: child.key,
+          title: currPledge.title,
+          desc: currPledge.desc,
+          question: currPledge.question,
+          footprintDesc: currPledge.footprintDesc,
+          weight: currPledge.weight,
+          icon: currPledge.icon
+        });
+      });
+    });
+
+    // Remove active pledges from list of all pledges to get all pledges user can accept
+    for (var i = 0; i < newState.length; i++) {
+      for (var j = 0; j < this.state.activePledges.length; j++) {
+        if (newState[i].id === this.state.activePledges[j].id) {
+          newState.splice(i, 1);
+          i--;
+          j = this.state.activePledges.length;
+        }
+      }
+    }
+
+    // Pledges user can accept
+    this.setState({
+      pledges: newState
+    });
   }
 
   // Calculates the user's footprint

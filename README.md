@@ -1,8 +1,5 @@
-### Locally Deploy Our Applicaiton
-Our web application functions best in Google Chrome and is the preferred browser to be used to ensure that all of our functions work correctly.
-
-# How to Deploy on Your Machine
-Git clone our repo onto your computer and cd into "plastic-oceans461.github.io". Then run "npm install" to install all of our dependencies and then run "npm run start" to start our application on localhost.
+# Live Link 
+Visit plastic-oceans here: https://plastic-oceans.herokuapp.com/
 
 # plastic-oceans
 INFO 461 Project

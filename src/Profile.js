@@ -30,27 +30,28 @@ export default class Profile extends React.Component {
         let pledges = null;
         var profileRef = firebase.database().ref('users/' + this.state.userId);
         profileRef.once("value")
-          .then(snapshot => {
-            this.setState({ username: snapshot.child("username").val() });
-            this.setState({ location: snapshot.child("location").val() });
-            this.setState({ level: snapshot.child("Level").val() });
-            this.setState({ avatar: snapshot.child("avatar").val() });
-            this.setState({ pledgesSigned: snapshot.child("pledges/activePledges").val() });
-            this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val() !== null ? snapshot.child("pledges/activePledges").val().length : 0 });
-            pledges = snapshot.child("pledges/activePledges").val()
+        .then(snapshot => {
+          this.setState({ username: snapshot.child("username").val() });
+          this.setState({ location: snapshot.child("location").val() });
+          this.setState({ level: snapshot.child("Level").val() });
+          this.setState({ avatar: snapshot.child("avatar").val() });
+          this.setState({ pledgesSigned: snapshot.child("pledges/activePledges").val() });
+          this.setState({ pledgeCount: snapshot.child("pledges/activePledges").val() !== null ? snapshot.child("pledges/activePledges").val().length : 0 });
+          pledges = snapshot.child("pledges/activePledges").val()
 
-            var avgFootRef = firebase.database().ref('Average Footprint');
-            avgFootRef.once("value")
-              .then(snapshot => {
-                let thisComponent = this;
-                this.setState({ averageFootPrint: snapshot.val() });
+          var avgFootRef = firebase.database().ref('Average Footprint');
+          avgFootRef.once("value")
+            .then(snapshot => {
+              let thisComponent = this;
+              this.setState({ averageFootPrint: snapshot.val() });
+              
               if (this.state.pledgeCount !== 0) {
                 pledges.forEach(function (pledge) {
-                  thisComponent.setState({ averageFootPrint: snapshot.val() - pledge.footprintReduction });
+                  thisComponent.setState({ averageFootPrint: thisComponent.state.averageFootPrint - pledge.footprintReduction });
                 });
               }
-              });
-          });
+            });
+        });
       }
       else {
         this.setState({ userId: null }); // null out the saved state if not logged in
