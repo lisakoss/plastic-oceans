@@ -1,12 +1,32 @@
 import React, { Component } from "react";
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import firebase from 'firebase';
 
 class QuizQuestion extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             selectedAnswer: ""
+        }
+    }
+
+    componentWillMount() {
+        // Add a listener and callback for authentication events
+        this.unregister = firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({ userId: user.uid });
+            }
+            else {
+                this.setState({ userId: null }); // null out the saved state if not logged in
+                this.props.history.push('/signin'); // redirect to home page
+            }
+        });
+    }
+    
+    // unregister saved funcs
+    componentWillUnmount() {
+        if (this.unregister) {
+            this.unregister();
         }
     }
 
