@@ -326,6 +326,10 @@ li {
   flex-shrink: 0;
 } 
 
+.quiz-options .list-group-item {
+  background-color: #f8f9fa;
+}
+
 .pledge-icon {
   width: 7%;
   height: 7%;
