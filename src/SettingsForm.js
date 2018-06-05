@@ -120,7 +120,7 @@ export default class SettingsForm extends React.Component {
   // (for required field, with min length of 5, and valid email)
   validateFields(value, validations) {
     let errors = { isValid: true, style: '' };
-
+    
     if (validations.usernameTaken) {
       let usernamesTaken = [];
       let usernameTakenResult = false;
@@ -130,7 +130,7 @@ export default class SettingsForm extends React.Component {
           usernamesTaken.push(child.key.toLowerCase())
         })
         usernameTakenResult = usernamesTaken.includes((this.state.username + "").toLowerCase());
-        if (usernameTakenResult && usernameTakenResult !== this.state.oldUsername) {
+        if (usernameTakenResult && this.state.username !== this.state.oldUsername) {
           errors.usernameTaken = true;
           errors.isValid = false;
         }
