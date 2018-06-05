@@ -698,9 +698,11 @@ li {
     font-family: "Open Sans", sans-serif;
     color: #ffffff;
     font-weight: 100;
-    font-size: 22px;
+    font-size: 26px;
     cursor: default;
     padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   #logo {
@@ -814,7 +816,7 @@ li {
 
 @media (min-width: 790px) {
   #app-title {
-    font-size: 30px;
+    font-size: 36px;
   }
 
   .nav-button {
@@ -1020,7 +1022,7 @@ li {
   padding-bottom: 85px !important;
 }
 
-.sign-up h1, .settings h1 {
+.sign-up h1, .settings-h1 {
   text-align: center;
   text-transform: uppercase;
   color: #14b7c5;
@@ -1031,7 +1033,7 @@ li {
   line-height: 1;
 }
 
-.settings h1 {
+.settings-h1 {
   font-size: 36px;
 }
 
@@ -1166,7 +1168,7 @@ li {
     padding-top: 100px !important;
   }
 
-  .forgot-pass, .settings h1 {
+  .forgot-pass, .settings-h1 {
     font-size: 42px !important;
   }
 }
@@ -1178,12 +1180,6 @@ li {
 
   .settings-container {
     width: 70% !important;
-  }
-}
-
-@media screen and (max-width: 892px) {
-  #app-title {
-    font-size: 22px !important;
   }
 }
 
