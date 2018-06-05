@@ -23,7 +23,8 @@ export default class SettingsForm extends React.Component {
       password: undefined,
       passwordConfirm: undefined,
       location: '',
-      showLogout: false 
+      showLogout: false,
+      width: 0,
     };
 
     // put optional this binding here
@@ -35,6 +36,13 @@ export default class SettingsForm extends React.Component {
   componentDidMount() {
     // Add a listener and callback for authentication events
     window.addEventListener('resize', this.updateWindowDimensions);
+    this.setState( { width: window.innerWidth });
+
+    if (this.state.width <= 700) {
+      this.setState({ showLogout: true });
+    } else {
+      this.setState({ showLogout: false });
+    }
 
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -257,7 +265,7 @@ export default class SettingsForm extends React.Component {
           <div className="settings-form">
 
 
-            <h1>manage account</h1>
+            <h1 className="settings-h1">manage account</h1>
             {errorAlert}
             <Form>
               {img}
