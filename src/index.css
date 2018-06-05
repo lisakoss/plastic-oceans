@@ -199,7 +199,7 @@ li {
 #footprint-tabs > li {
   width: 50%;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
 }
 
 .footprint {
@@ -565,9 +565,13 @@ li {
 
 @media (min-width: 701px) {
 
-  /*Pledge List for Desktop*/
+  /*Pledge for Desktop*/
   #pledge-list{
     max-height: 28vh;
+  }
+
+  #footprint-tabs > li {
+    text-align: left;
   }
 
   /*Quiz for Desktop*/
