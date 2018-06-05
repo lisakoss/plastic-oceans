@@ -47,7 +47,7 @@ li {
 }
 
 .column1 img {
-  float: right;
+  float: right !important;
 }
 
 .column2 {
@@ -72,12 +72,12 @@ li {
 
 @media (max-width: 450px) { 
   .column1 {
-    flex: 25%;
+    flex: 25% !important;
   }
   
   .column1 img {
-    display: block;
-    margin: 0 auto;
+    display: block !important;
+    margin: 0 auto !important;
     float: none !important;
   }
   
@@ -597,14 +597,14 @@ li {
   }
 
   .custom-avatar {
-    float: right;
+    float: right !important;
   }
 
   #profile-custom {
-    text-align: center;
+    text-align: center !important;
     width: 150px !important;
     height: 150px !important;
-    margin: 0 auto;
+    margin: 0 auto !important;
   }
 
   #slide-menu a:link, #slide-menu a:visited, #slide-menu a:active {
@@ -837,6 +837,18 @@ li {
 
   #slide-menu {
     width: 20vw;
+  }
+}
+
+@media (max-width: 700px) {
+  #profile-custom {
+    width: 150px !important;
+    height: 150px !important;
+    margin-left: 20px;
+  }
+
+  .profile-white {
+    padding-bottom: 50px !important;
   }
 }
 
