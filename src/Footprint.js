@@ -24,7 +24,6 @@ export default class Footprint extends React.Component {
   }
 
   componentWillMount() {
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         // Grab all pledges
@@ -156,24 +155,26 @@ export default class Footprint extends React.Component {
   addPledge(pledge) {
     this.state.activePledges.push(pledge);
 
-    for (var i = 0; i < this.state.pledges.length; i++) {
-      if (this.state.pledges[i] === pledge) {
-        this.state.pledges.splice(i, 1);
-      }
-    }
-
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
+
+    this.grabPledges();
   }
 
   // Deletes a pledge from active pledges
   deletePledge(pledge) {
+    //this.state.pledges.push(pledge);
     for (var i = 0; i < this.state.activePledges.length; i++) {
       if (this.state.activePledges[i] === pledge) {
         this.state.activePledges.splice(i, 1);
       }
     }
+    
     firebase.database().ref('users/' + this.state.userID + "/pledges").set({ activePledges: this.state.activePledges });
 
+    this.grabPledges();
+  }
+
+  grabPledges() {
     const pledgesRef = firebase.database().ref('Pledges');
     let newState = [];
     pledgesRef.on('value', (snapshot) => {
@@ -181,15 +182,15 @@ export default class Footprint extends React.Component {
 
       snapshot.forEach(function (child) {
         let currPledge = child.val();
-        newState.push({
-          id: child.key,
-          title: currPledge.title,
-          desc: currPledge.desc,
-          question: currPledge.question,
-          footprintDesc: currPledge.footprintDesc,
-          weight: currPledge.weight,
-          icon: currPledge.icon
-        });
+          newState.push({
+            id: child.key,
+            title: currPledge.title,
+            desc: currPledge.desc,
+            question: currPledge.question,
+            footprintDesc: currPledge.footprintDesc,
+            weight: currPledge.weight,
+            icon: currPledge.icon
+          });
       });
     });
 
@@ -204,10 +205,7 @@ export default class Footprint extends React.Component {
       }
     }
 
-    // Pledges user can accept
-    this.setState({
-      pledges: newState
-    });
+    this.setState({ pledges: newState });
   }
 
   // Calculates the user's footprint
