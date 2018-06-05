@@ -187,7 +187,7 @@ export default class SettingsForm extends React.Component {
         errors.isValid = false;
       }
 
-      //invalid characters are not allowed in first name, last name, and usernames
+      //invalid characters are not allowed in usernames
       if (validations.invalidCharacters) {
         let valid = /^[a-zA-Z]+$/.test(value);
         if (!valid) {
@@ -196,7 +196,14 @@ export default class SettingsForm extends React.Component {
         }
       }
 
-
+      //allows one space and hyphen in names
+      if (validations.name) {
+        let valid = /^[a-zA-Z]+[ -]*[a-zA-Z]+$/.test(value);
+        if(!valid) {
+          errors.name = true;
+          errors.isValid = false;
+        }
+      }
 
       // handle password confirmation
       if (validations.match) {
@@ -222,8 +229,8 @@ export default class SettingsForm extends React.Component {
     // determine how each field should be validated... 
     // define the validationsObj for each text field here
     //field validation
-    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, invalidCharacters: true });
-    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, invalidCharacters: true });
+    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, name: true });
+    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, name: true });
     var usernameErrors = this.validateFields(this.state.username, { required: true, maxLength: 20, invalidCharacters: true, usernameTaken: true });
     let emailErrors = this.validateFields(this.state.email, { required: true, email: true, emailTaken: true });
     let avatarErrors = this.validateFields(this.state.avatar, { avatar: true });
@@ -324,7 +331,7 @@ class ValidatedInput extends React.Component {
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
     } else {
-      if (this.props.errors.invalidCharacters) {
+      if (this.props.errors.invalidCharacters || this.props.errors.name) {
         errorMessage += `Invalid ${this.props.fieldName.toLowerCase()}.`;
       }
       if (this.props.errors.email) {
