@@ -118,8 +118,6 @@ class ValidatedInput extends React.Component {
     let errors = this.props.errors.style != "" ? "invalid" : "";
     let errorMessage = "";
 
-    console.log("RENDER ARROEERS", this.props.emailError);
-
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
     }

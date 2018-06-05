@@ -24,6 +24,7 @@ export default class SettingsForm extends React.Component {
       passwordConfirm: undefined,
       location: '',
       showLogout: window.innerWidth < 700 ? true : false, 
+      width: 0,
     };
 
     // put optional this binding here
@@ -35,6 +36,13 @@ export default class SettingsForm extends React.Component {
   componentDidMount() {
     // Add a listener and callback for authentication events
     window.addEventListener('resize', this.updateWindowDimensions);
+    this.setState({ width: window.innerWidth });
+
+    if (this.state.width <= 700) {
+      this.setState({ showLogout: true });
+    } else {
+      this.setState({ showLogout: false });
+    }
 
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -120,7 +128,7 @@ export default class SettingsForm extends React.Component {
           usernamesTaken.push(child.key.toLowerCase())
         })
         usernameTakenResult = usernamesTaken.includes((this.state.username + "").toLowerCase());
-        if (usernameTakenResult && usernameTakenResult !== this.state.oldUsername) {
+        if (usernameTakenResult && this.state.username !== this.state.oldUsername) {
           errors.usernameTaken = true;
           errors.isValid = false;
         }
@@ -149,11 +157,20 @@ export default class SettingsForm extends React.Component {
       }
 
       if (validations.avatar) {
-        let valid = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value);
-        if (!valid && value !== "") {
-          errors.avatar = true;
-          errors.isValid = false;
-        }
+        fetch(value)
+          .then(response => response.blob())
+          .then(blob => {
+            if (blob.type !== ("image/gif" || "image/jpeg" || "image/png" || "image/svg+xml")) {
+              errors.avatar = true;
+              errors.isValid = false;
+            }
+          })
+
+        //let valid = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/.test(value);
+        // if (!valid && value !== "") {
+        //errors.avatar = true;
+        //errors.isValid = false;
+        //}
       }
 
       //password minLength
@@ -168,7 +185,7 @@ export default class SettingsForm extends React.Component {
         errors.isValid = false;
       }
 
-      //invalid characters are not allowed in first name, last name, and usernames
+      //invalid characters are not allowed in usernames
       if (validations.invalidCharacters) {
         let valid = /^[a-zA-Z]+$/.test(value);
         if (!valid) {
@@ -177,7 +194,14 @@ export default class SettingsForm extends React.Component {
         }
       }
 
-
+      //allows one space and hyphen in names
+      if (validations.name) {
+        let valid = /^[a-zA-Z]+[ -]*[a-zA-Z]+$/.test(value);
+        if(!valid) {
+          errors.name = true;
+          errors.isValid = false;
+        }
+      }
 
       // handle password confirmation
       if (validations.match) {
@@ -203,8 +227,8 @@ export default class SettingsForm extends React.Component {
     // determine how each field should be validated... 
     // define the validationsObj for each text field here
     //field validation
-    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, invalidCharacters: true });
-    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, invalidCharacters: true });
+    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, name: true });
+    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, name: true });
     var usernameErrors = this.validateFields(this.state.username, { required: true, maxLength: 20, invalidCharacters: true, usernameTaken: true });
     let emailErrors = this.validateFields(this.state.email, { required: true, email: true, emailTaken: true });
     let avatarErrors = this.validateFields(this.state.avatar, { avatar: true });
@@ -243,7 +267,7 @@ export default class SettingsForm extends React.Component {
       img = (<Avatar className="settings-avatar" width="150" alt="profile icon" src={this.state.avatar} />);
     }
 
-    if(this.state.showLogout) {
+    if (this.state.showLogout) {
       logout = <Logout />
     }
 
@@ -255,7 +279,7 @@ export default class SettingsForm extends React.Component {
           <div className="settings-form">
 
 
-            <h1>manage account</h1>
+            <h1 className="settings-h1">manage account</h1>
             {errorAlert}
             <Form>
               {img}
@@ -305,7 +329,7 @@ class ValidatedInput extends React.Component {
     if (this.props.errors.required) {
       errorMessage = "This field is required.";
     } else {
-      if (this.props.errors.invalidCharacters) {
+      if (this.props.errors.invalidCharacters || this.props.errors.name) {
         errorMessage += `Invalid ${this.props.fieldName.toLowerCase()}.`;
       }
       if (this.props.errors.email) {

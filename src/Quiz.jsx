@@ -26,39 +26,59 @@ class Quiz extends Component {
         };
     }
 
+    componentWillMount() {
+        // Add a listener and callback for authentication events
+        this.unregister = firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({ userId: user.uid });
+            }
+            else {
+                this.setState({ userId: null }); // null out the saved state if not logged in
+                this.props.history.push('/signin'); // redirect to home page
+            }
+        });
+    }
+    
+    // unregister saved funcs
+    componentWillUnmount() {
+        if (this.unregister) {
+            this.unregister();
+        }
+    }
+
     render() {
         return (
             <div id="quiz-container">
                 <NavigationBar title="Quizzes" selected="quizzes" />
-                    {this.state.showResult && (
-                        <QuizAnswer 
-                            selectedAnswer={this.state.selectedAnswer}
-                            currentCorrectAnswer={this.state.currentCorrectAnswer}
-                            totalQuestions={this.state.totalQuestions}
-                            currentQuestionNum={this.state.currentQuestionNum}
-                            nextQuestion={this.goToNextQuestion.bind(this)}
-                            didScore={this.state.didScore}
-                            finishQuiz={this.finishQuiz.bind(this)}
-                            source={this.state.currentSource}
-                        />
-                    )}
-                    {this.state.showQuestion && (
-                        <QuizQuestion
-                            quizName={this.props.quizName}
-                            currentQuestion={this.state.currentQuestion}
-                            currentAnswers={this.state.currentAnswers}
-                            submitAnswer={(answer) => this.handleSubmitAnswer(answer)}
-                        />
-                    )}
-                    {this.state.showFinalResult && (
-                        <QuizResults 
-                            numberCorrect={this.state.numberCorrect}
-                            totalQuestions={this.state.totalQuestions}
-                            exitResults={this.exitResults.bind(this)}
-                            quizName={this.props.match.params.quizID}
-                        />
-                    )}
-                </div>
+                {this.state.showResult && (
+                    <QuizAnswer
+                        selectedAnswer={this.state.selectedAnswer}
+                        currentCorrectAnswer={this.state.currentCorrectAnswer}
+                        totalQuestions={this.state.totalQuestions}
+                        currentQuestionNum={this.state.currentQuestionNum}
+                        nextQuestion={this.goToNextQuestion.bind(this)}
+                        didScore={this.state.didScore}
+                        finishQuiz={this.finishQuiz.bind(this)}
+                        source={this.state.currentSource}
+                    />
+                )}
+                {this.state.showQuestion && (
+                    <QuizQuestion
+                        quizName={this.props.quizName}
+                        currentQuestion={this.state.currentQuestion}
+                        currentAnswers={this.state.currentAnswers}
+                        submitAnswer={(answer) => this.handleSubmitAnswer(answer)}
+                    />
+                )}
+                {this.state.showFinalResult && (
+                    <QuizResults
+                        numberCorrect={this.state.numberCorrect}
+                        totalQuestions={this.state.totalQuestions}
+                        exitResults={this.exitResults.bind(this)}
+                        quizName={this.props.match.params.quizID}
+                    />
+                )}
+            </div>
         );
     }
 
