@@ -71,7 +71,7 @@ class NavigationBar extends Component {
     let drawerContent = null;
     let img = null;
 
-    if (this.state.avatar === null) {
+    if (this.state.avatar === null || this.state.avatar === "") {
       img = (<img id="profile-image" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />);
     } else {
       img = (<Avatar id="profile-custom" alt="profile icon" src={this.state.avatar} />);

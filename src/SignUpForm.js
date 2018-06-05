@@ -97,7 +97,7 @@ export default class SignUpForm extends React.Component {
         errors.isValid = false;
       }
 
-      //invalid characters are not allowed in first name, last name, and usernames
+      //invalid characters are not allowed usernames
       if (validations.invalidCharacters) {
         let valid = /^[a-zA-Z]+$/.test(value);
         if (!valid) {
@@ -106,6 +106,15 @@ export default class SignUpForm extends React.Component {
         }
       }
 
+
+      //allows one space and hyphen in names
+      if (validations.name) {
+        let valid = /^[a-zA-Z]+[ -]*[a-zA-Z]+$/.test(value);
+        if (!valid) {
+          errors.name = true;
+          errors.isValid = false;
+        }
+      }
 
 
       // handle password confirmation
@@ -132,8 +141,8 @@ export default class SignUpForm extends React.Component {
     // determine how each field should be validated... 
     // define the validationsObj for each text field here
     //field validation
-    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, invalidCharacters: true });
-    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, invalidCharacters: true });
+    let firstNameErrors = this.validateFields(this.state.firstName, { required: true, name: true });
+    let lastNameErrors = this.validateFields(this.state.lastName, { required: true, name: true });
     var usernameErrors = this.validateFields(this.state.username, { required: true, maxLength: 20, invalidCharacters: true, usernameTaken: true });
     let emailErrors = this.validateFields(this.state.email, { required: true, email: true, emailTaken: true });
     let locationErrors = this.validateFields(this.state.location, { required: true, });
@@ -145,10 +154,10 @@ export default class SignUpForm extends React.Component {
     let emailExists = "";
     let errorAlert = (<div className="hidden"><p></p></div>);
 
-    if(this.props.error !== undefined) {
+    if (this.props.error !== undefined) {
       emailExists = this.props.error;
       errorAlert = (<div className="alert red-error"><p>{emailExists}</p></div>);
-    } else if(this.props.error === undefined) {
+    } else if (this.props.error === undefined) {
       emailExists = null;
       errorAlert = (<div className="hidden"><p></p></div>);
     }

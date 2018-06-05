@@ -884,6 +884,15 @@ li {
   .profile-white {
     padding-bottom: 50px !important;
   }
+
+
+  .popover-body span {
+    font-size: 12px !important;
+  }
+
+  .popover-body .btn.btn-secondary {
+    font-size: 14px !important;
+  }
 }
 
 /* Profile */

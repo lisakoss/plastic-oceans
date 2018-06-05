@@ -78,7 +78,7 @@ export default class Profile extends React.Component {
     let img = null;
     let level = null;
 
-    if (this.state.avatar === null) {
+    if (this.state.avatar === null || this.state.avatar === "") {
       img = (<img id="profile-image profile-page" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />);
     } else {
       img = (<Avatar id="profile-custom" className="custom-avatar" alt="profile icon" src={this.state.avatar} />);
