@@ -80,7 +80,9 @@ class NavigationBar extends Component {
     if (this.state.userId !== null) {
       drawerContent = (
         <div>
+          <div className="drawer-name-container">
           <h2 className="drawer-name">{this.state.firstName}</h2>
+          </div>
           {img}
           <div className="drawer-links">
             <Link to={"/profile/" + this.state.userId}>Go to Profile</Link>
