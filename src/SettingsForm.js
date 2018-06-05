@@ -36,7 +36,7 @@ export default class SettingsForm extends React.Component {
   componentDidMount() {
     // Add a listener and callback for authentication events
     window.addEventListener('resize', this.updateWindowDimensions);
-    this.setState( { width: window.innerWidth });
+    this.setState({ width: window.innerWidth });
 
     if (this.state.width <= 700) {
       this.setState({ showLogout: true });
@@ -120,7 +120,7 @@ export default class SettingsForm extends React.Component {
   // (for required field, with min length of 5, and valid email)
   validateFields(value, validations) {
     let errors = { isValid: true, style: '' };
-    
+
     if (validations.usernameTaken) {
       let usernamesTaken = [];
       let usernameTakenResult = false;
@@ -159,11 +159,20 @@ export default class SettingsForm extends React.Component {
       }
 
       if (validations.avatar) {
-        let valid = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value);
-        if (!valid && value !== "") {
-          errors.avatar = true;
-          errors.isValid = false;
-        }
+        fetch(value)
+          .then(response => response.blob())
+          .then(blob => {
+            if (blob.type !== ("image/gif" || "image/jpeg" || "image/png" || "image/svg+xml")) {
+              errors.avatar = true;
+              errors.isValid = false;
+            }
+          })
+
+        //let valid = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/.test(value);
+        // if (!valid && value !== "") {
+        //errors.avatar = true;
+        //errors.isValid = false;
+        //}
       }
 
       //password minLength
@@ -253,7 +262,7 @@ export default class SettingsForm extends React.Component {
       img = (<Avatar className="settings-avatar" width="150" alt="profile icon" src={this.state.avatar} />);
     }
 
-    if(this.state.showLogout) {
+    if (this.state.showLogout) {
       logout = <Logout />
     }
 
