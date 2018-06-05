@@ -23,7 +23,7 @@ export default class SettingsForm extends React.Component {
       password: undefined,
       passwordConfirm: undefined,
       location: '',
-      showLogout: false 
+      showLogout: window.innerWidth < 700 ? true : false, 
     };
 
     // put optional this binding here
@@ -84,8 +84,6 @@ export default class SettingsForm extends React.Component {
 
     if (this.state.width <= 700) {
       this.setState({ showLogout: true });
-    } else {
-      this.setState({ showLogout: false });
     }
   }
 
