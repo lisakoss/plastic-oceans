@@ -40,6 +40,7 @@ export default class ResetPassword extends React.Component {
   //A callback function for logging in existing users
   resetPassword(actionCode, newPassword) {
     var accountEmail;
+    let thisComponent = this;
     // Verify the password reset code is valid.
     auth.verifyPasswordResetCode(actionCode).then(function(email) {
       var accountEmail = email;
@@ -65,6 +66,8 @@ export default class ResetPassword extends React.Component {
     }).catch(function(error) {
       // Invalid or expired action code. Ask user to try to reset the password
       // again.
+    }).then(function() {
+      thisComponent.props.history.push('/signin'); // redirect to home page
     });
   }
 

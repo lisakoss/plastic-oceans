@@ -52,6 +52,8 @@ export default class ForgotPassword extends React.Component {
       if (errorCode === 'auth/user-not-found') {
         thisComponent.setState({ error: 'This email address does not have an account.' });
       } 
+    }).then(function() {
+      thisComponent.props.history.push('/signin'); // redirect to home page
     });
   }
 
@@ -59,7 +61,7 @@ export default class ForgotPassword extends React.Component {
     let content = null; //what main content to show
 
     if (!this.state.userId) { //if logged out, show forgot password
-      content = (<div><ForgotPasswordForm forgotPasswordCallback={this.forgotPassword} error={this.state.error} /></div>);
+      content = (<div><ForgotPasswordForm forgotPasswordCallback={this.forgotPassword.bind(this)} error={this.state.error} /></div>);
     }
 
     return (
