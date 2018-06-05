@@ -255,6 +255,7 @@ li {
 /* Tab Content Style */
 .tab-content {
   padding-top: 1rem;
+  padding-bottom: 60px;
 }
 
 /* Pledges List Style */
@@ -273,7 +274,7 @@ li {
 }
 
 #pledge-list{
-  max-height: 20vh;
+  max-height: 45vh;
   overflow: scroll;
   display: flex;
 }
@@ -331,11 +332,18 @@ li {
 }
 
 .pledge-icon {
-  width: 7%;
-  height: 7%;
+  width: 25%;
+  height: 25%;
   vertical-align: top;
   margin-top: 1rem;
   margin-right: 1rem;
+}
+
+@media (min-width: 700px) {
+  .pledge-icon {
+    width: 7% !important;
+    height: 7% !important;
+  }
 }
 
 /* Navigation Bar Style */
@@ -964,6 +972,22 @@ li {
   min-height: 100%;
 }
 
+.tinted-profile {
+  background: rgb(20,183,197);
+  background: 
+  /* top, transparent red */ 
+  linear-gradient(rgba(20,183,197, 0.90), 
+  rgba(152,79,186, 0.75)),
+  /* bottom, image */
+  url('./img/home.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  min-height: 120%;
+}
+
 /* Sign up/in pages */
 .sign-up-container, .settings-container {
   width: 90%;
@@ -993,11 +1017,23 @@ li {
   margin-top: 20px !important;
 }
 
-.sign-up, .profile, .settings {
+.sign-up, .settings {
   width: 100%;
   min-height: 100%;
   padding-top: 100px;
   position: absolute;
+}
+
+.profile {
+  width: 100%;
+  padding-top: 100px;
+  position: absolute;
+}
+
+@media (min-width: 700px) {
+  .tinted-profile {
+    min-height: 100% !important;
+  }
 }
 
 .profile-white {

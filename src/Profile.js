@@ -91,7 +91,7 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <div className="profile tinted" role="article">
+      <div className="profile tinted-profile" role="article">
       <div className="profile-white">
         <NavigationBar title="Profile" selected="profile" />
         <div className="profile-container">
