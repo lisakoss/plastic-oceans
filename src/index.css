@@ -447,6 +447,11 @@ li {
   margin-top: 15vh;
 }
 
+.question {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 #quiz-title {
   display: none;
 }
