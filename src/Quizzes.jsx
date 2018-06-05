@@ -23,7 +23,7 @@ class Quizzes extends Component {
                                 <img src="https://www.materialui.co/materialIcons/hardware/keyboard_arrow_right_black_192x192.png" alt="right arrow" />
                                 <ListGroupItemHeading className="disable-click">{item}</ListGroupItemHeading>
                                 <ListGroupItemText className="quiz-record disable-click">{this.state.quizResultsList.get(item) || ("Not Taken")}</ListGroupItemText>
-                                <ListGroupItemText className="quiz-type"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-6096188ce806c80cf30dca727fe7c237.png" alt="map marker icon" /> Global</ListGroupItemText>
+                                <ListGroupItemText className="quiz-type disable-click"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-6096188ce806c80cf30dca727fe7c237.png" alt="map marker icon" /> Global</ListGroupItemText>
                             </ListGroupItem>
                         );
                     })}
@@ -70,7 +70,8 @@ class Quizzes extends Component {
 
     handleQuizClick(e) {
         var quizTitle = e.target.id;
-        this.props.history.push(`/quizzes/${quizTitle}`);
+        console.log(quizTitle);
+        this.props.history.push('/quizzes/' + quizTitle);
     }
 
 }

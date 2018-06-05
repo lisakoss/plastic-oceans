@@ -583,6 +583,10 @@ li {
     display: block;
   }
 
+  .quiz-select {
+    width: 102vw !important;
+  }
+
   /* Navigation Bar for Desktop */
   #slide-menu {
     display: block;
