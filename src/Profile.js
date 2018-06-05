@@ -75,8 +75,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    console.log("AVATAR", this.state.avatar)
-
     let img = null;
     let level = null;
 
