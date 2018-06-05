@@ -1,5 +1,5 @@
 {
-  "name": "plastic-oceans461.github.io",
+  "name": "plastic-oceans",
   "homepage": "https://plastic-oceans461.github.io/",
   "version": "0.1.0",
   "private": true,
@@ -20,6 +20,7 @@
     "react-d3-map": "^0.8.3",
     "react-dom": "^16.3.2",
     "react-motion": "^0.5.2",
+    "react-popper": "^1.0.0-beta.6",
     "react-router-dom": "^4.2.2",
     "react-simple-maps": "^0.12.1",
     "react-tooltip": "^3.6.0",

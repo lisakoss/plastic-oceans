@@ -22,7 +22,7 @@ export default class ResetPassword extends React.Component {
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
-        this.props.history.push('/signin'); // redirect to home page
+        this.props.history.push('/discover'); // redirect to home page
       }
       else {
         this.setState({ userId: null }); // null out the saved state if not logged in
@@ -40,6 +40,7 @@ export default class ResetPassword extends React.Component {
   //A callback function for logging in existing users
   resetPassword(actionCode, newPassword) {
     var accountEmail;
+    let thisComponent = this;
     // Verify the password reset code is valid.
     auth.verifyPasswordResetCode(actionCode).then(function(email) {
       var accountEmail = email;
@@ -65,11 +66,9 @@ export default class ResetPassword extends React.Component {
     }).catch(function(error) {
       // Invalid or expired action code. Ask user to try to reset the password
       // again.
+    }).then(function() {
+      thisComponent.props.history.push('/signin'); // redirect to home page
     });
-  
-  
-
-    //this.props.history.push('/'); // redirect to home page
   }
 
 

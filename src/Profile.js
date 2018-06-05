@@ -75,12 +75,10 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    console.log("AVATAR", this.state.avatar)
-
     let img = null;
     let level = null;
 
-    if (this.state.avatar === null) {
+    if (this.state.avatar === null || this.state.avatar === "") {
       img = (<img id="profile-image profile-page" src="https://d30y9cdsu7xlg0.cloudfront.net/png/630729-200.png" alt="profile icon" />);
     } else {
       img = (<Avatar id="profile-custom" className="custom-avatar" alt="profile icon" src={this.state.avatar} />);
@@ -93,7 +91,7 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <div className="profile tinted" role="article">
+      <div className="profile tinted-profile" role="article">
       <div className="profile-white">
         <NavigationBar title="Profile" selected="profile" />
         <div className="profile-container">

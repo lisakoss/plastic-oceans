@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import firebase from 'firebase';
+import { Redirect } from 'react-router'
 
 import ForgotPasswordForm from './ForgotPasswordForm';
 
@@ -21,7 +22,7 @@ export default class ForgotPassword extends React.Component {
     this.unregister = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ userId: user.uid });
-        this.props.history.push('/'); // redirect to home page
+        this.props.history.push('/discover'); // redirect to home page
       }
       else {
         this.setState({ userId: null }); // null out the saved state if not logged in
@@ -47,11 +48,12 @@ export default class ForgotPassword extends React.Component {
       // An error happened.
       let errorCode = error.code;
       let errorMessage = error.message;
-      console.log("ERROR FORGOT PASS", error);
 
       if (errorCode === 'auth/user-not-found') {
         thisComponent.setState({ error: 'This email address does not have an account.' });
       } 
+    }).then(function() {
+      thisComponent.props.history.push('/signin'); // redirect to home page
     });
   }
 
@@ -59,7 +61,7 @@ export default class ForgotPassword extends React.Component {
     let content = null; //what main content to show
 
     if (!this.state.userId) { //if logged out, show forgot password
-      content = (<div><ForgotPasswordForm forgotPasswordCallback={this.forgotPassword} error={this.state.error} /></div>);
+      content = (<div><ForgotPasswordForm forgotPasswordCallback={this.forgotPassword.bind(this)} error={this.state.error} /></div>);
     }
 
     return (
