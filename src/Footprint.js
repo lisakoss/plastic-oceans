@@ -91,7 +91,7 @@ export default class Footprint extends React.Component {
 
       } else {
         // No user is signed in.
-        this.props.history.push('/'); // Redirect to opening page
+        this.props.history.push('/signin'); // Redirect to opening page
       }
     });
   }
